@@ -55,6 +55,34 @@ const translations = {
           tags: ["Azure OpenAI", "Azure AI Search", "FastAPI", "Streamlit", "Terraform", "Docker", "Blob Storage", "Python"],
           github: "https://github.com/Kabamaru2372",
           emoji: "🏨"
+        },
+        {
+          title: "W3 Combo — Multi-Service Cloud Infrastructure",
+          description: "Infrastructure as Code project provisioning a multi-service environment on AWS using Terraform. Demonstrates automated cloud resource management, networking configuration, and repeatable deployments following IaC best practices.",
+          tags: ["Terraform", "HCL", "AWS", "Infrastructure as Code", "Cloud Networking"],
+          github: "https://github.com/Kabamaru2372/w3-combo",
+          emoji: "☁️"
+        },
+        {
+          title: "3-Tier Voting App — Microservices on AWS",
+          description: "Architected and deployed a multi-tier voting system simulating real enterprise DevOps workflows. Infrastructure provisioned with Terraform, configured with Ansible, containerized with Docker Compose, and automated with GitHub Actions CI/CD pipelines.",
+          tags: ["Python", "Node.js", "C#/.NET", "Redis", "PostgreSQL", "Docker", "Terraform", "Ansible", "GitHub Actions"],
+          github: "https://github.com/Kabamaru2372/ironhack-project-1",
+          emoji: "🗳️"
+        },
+        {
+          title: "Cloud Provisioning Toolkit",
+          description: "Terraform modules and shell scripts for automated provisioning of cloud instances, security groups, and networking. Designed for rapid, repeatable infrastructure deployment across environments.",
+          tags: ["Terraform", "HCL", "Shell", "AWS", "Automation"],
+          github: "https://github.com/Kabamaru2372/ironhack-project1-provisioning",
+          emoji: "⚙️"
+        },
+        {
+          title: "fotiospongas.dev — This Portfolio Site",
+          description: "The site you're looking at right now! A React + Vite portfolio with EN/DE language toggle, deployed to GitHub Pages via a GitHub Actions CI/CD pipeline. Every git push triggers an automated build and deploy.",
+          tags: ["React", "Vite", "GitHub Actions", "GitHub Pages", "CI/CD"],
+          github: "https://github.com/Kabamaru2372/fotios.website",
+          emoji: "🌐"
         }
       ]
     },
@@ -133,6 +161,34 @@ const translations = {
           tags: ["Azure OpenAI", "Azure AI Search", "FastAPI", "Streamlit", "Terraform", "Docker", "Blob Storage", "Python"],
           github: "https://github.com/Kabamaru2372",
           emoji: "🏨"
+        },
+        {
+          title: "W3 Combo — Multi-Service Cloud-Infrastruktur",
+          description: "Infrastructure-as-Code-Projekt zur Bereitstellung einer Multi-Service-Umgebung auf AWS mit Terraform. Automatisiertes Cloud-Ressourcenmanagement, Netzwerkkonfiguration und wiederholbare Deployments nach IaC-Best-Practices.",
+          tags: ["Terraform", "HCL", "AWS", "Infrastructure as Code", "Cloud Networking"],
+          github: "https://github.com/Kabamaru2372/w3-combo",
+          emoji: "☁️"
+        },
+        {
+          title: "3-Tier Voting App — Microservices auf AWS",
+          description: "Entwurf und Bereitstellung eines mehrstufigen Abstimmungssystems, das reale Enterprise-DevOps-Workflows simuliert. Infrastruktur mit Terraform, Konfiguration mit Ansible, Containerisierung mit Docker Compose und Automatisierung mit GitHub Actions.",
+          tags: ["Python", "Node.js", "C#/.NET", "Redis", "PostgreSQL", "Docker", "Terraform", "Ansible", "GitHub Actions"],
+          github: "https://github.com/Kabamaru2372/ironhack-project-1",
+          emoji: "🗳️"
+        },
+        {
+          title: "Cloud-Provisioning-Toolkit",
+          description: "Terraform-Module und Shell-Skripte für die automatisierte Bereitstellung von Cloud-Instanzen, Sicherheitsgruppen und Netzwerken. Für schnelle, wiederholbare Infrastruktur-Deployments konzipiert.",
+          tags: ["Terraform", "HCL", "Shell", "AWS", "Automation"],
+          github: "https://github.com/Kabamaru2372/ironhack-project1-provisioning",
+          emoji: "⚙️"
+        },
+        {
+          title: "fotiospongas.dev — Diese Portfolio-Seite",
+          description: "Die Seite, die Sie gerade betrachten! Eine React + Vite Portfolio-Seite mit EN/DE-Sprachumschaltung, bereitgestellt auf GitHub Pages über eine GitHub Actions CI/CD-Pipeline. Jeder Git-Push löst einen automatischen Build und Deploy aus.",
+          tags: ["React", "Vite", "GitHub Actions", "GitHub Pages", "CI/CD"],
+          github: "https://github.com/Kabamaru2372/fotios.website",
+          emoji: "🌐"
         }
       ]
     },
@@ -319,7 +375,7 @@ export default function Portfolio() {
 
         .timeline-line {
           position: absolute; left: 23px; top: 48px; bottom: 0;
-          width: 2px; background: linear-gradient(to bottom, #2563eb, #e2e8f0);
+          width: 2px; background: linear-gradient(to bottom, #2563eb, #10b981, #e2e8f0);
         }
 
         .btn-primary {
@@ -448,7 +504,8 @@ export default function Portfolio() {
       </section>
 
       {/* ABOUT */}
-      <section id="about" style={{ padding: "100px 24px", maxWidth: 1120, margin: "0 auto" }}>
+      <section id="about" style={{ padding: "100px 24px", background: "linear-gradient(180deg, #f0f7ff 0%, #FAFBFC 100%)" }}>
+        <div style={{ maxWidth: 1120, margin: "0 auto" }}>
         <FadeIn>
           <span className="section-label">{t.about.label}</span>
           <h2 className="section-title">{t.about.title}</h2>
@@ -472,6 +529,7 @@ export default function Portfolio() {
             </div>
           </FadeIn>
         </div>
+        </div>
       </section>
 
       {/* JOURNEY TIMELINE */}
@@ -483,11 +541,13 @@ export default function Portfolio() {
           </FadeIn>
           <div style={{ position: "relative", marginTop: 40 }}>
             <div className="timeline-line" />
-            {t.journey.steps.map((step, i) => (
+            {t.journey.steps.map((step, i) => {
+              const bubbleIcons = ["🏪", "🏨", "💻", "🚀"];
+              return (
               <FadeIn key={i} delay={i * 0.12}>
                 <div style={{ display: "flex", gap: 24, marginBottom: 40, position: "relative" }}>
-                  <div style={{ minWidth: 48, height: 48, borderRadius: "50%", background: i === t.journey.steps.length - 1 ? "#2563eb" : "#f1f5f9", border: "3px solid #fff", boxShadow: "0 0 0 2px #e2e8f0", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 13, fontWeight: 700, color: i === t.journey.steps.length - 1 ? "#fff" : "#2563eb", zIndex: 2 }}>
-                    {step.year.slice(-2)}
+                  <div style={{ minWidth: 48, height: 48, borderRadius: "50%", background: i === t.journey.steps.length - 1 ? "linear-gradient(135deg, #2563eb, #10b981)" : "#f1f5f9", border: "3px solid #fff", boxShadow: "0 0 0 2px #e2e8f0", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 20, zIndex: 2 }}>
+                    {bubbleIcons[i]}
                   </div>
                   <div style={{ paddingTop: 4 }}>
                     <div style={{ fontSize: 12, fontWeight: 600, color: "#94a3b8", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 4 }}>{step.year}</div>
@@ -496,13 +556,15 @@ export default function Portfolio() {
                   </div>
                 </div>
               </FadeIn>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
 
       {/* SKILLS */}
-      <section id="skills" style={{ padding: "100px 24px", maxWidth: 1120, margin: "0 auto" }}>
+      <section id="skills" style={{ padding: "100px 24px", background: "linear-gradient(180deg, #FAFBFC 0%, #f0fdf4 50%, #FAFBFC 100%)" }}>
+        <div style={{ maxWidth: 1120, margin: "0 auto" }}>
         <FadeIn>
           <span className="section-label">{t.skills.label}</span>
           <h2 className="section-title">{t.skills.title}</h2>
@@ -523,6 +585,7 @@ export default function Portfolio() {
             </FadeIn>
           ))}
         </div>
+        </div>
       </section>
 
       {/* PROJECTS */}
@@ -532,7 +595,7 @@ export default function Portfolio() {
             <span className="section-label">{t.projects.label}</span>
             <h2 className="section-title">{t.projects.title}</h2>
           </FadeIn>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))", gap: 28, marginTop: 40 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: 28, marginTop: 40 }}>
             {t.projects.items.map((project, i) => (
               <FadeIn key={i} delay={i * 0.12}>
                 <div className="card" style={{ padding: 32, display: "flex", flexDirection: "column", height: "100%" }}>
@@ -559,7 +622,7 @@ export default function Portfolio() {
       </section>
 
       {/* CONTACT */}
-      <section id="contact" style={{ padding: "100px 24px 80px" }}>
+      <section id="contact" style={{ padding: "100px 24px 80px", background: "linear-gradient(180deg, #FAFBFC 0%, #eef2ff 100%)" }}>
         <div style={{ maxWidth: 640, margin: "0 auto", textAlign: "center" }}>
           <FadeIn>
             <span className="section-label">{t.contact.label}</span>
@@ -569,8 +632,8 @@ export default function Portfolio() {
           <FadeIn delay={0.15}>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: 16 }}>
               {[
-                { label: t.contact.email, value: "Get in touch", href: "mailto:fotis.poggas@gmail.com", icon: "✉️" },
-                { label: t.contact.linkedin, value: "LinkedIn", href: "https://www.linkedin.com/in/f-pongas-devops-cloud/", icon: "💼" },
+                { label: t.contact.email, value: "your.email@example.com", href: "mailto:your.email@example.com", icon: "✉️" },
+                { label: t.contact.linkedin, value: "LinkedIn", href: "https://linkedin.com/in/yourprofile", icon: "💼" },
                 { label: t.contact.github, value: "GitHub", href: "https://github.com/Kabamaru2372", icon: "💻" },
                 { label: t.contact.location, value: t.contact.locationValue, href: null, icon: "📍" }
               ].map((item, i) => (
