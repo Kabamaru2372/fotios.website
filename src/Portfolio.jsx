@@ -51,8 +51,8 @@ const translations = {
         },
         {
           title: "Hotel Knowledge Assistant — RAG AI Pipeline",
-          description: "An AI-powered hotel assistant using Retrieval-Augmented Generation on Azure. Combines Blob Storage, Azure AI Search, and Azure OpenAI with a FastAPI backend and Streamlit frontend. Fully containerized and deployed on Azure Container Instances via Terraform.",
-          tags: ["Azure OpenAI", "Azure AI Search", "FastAPI", "Streamlit", "Terraform", "Docker", "Blob Storage", "Python"],
+          description: "An AI-powered hotel assistant using Retrieval-Augmented Generation on Azure. Combines Blob Storage, Azure AI Search, and Azure OpenAI with a FastAPI backend. Fully containerized and deployed on Azure Container Instances via Terraform.",
+          tags: ["Azure OpenAI", "Azure AI Search", "FastAPI", "Terraform", "Docker", "Blob Storage", "Python"],
           github: "https://github.com/Kabamaru2372",
           emoji: "🏨"
         },
@@ -157,8 +157,8 @@ const translations = {
         },
         {
           title: "Hotel Knowledge Assistant — RAG-KI-Pipeline",
-          description: "Ein KI-gestützter Hotelassistent mit Retrieval-Augmented Generation auf Azure. Kombiniert Blob Storage, Azure AI Search und Azure OpenAI mit einem FastAPI-Backend und Streamlit-Frontend. Vollständig containerisiert und über Terraform auf Azure Container Instances bereitgestellt.",
-          tags: ["Azure OpenAI", "Azure AI Search", "FastAPI", "Streamlit", "Terraform", "Docker", "Blob Storage", "Python"],
+          description: "Ein KI-gestützter Hotelassistent mit Retrieval-Augmented Generation auf Azure. Kombiniert Blob Storage, Azure AI Search und Azure OpenAI mit einem FastAPI-Backend. Vollständig containerisiert und über Terraform auf Azure Container Instances bereitgestellt.",
+          tags: ["Azure OpenAI", "Azure AI Search", "FastAPI", "Terraform", "Docker", "Blob Storage", "Python"],
           github: "https://github.com/Kabamaru2372",
           emoji: "🏨"
         },
@@ -216,11 +216,11 @@ const translations = {
 };
 
 const skillsData = [
-  { category: "cloud", items: ["Azure", "Terraform", "Azure AKS", "Blob Storage", "Azure AI Search", "Azure Container Instances"] },
+  { category: "cloud", items: ["Azure", "AWS", "Terraform", "Azure AKS", "Blob Storage", "Azure AI Search", "Azure Container Instances"] },
   { category: "containers", items: ["Docker", "Kubernetes", "Docker Compose", "Helm"] },
   { category: "cicd", items: ["GitHub Actions", "Git", "CI/CD Pipelines"] },
   { category: "monitoring", items: ["Prometheus", "Grafana", "Alerting"] },
-  { category: "development", items: ["Python", "Node.js", "FastAPI", "Next.js", "Streamlit", "Bash"] },
+  { category: "development", items: ["Python", "Node.js", "FastAPI", "Next.js", "Bash"] },
   { category: "databases", items: ["MongoDB", "Redis", "PostgreSQL"] }
 ];
 
@@ -632,8 +632,8 @@ export default function Portfolio() {
           <FadeIn delay={0.15}>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: 16 }}>
               {[
-                { label: t.contact.email, value: "your.email@example.com", href: "mailto:your.email@example.com", icon: "✉️" },
-                { label: t.contact.linkedin, value: "LinkedIn", href: "https://linkedin.com/in/yourprofile", icon: "💼" },
+                { label: t.contact.email, value: "Get in touch", href: "mailto:fotis.poggas@gmail.com", icon: "✉️" },
+                { label: t.contact.linkedin, value: "LinkedIn", href: "https://www.linkedin.com/in/f-pongas-devops-cloud/", icon: "💼" },
                 { label: t.contact.github, value: "GitHub", href: "https://github.com/Kabamaru2372", icon: "💻" },
                 { label: t.contact.location, value: t.contact.locationValue, href: null, icon: "📍" }
               ].map((item, i) => (
