@@ -569,7 +569,7 @@ export default function Portfolio() {
           <FadeIn delay={0.15}>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: 16 }}>
               {[
-                { label: t.contact.email, value: "fotis.poggas@gmail.com", href: "mailto:fotis.poggas@gmail.com", icon: "✉️" },
+                { label: t.contact.email, value: "Get in touch", href: "mailto:fotis.poggas@gmail.com", icon: "✉️" },
                 { label: t.contact.linkedin, value: "LinkedIn", href: "https://www.linkedin.com/in/f-pongas-devops-cloud/", icon: "💼" },
                 { label: t.contact.github, value: "GitHub", href: "https://github.com/Kabamaru2372", icon: "💻" },
                 { label: t.contact.location, value: t.contact.locationValue, href: null, icon: "📍" }
