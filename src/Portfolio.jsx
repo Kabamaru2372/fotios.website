@@ -52,7 +52,7 @@ const translations = {
         {
           title: "Hotel Knowledge Assistant — RAG AI Pipeline",
           description: "An AI-powered hotel assistant using Retrieval-Augmented Generation on Azure. Combines Blob Storage, Azure AI Search, and Azure OpenAI with a FastAPI backend. Fully containerized and deployed on Azure Container Instances via Terraform.",
-          tags: ["Azure OpenAI", "Azure AI Search", "FastAPI", "Terraform", "Docker", "Blob Storage", "Python"],
+          tags: ["Azure OpenAI", "Azure AI Foundry", "Azure AI Search", "FastAPI", "Terraform", "Docker", "Blob Storage", "Python"],
           github: "https://github.com/Kabamaru2372",
           emoji: "🏨"
         },
@@ -158,7 +158,7 @@ const translations = {
         {
           title: "Hotel Knowledge Assistant — RAG-KI-Pipeline",
           description: "Ein KI-gestützter Hotelassistent mit Retrieval-Augmented Generation auf Azure. Kombiniert Blob Storage, Azure AI Search und Azure OpenAI mit einem FastAPI-Backend. Vollständig containerisiert und über Terraform auf Azure Container Instances bereitgestellt.",
-          tags: ["Azure OpenAI", "Azure AI Search", "FastAPI", "Terraform", "Docker", "Blob Storage", "Python"],
+          tags: ["Azure OpenAI", "Azure AI Foundry", "Azure AI Search", "FastAPI", "Terraform", "Docker", "Blob Storage", "Python"],
           github: "https://github.com/Kabamaru2372",
           emoji: "🏨"
         },
@@ -216,7 +216,7 @@ const translations = {
 };
 
 const skillsData = [
-  { category: "cloud", items: ["Azure", "AWS", "Terraform", "Azure AKS", "Blob Storage", "Azure AI Search", "Azure Container Instances"] },
+  { category: "cloud", items: ["Azure", "AWS", "Azure AI Foundry", "Terraform", "Azure AKS", "Blob Storage", "Azure AI Search", "Azure Container Instances"] },
   { category: "containers", items: ["Docker", "Kubernetes", "Docker Compose", "Helm"] },
   { category: "cicd", items: ["GitHub Actions", "Git", "CI/CD Pipelines"] },
   { category: "monitoring", items: ["Prometheus", "Grafana", "Alerting"] },
