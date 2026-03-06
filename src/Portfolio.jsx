@@ -46,14 +46,14 @@ const translations = {
           title: "Expensy — Expense Tracking Platform",
           description: "Full-stack expense tracker deployed on Azure AKS with a complete DevOps pipeline. Features GitHub Actions CI/CD, Prometheus & Grafana monitoring, Kubernetes secrets management, and Redis caching. Built to demonstrate production-grade cloud-native practices.",
           tags: ["Node.js", "Next.js", "MongoDB", "Redis", "Azure AKS", "GitHub Actions", "Prometheus", "Grafana", "Kubernetes", "Docker"],
-          github: "https://github.com/Kabamaru2372",
+          github: "https://github.com/Kabamaru2372/max.devops.expensy",
           emoji: "💰"
         },
         {
           title: "Hotel Knowledge Assistant — RAG AI Pipeline",
           description: "An AI-powered hotel assistant using Retrieval-Augmented Generation on Azure. Combines Blob Storage, Azure AI Search, and Azure OpenAI with a FastAPI backend. Fully containerized and deployed on Azure Container Instances via Terraform.",
           tags: ["Azure OpenAI", "Azure AI Foundry", "Azure AI Search", "FastAPI", "Terraform", "Docker", "Blob Storage", "Python"],
-          github: "https://github.com/Kabamaru2372",
+          github: "https://github.com/Kabamaru2372/hotel-training-RAG-pipeline",
           emoji: "🏨"
         },
         {
@@ -67,7 +67,7 @@ const translations = {
           title: "3-Tier Voting App — Microservices on AWS",
           description: "Architected and deployed a multi-tier voting system simulating real enterprise DevOps workflows. Infrastructure provisioned with Terraform, configured with Ansible, containerized with Docker Compose, and automated with GitHub Actions CI/CD pipelines.",
           tags: ["Python", "Node.js", "C#/.NET", "Redis", "PostgreSQL", "Docker", "Terraform", "Ansible", "GitHub Actions"],
-          github: "https://github.com/Kabamaru2372/ironhack-project-1",
+          github: "https://github.com/Kabamaru2372/3-tier-application",
           emoji: "🗳️"
         },
         {
@@ -152,14 +152,14 @@ const translations = {
           title: "Expensy — Ausgabenverfolgungsplattform",
           description: "Full-Stack Ausgaben-Tracker, bereitgestellt auf Azure AKS mit einer vollständigen DevOps-Pipeline. Mit GitHub Actions CI/CD, Prometheus & Grafana Monitoring, Kubernetes Secrets Management und Redis Caching.",
           tags: ["Node.js", "Next.js", "MongoDB", "Redis", "Azure AKS", "GitHub Actions", "Prometheus", "Grafana", "Kubernetes", "Docker"],
-          github: "https://github.com/Kabamaru2372",
+          github: "https://github.com/Kabamaru2372/max.devops.expensy",
           emoji: "💰"
         },
         {
           title: "Hotel Knowledge Assistant — RAG-KI-Pipeline",
           description: "Ein KI-gestützter Hotelassistent mit Retrieval-Augmented Generation auf Azure. Kombiniert Blob Storage, Azure AI Search und Azure OpenAI mit einem FastAPI-Backend. Vollständig containerisiert und über Terraform auf Azure Container Instances bereitgestellt.",
           tags: ["Azure OpenAI", "Azure AI Foundry", "Azure AI Search", "FastAPI", "Terraform", "Docker", "Blob Storage", "Python"],
-          github: "https://github.com/Kabamaru2372",
+          github: "https://github.com/Kabamaru2372/hotel-training-RAG-pipeline",
           emoji: "🏨"
         },
         {
@@ -173,7 +173,7 @@ const translations = {
           title: "3-Tier Voting App — Microservices auf AWS",
           description: "Entwurf und Bereitstellung eines mehrstufigen Abstimmungssystems, das reale Enterprise-DevOps-Workflows simuliert. Infrastruktur mit Terraform, Konfiguration mit Ansible, Containerisierung mit Docker Compose und Automatisierung mit GitHub Actions.",
           tags: ["Python", "Node.js", "C#/.NET", "Redis", "PostgreSQL", "Docker", "Terraform", "Ansible", "GitHub Actions"],
-          github: "https://github.com/Kabamaru2372/ironhack-project-1",
+          github: "https://github.com/Kabamaru2372/3-tier-application",
           emoji: "🗳️"
         },
         {
