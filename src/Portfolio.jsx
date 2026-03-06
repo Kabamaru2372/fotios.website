@@ -424,6 +424,14 @@ export default function Portfolio() {
         @media (min-width: 769px) {
           .mobile-menu { display: none !important; }
         }
+
+        @keyframes float {
+          0%, 100% { transform: translateY(0px); box-shadow: 0 8px 32px rgba(37, 99, 235, 0.15); }
+          50% { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(37, 99, 235, 0.25); }
+        }
+        .profile-photo {
+          animation: float 4s ease-in-out infinite;
+        }
       `}</style>
 
       {/* NAV */}
@@ -477,13 +485,13 @@ export default function Portfolio() {
               <img
                 src="/profile.jpeg"
                 alt="Fotios Pongas"
+                className="profile-photo"
                 style={{
                   width: 160,
                   height: 160,
                   borderRadius: "50%",
                   objectFit: "cover",
                   border: "4px solid #fff",
-                  boxShadow: "0 8px 32px rgba(37, 99, 235, 0.15)",
                 }}
               />
             </div>
