@@ -473,6 +473,22 @@ export default function Portfolio() {
         <div style={{ position: "absolute", bottom: -100, left: -100, width: 400, height: 400, borderRadius: "50%", background: "radial-gradient(circle, #2563eb05 0%, transparent 70%)" }} />
         <div style={{ maxWidth: 720, textAlign: "center", position: "relative" }}>
           <FadeIn>
+            <div style={{ marginBottom: 32 }}>
+              <img
+                src="/profile.jpeg"
+                alt="Fotios Pongas"
+                style={{
+                  width: 160,
+                  height: 160,
+                  borderRadius: "50%",
+                  objectFit: "cover",
+                  border: "4px solid #fff",
+                  boxShadow: "0 8px 32px rgba(37, 99, 235, 0.15)",
+                }}
+              />
+            </div>
+          </FadeIn>
+          <FadeIn>
             <p style={{ fontSize: 16, fontWeight: 500, color: "#64748b", marginBottom: 12, letterSpacing: "0.02em" }}>{t.hero.greeting}</p>
           </FadeIn>
           <FadeIn delay={0.1}>
