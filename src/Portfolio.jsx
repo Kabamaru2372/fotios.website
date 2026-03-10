@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 
 const translations = {
   en: {
-    nav: { home: "Home", about: "About", skills: "Skills", projects: "Projects", contact: "Contact" },
+    nav: { home: "Home", about: "About", skills: "Skills", certifications: "Certs", projects: "Projects", contact: "Contact" },
     hero: {
       greeting: "Hello, I'm",
       name: "Fotios Pongas",
@@ -16,13 +16,33 @@ const translations = {
       title: "From Hotel Lobbies to Cloud Architectures",
       p1: "For over a decade, I managed high-pressure, service-critical environments — from managing a retail store in Rhodes to front-desk operations at Sheraton hotels. I learned to keep complex systems running smoothly, coordinate teams under pressure, and deliver results that people depend on.",
       p2: "Those are the same principles I now apply to DevOps and Cloud Engineering. I design CI/CD pipelines, orchestrate containers with Kubernetes, provision infrastructure with Terraform, and monitor everything with Prometheus and Grafana — because whether it's a hotel or a cluster, downtime is not an option.",
-      p3: "Currently completing the Ironhack DevOps & Cloud Computing Bootcamp in Germany, I bring a unique blend of operational discipline, leadership experience, and genuine passion for automation to every project I build.",
+      p3: "A graduate of the Ironhack DevOps & Cloud Computing Bootcamp in Germany, I bring a unique blend of operational discipline, leadership experience, and genuine passion for automation to every project I build.",
       stats: {
         experience: { value: "10+", label: "Years in Operations" },
         projects: { value: "5+", label: "Cloud Projects" },
-        certs: { value: "Azure", label: "Cloud Platform" },
+        certs: { value: "2", label: "Certifications" },
         location: { value: "DE", label: "Based in Germany" }
       }
+    },
+    certifications: {
+      label: "Certifications",
+      title: "Credentials & Certificates",
+      items: [
+        {
+          title: "DevOps & Cloud Computing",
+          issuer: "Ironhack",
+          date: "March 2026",
+          image: "/Screenshot 2026-03-10 at 01.01.28.png",
+          color: "#1a3a5c"
+        },
+        {
+          title: "AWS Cloud Practitioner Essentials",
+          issuer: "AWS Training & Certification",
+          date: "August 30, 2025",
+          image: "/Screenshot 2026-03-10 at 01.00.39.png",
+          color: "#FF9900"
+        }
+      ]
     },
     skills: {
       label: "Technical Skills",
@@ -108,7 +128,7 @@ const translations = {
     }
   },
   de: {
-    nav: { home: "Start", about: "Über mich", skills: "Fähigkeiten", projects: "Projekte", contact: "Kontakt" },
+    nav: { home: "Start", about: "Über mich", skills: "Fähigkeiten", certifications: "Zertifikate", projects: "Projekte", contact: "Kontakt" },
     hero: {
       greeting: "Hallo, ich bin",
       name: "Fotios Pongas",
@@ -122,13 +142,33 @@ const translations = {
       title: "Von der Hotellobby zur Cloud-Architektur",
       p1: "Über ein Jahrzehnt lang habe ich anspruchsvolle, servicekritische Umgebungen geleitet — vom Empfangsbereich bei Sheraton Hotels bis zur Leitung eines Einzelhandelsgeschäfts auf Rhodos. Dabei habe ich gelernt, komplexe Systeme reibungslos zu betreiben, Teams unter Druck zu koordinieren und Ergebnisse zu liefern, auf die man sich verlassen kann.",
       p2: "Dieselben Prinzipien wende ich jetzt auf DevOps und Cloud Engineering an. Ich entwerfe CI/CD-Pipelines, orchestriere Container mit Kubernetes, provisioniere Infrastruktur mit Terraform und überwache alles mit Prometheus und Grafana — denn ob Hotel oder Cluster, Ausfallzeiten sind keine Option.",
-      p3: "Derzeit absolviere ich das Ironhack DevOps & Cloud Computing Bootcamp in Deutschland und bringe eine einzigartige Mischung aus operativer Disziplin, Führungserfahrung und echter Leidenschaft für Automatisierung in jedes Projekt ein.",
+      p3: "Als Absolvent des Ironhack DevOps & Cloud Computing Bootcamps in Deutschland bringe ich eine einzigartige Mischung aus operativer Disziplin, Führungserfahrung und echter Leidenschaft für Automatisierung in jedes Projekt ein.",
       stats: {
         experience: { value: "10+", label: "Jahre Berufserfahrung" },
         projects: { value: "5+", label: "Cloud-Projekte" },
-        certs: { value: "Azure", label: "Cloud-Plattform" },
+        certs: { value: "2", label: "Zertifizierungen" },
         location: { value: "DE", label: "Standort Deutschland" }
       }
+    },
+    certifications: {
+      label: "Zertifizierungen",
+      title: "Abschlüsse & Zertifikate",
+      items: [
+        {
+          title: "DevOps & Cloud Computing",
+          issuer: "Ironhack",
+          date: "März 2026",
+          image: "/Screenshot 2026-03-10 at 01.01.28.png",
+          color: "#1a3a5c"
+        },
+        {
+          title: "AWS Cloud Practitioner Essentials",
+          issuer: "AWS Training & Certification",
+          date: "30. August 2025",
+          image: "/Screenshot 2026-03-10 at 01.00.39.png",
+          color: "#FF9900"
+        }
+      ]
     },
     skills: {
       label: "Technische Fähigkeiten",
@@ -275,7 +315,7 @@ export default function Portfolio() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const t = translations[lang];
-  const sections = ["home", "about", "journey", "skills", "projects", "contact"];
+  const sections = ["home", "about", "journey", "skills", "certifications", "projects", "contact"];
   const active = useScrollSpy(sections);
 
   useEffect(() => {
@@ -609,6 +649,39 @@ export default function Portfolio() {
             </FadeIn>
           ))}
         </div>
+        </div>
+      </section>
+
+      {/* CERTIFICATIONS */}
+      <section id="certifications" style={{ padding: "100px 24px", background: "#fff" }}>
+        <div style={{ maxWidth: 1120, margin: "0 auto" }}>
+          <FadeIn>
+            <span className="section-label">{t.certifications.label}</span>
+            <h2 className="section-title">{t.certifications.title}</h2>
+          </FadeIn>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))", gap: 32, marginTop: 40 }}>
+            {t.certifications.items.map((cert, i) => (
+              <FadeIn key={i} delay={i * 0.15}>
+                <div className="card" style={{ overflow: "hidden" }}>
+                  <div style={{ padding: "4px", background: cert.color, borderRadius: "16px 16px 0 0" }} />
+                  <div style={{ padding: 28 }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
+                      <div style={{ width: 10, height: 10, borderRadius: "50%", background: cert.color, flexShrink: 0 }} />
+                      <div>
+                        <div style={{ fontSize: 18, fontWeight: 700, color: "#1a1a2e", fontFamily: "'Outfit', sans-serif", lineHeight: 1.2 }}>{cert.title}</div>
+                        <div style={{ fontSize: 13, color: "#64748b", marginTop: 3 }}>{cert.issuer} · {cert.date}</div>
+                      </div>
+                    </div>
+                    <img
+                      src={cert.image}
+                      alt={cert.title}
+                      style={{ width: "100%", borderRadius: 10, border: "1px solid #f0f0f5", display: "block" }}
+                    />
+                  </div>
+                </div>
+              </FadeIn>
+            ))}
+          </div>
         </div>
       </section>
 
