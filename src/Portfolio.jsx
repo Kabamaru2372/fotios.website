@@ -659,11 +659,39 @@ export default function Portfolio() {
             <span className="section-label">{t.certifications.label}</span>
             <h2 className="section-title">{t.certifications.title}</h2>
           </FadeIn>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))", gap: 32, marginTop: 40 }}>
+
+          {/* Ironhack program highlights */}
+          <FadeIn delay={0.1}>
+            <div style={{ margin: "40px 0 48px", padding: "36px 40px", borderRadius: 20, background: "linear-gradient(135deg, #1a3a5c 0%, #0f2340 100%)", color: "#fff", position: "relative", overflow: "hidden" }}>
+              <div style={{ position: "absolute", top: -60, right: -60, width: 200, height: 200, borderRadius: "50%", background: "rgba(255,255,255,0.04)" }} />
+              <div style={{ position: "absolute", bottom: -40, left: -40, width: 150, height: 150, borderRadius: "50%", background: "rgba(255,255,255,0.03)" }} />
+              <div style={{ position: "relative" }}>
+                <div style={{ fontSize: 13, fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: "#7dd3fc", marginBottom: 16 }}>Ironhack DevOps & Cloud Computing — Program Highlights</div>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 24 }}>
+                  {[
+                    { icon: "⏱️", title: "400+ Hours", desc: "Pre-work, practical labs, hands-on projects, and career development across the full program." },
+                    { icon: "🛠️", title: "Industry Tools", desc: "Git, GitHub, Terraform, Ansible, Docker, Kubernetes, and leading cloud platforms including AWS and Azure." },
+                    { icon: "📊", title: "Observability", desc: "Real-world projects applying monitoring and deployment best practices with Prometheus and Grafana." },
+                    { icon: "☁️", title: "Cloud-Native", desc: "Built, automated, and managed scalable cloud-native systems in a professional environment." },
+                  ].map((h, i) => (
+                    <div key={i} style={{ display: "flex", gap: 14, alignItems: "flex-start" }}>
+                      <div style={{ fontSize: 22, lineHeight: 1, marginTop: 2, flexShrink: 0 }}>{h.icon}</div>
+                      <div>
+                        <div style={{ fontSize: 15, fontWeight: 700, color: "#fff", fontFamily: "'Outfit', sans-serif", marginBottom: 4 }}>{h.title}</div>
+                        <div style={{ fontSize: 14, color: "#94a3b8", lineHeight: 1.6 }}>{h.desc}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </FadeIn>
+
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))", gap: 32 }}>
             {t.certifications.items.map((cert, i) => (
               <FadeIn key={i} delay={i * 0.15}>
                 <div className="card" style={{ overflow: "hidden" }}>
-                  <div style={{ padding: "4px", background: cert.color, borderRadius: "16px 16px 0 0" }} />
+                  <div style={{ height: 5, background: cert.color, borderRadius: "16px 16px 0 0" }} />
                   <div style={{ padding: 28 }}>
                     <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
                       <div style={{ width: 10, height: 10, borderRadius: "50%", background: cert.color, flexShrink: 0 }} />
@@ -672,11 +700,13 @@ export default function Portfolio() {
                         <div style={{ fontSize: 13, color: "#64748b", marginTop: 3 }}>{cert.issuer} · {cert.date}</div>
                       </div>
                     </div>
-                    <img
-                      src={cert.image}
-                      alt={cert.title}
-                      style={{ width: "100%", borderRadius: 10, border: "1px solid #f0f0f5", display: "block" }}
-                    />
+                    <div style={{ height: 260, borderRadius: 10, border: "1px solid #f0f0f5", overflow: "hidden", background: "#f8fafc" }}>
+                      <img
+                        src={cert.image}
+                        alt={cert.title}
+                        style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center", display: "block" }}
+                      />
+                    </div>
                   </div>
                 </div>
               </FadeIn>
