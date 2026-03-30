@@ -106,6 +106,13 @@ const translations = {
         }
       ]
     },
+    iosApp: {
+      label: "iOS App",
+      title: "LiftOff: Be Present",
+      description: "An iOS app that gently nudges you to put your phone down and live in the moment. LiftOff tracks your phone pickups, shows your worst habits with a heatmap, rewards you for improving — and even challenges you with stoic wisdom and philosophy quotes. No judgment. Just a gentle reminder to be intentional.",
+      status: "Pending App Store Approval",
+      tags: ["Swift", "SwiftUI", "iOS", "Live Activities", "WidgetKit"],
+    },
     journey: {
       label: "My Journey",
       title: "A Career Built on Service",
@@ -231,6 +238,13 @@ const translations = {
           emoji: "🌐"
         }
       ]
+    },
+    iosApp: {
+      label: "iOS App",
+      title: "LiftOff: Be Present",
+      description: "Eine iOS-App, die dich sanft daran erinnert, das Handy wegzulegen und den Moment zu erleben. LiftOff verfolgt deine Handy-Aufnahmen, zeigt dir deine schlechtesten Gewohnheiten mit einer Heatmap, und belohnt dich für Fortschritte — mit stoischer Weisheit und Philosophie-Zitaten. Kein Urteil. Nur eine sanfte Erinnerung, bewusster zu leben.",
+      status: "Wartet auf App Store-Genehmigung",
+      tags: ["Swift", "SwiftUI", "iOS", "Live Activities", "WidgetKit"],
     },
     journey: {
       label: "Mein Werdegang",
@@ -745,6 +759,67 @@ export default function Portfolio() {
               </FadeIn>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* IOS APP */}
+      <section id="iosapp" style={{ padding: "100px 24px", background: "linear-gradient(180deg, #f0f4ff 0%, #fff 100%)" }}>
+        <div style={{ maxWidth: 1120, margin: "0 auto" }}>
+          <FadeIn>
+            <span className="section-label">{t.iosApp.label}</span>
+            <h2 className="section-title">{t.iosApp.title}</h2>
+          </FadeIn>
+          <FadeIn delay={0.1}>
+            <div style={{ marginTop: 24 }}>
+              <span style={{
+                display: "inline-flex", alignItems: "center", gap: 8,
+                background: "#fff8e1", border: "1px solid #ffd54f",
+                color: "#b45309", padding: "6px 18px", borderRadius: 999,
+                fontSize: 13, fontWeight: 600, marginBottom: 20
+              }}>
+                ⏳ {t.iosApp.status}
+              </span>
+            </div>
+            <p style={{ fontSize: 17, color: "#64748b", lineHeight: 1.8, maxWidth: 700, marginBottom: 24 }}>
+              {t.iosApp.description}
+            </p>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 48 }}>
+              {t.iosApp.tags.map((tag, i) => (
+                <span key={i} className="tag">{tag}</span>
+              ))}
+            </div>
+          </FadeIn>
+          <FadeIn delay={0.2}>
+            <div style={{ overflowX: "auto", paddingBottom: 20, cursor: "grab" }}>
+              <div style={{ display: "flex", gap: 24, width: "max-content", paddingBottom: 4 }}>
+                {[
+                  "/Simulator Screenshot - iPhone 15 Pro Max - 2026-03-25 at 23.38.20.png",
+                  "/Simulator Screenshot - iPhone 15 Pro Max - 2026-03-25 at 23.38.25.png",
+                  "/Simulator Screenshot - iPhone 15 Pro Max - 2026-03-25 at 23.38.28.png",
+                  "/Simulator Screenshot - iPhone 15 Pro Max - 2026-03-25 at 23.38.30.png",
+                  "/Simulator Screenshot - iPhone 15 Pro Max - 2026-03-25 at 23.38.36.png",
+                  "/Simulator Screenshot - iPhone 15 Pro Max - 2026-03-26 at 14.46.45.png",
+                  "/Simulator Screenshot - iPhone 15 Pro Max - 2026-03-25 at 23.38.41.png",
+                ].map((src, i) => (
+                  <div key={i} style={{
+                    borderRadius: 44,
+                    overflow: "hidden",
+                    boxShadow: "0 24px 64px rgba(0,0,0,0.13), 0 4px 16px rgba(0,0,0,0.08)",
+                    border: "1.5px solid #e2e8f0",
+                    width: 200,
+                    flexShrink: 0,
+                    background: "#fff",
+                  }}>
+                    <img
+                      src={src}
+                      alt={`LiftOff screen ${i + 1}`}
+                      style={{ width: "100%", display: "block" }}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </FadeIn>
         </div>
       </section>
 
