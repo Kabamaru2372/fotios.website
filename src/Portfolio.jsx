@@ -109,8 +109,11 @@ const translations = {
     iosApp: {
       label: "iOS App",
       title: "Picksy: Be Present",
+      story: "DevOps is my profession — but curiosity has no job title. I've always believed that the best engineers are the ones who never stop learning, even outside their lane. So I picked up Swift, dove into SwiftUI, and built Picksy from scratch. Not because it was part of a roadmap, but because I wanted to see if I could. Spoiler: I could.",
       description: "An iOS app that gently nudges you to put your phone down and live in the moment. Picksy tracks your phone pickups, shows your worst habits with a heatmap, rewards you for improving — and even challenges you with stoic wisdom and philosophy quotes. No judgment. Just a gentle reminder to be intentional.",
-      status: "Pending App Store Approval",
+      status: "Live on the App Store",
+      appStoreUrl: "https://apps.apple.com/app/picksy-be-present/id6761116771",
+      appStoreLabel: "Download on the App Store",
       tags: ["Swift", "SwiftUI", "iOS", "Live Activities", "WidgetKit"],
     },
     journey: {
@@ -242,8 +245,11 @@ const translations = {
     iosApp: {
       label: "iOS App",
       title: "Picksy: Be Present",
+      story: "DevOps ist mein Beruf — aber Neugier kennt keine Berufsbezeichnung. Ich glaube, dass die besten Engineers diejenigen sind, die nie aufhören zu lernen, auch außerhalb ihres Fachgebiets. Also habe ich Swift gelernt, mich in SwiftUI vertieft und Picksy von Grund auf gebaut. Nicht weil es Teil eines Plans war, sondern weil ich wissen wollte, ob ich es kann. Spoiler: Ich konnte.",
       description: "Eine iOS-App, die dich sanft daran erinnert, das Handy wegzulegen und den Moment zu erleben. Picksy verfolgt deine Handy-Aufnahmen, zeigt dir deine schlechtesten Gewohnheiten mit einer Heatmap, und belohnt dich für Fortschritte — mit stoischer Weisheit und Philosophie-Zitaten. Kein Urteil. Nur eine sanfte Erinnerung, bewusster zu leben.",
-      status: "Wartet auf App Store-Genehmigung",
+      status: "Live im App Store",
+      appStoreUrl: "https://apps.apple.com/app/picksy-be-present/id6761116771",
+      appStoreLabel: "Im App Store laden",
       tags: ["Swift", "SwiftUI", "iOS", "Live Activities", "WidgetKit"],
     },
     journey: {
@@ -770,24 +776,46 @@ export default function Portfolio() {
             <h2 className="section-title">{t.iosApp.title}</h2>
           </FadeIn>
           <FadeIn delay={0.1}>
-            <div style={{ marginTop: 24 }}>
+            <div style={{ marginTop: 24, marginBottom: 20 }}>
               <span style={{
                 display: "inline-flex", alignItems: "center", gap: 8,
-                background: "#fff8e1", border: "1px solid #ffd54f",
-                color: "#b45309", padding: "6px 18px", borderRadius: 999,
-                fontSize: 13, fontWeight: 600, marginBottom: 20
+                background: "#f0fdf4", border: "1px solid #86efac",
+                color: "#16a34a", padding: "6px 18px", borderRadius: 999,
+                fontSize: 13, fontWeight: 600
               }}>
-                ⏳ {t.iosApp.status}
+                ✅ {t.iosApp.status}
               </span>
             </div>
+            <p style={{ fontSize: 16, color: "#475569", lineHeight: 1.85, maxWidth: 700, marginBottom: 20, fontStyle: "italic", borderLeft: "3px solid #c7d2fe", paddingLeft: 16 }}>
+              "{t.iosApp.story}"
+            </p>
             <p style={{ fontSize: 17, color: "#64748b", lineHeight: 1.8, maxWidth: 700, marginBottom: 24 }}>
               {t.iosApp.description}
             </p>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 48 }}>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 32 }}>
               {t.iosApp.tags.map((tag, i) => (
                 <span key={i} className="tag">{tag}</span>
               ))}
             </div>
+            <a
+              href={t.iosApp.appStoreUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: "inline-flex", alignItems: "center", gap: 10,
+                background: "#000", color: "#fff",
+                padding: "12px 24px", borderRadius: 12,
+                textDecoration: "none", marginBottom: 48,
+              }}
+            >
+              <svg width="22" height="22" viewBox="0 0 814 1000" fill="white" xmlns="http://www.w3.org/2000/svg">
+                <path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76 0-103.7 40.8-165.9 40.8s-105-37.5-155.5-127.4C46.7 790.7 0 663 0 541.8c0-207.5 135.4-317.3 269-317.3 71 0 130.5 46.4 174.9 46.4 42.7 0 109.2-49 192.5-49 30.8 0 133.9 2.8 198.3 99zM528.3 35.6c24.1-28.3 41.6-67.9 41.6-107.5 0-5.4-.5-10.9-1.5-15.4-39.1 1.5-85.6 26.1-113.4 58.3-21.9 25.3-42.4 64.6-42.4 104.8 0 6 1 12 1.5 14.1 2.5.5 6.5 1 10.5 1 35.2 0 79.6-23.3 103.7-55.3z"/>
+              </svg>
+              <div style={{ display: "flex", flexDirection: "column", lineHeight: 1.2 }}>
+                <span style={{ fontSize: 11, letterSpacing: "0.04em" }}>Download on the</span>
+                <span style={{ fontSize: 17, fontWeight: 600, letterSpacing: "0.02em" }}>App Store</span>
+              </div>
+            </a>
           </FadeIn>
           <FadeIn delay={0.2}>
             <div style={{ overflowX: "auto", paddingBottom: 20, cursor: "grab" }}>
