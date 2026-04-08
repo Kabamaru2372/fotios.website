@@ -108,8 +108,8 @@ const translations = {
     },
     iosApp: {
       label: "iOS App",
-      title: "LiftOff: Be Present",
-      description: "An iOS app that gently nudges you to put your phone down and live in the moment. LiftOff tracks your phone pickups, shows your worst habits with a heatmap, rewards you for improving — and even challenges you with stoic wisdom and philosophy quotes. No judgment. Just a gentle reminder to be intentional.",
+      title: "Picksy: Be Present",
+      description: "An iOS app that gently nudges you to put your phone down and live in the moment. Picksy tracks your phone pickups, shows your worst habits with a heatmap, rewards you for improving — and even challenges you with stoic wisdom and philosophy quotes. No judgment. Just a gentle reminder to be intentional.",
       status: "Pending App Store Approval",
       tags: ["Swift", "SwiftUI", "iOS", "Live Activities", "WidgetKit"],
     },
@@ -241,8 +241,8 @@ const translations = {
     },
     iosApp: {
       label: "iOS App",
-      title: "LiftOff: Be Present",
-      description: "Eine iOS-App, die dich sanft daran erinnert, das Handy wegzulegen und den Moment zu erleben. LiftOff verfolgt deine Handy-Aufnahmen, zeigt dir deine schlechtesten Gewohnheiten mit einer Heatmap, und belohnt dich für Fortschritte — mit stoischer Weisheit und Philosophie-Zitaten. Kein Urteil. Nur eine sanfte Erinnerung, bewusster zu leben.",
+      title: "Picksy: Be Present",
+      description: "Eine iOS-App, die dich sanft daran erinnert, das Handy wegzulegen und den Moment zu erleben. Picksy verfolgt deine Handy-Aufnahmen, zeigt dir deine schlechtesten Gewohnheiten mit einer Heatmap, und belohnt dich für Fortschritte — mit stoischer Weisheit und Philosophie-Zitaten. Kein Urteil. Nur eine sanfte Erinnerung, bewusster zu leben.",
       status: "Wartet auf App Store-Genehmigung",
       tags: ["Swift", "SwiftUI", "iOS", "Live Activities", "WidgetKit"],
     },
@@ -812,7 +812,7 @@ export default function Portfolio() {
                   }}>
                     <img
                       src={src}
-                      alt={`LiftOff screen ${i + 1}`}
+                      alt={`Picksy screen ${i + 1}`}
                       style={{ width: "100%", display: "block" }}
                     />
                   </div>
