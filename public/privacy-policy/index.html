@@ -85,6 +85,16 @@
       color: #4A8FE0;
     }
 
+    ol {
+      margin: 8px 0 16px;
+      padding-left: 20px;
+    }
+
+    ol li {
+      padding: 4px 0;
+      color: #333;
+    }
+
     .highlight {
       background: #f7f7f7;
       border-radius: 8px;
@@ -97,12 +107,45 @@
       color: #1a1a1a;
     }
 
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0 24px;
+      font-size: 14px;
+    }
+
+    th {
+      text-align: left;
+      padding: 10px 12px;
+      background: #f0f4f8;
+      color: #1a1a1a;
+      font-weight: 600;
+      border-bottom: 2px solid #e2e8f0;
+    }
+
+    td {
+      padding: 10px 12px;
+      color: #333;
+      border-bottom: 1px solid #e5e5e5;
+      vertical-align: top;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
     a {
       color: #4A8FE0;
       text-decoration: none;
     }
 
     a:hover { text-decoration: underline; }
+
+    hr {
+      border: none;
+      border-top: 1px solid #e5e5e5;
+      margin: 32px 0;
+    }
 
     footer {
       margin-top: 64px;
@@ -118,7 +161,7 @@
   <header>
     <div class="app-name">Picksy: Be Present</div>
     <h1>Privacy Policy</h1>
-    <div class="date">Effective date: March 26, 2026</div>
+    <div class="date">Effective date: May 10, 2026</div>
   </header>
 
   <div class="intro">
@@ -129,9 +172,9 @@
   <p>Picksy collects the following data <strong>locally on your device only</strong>:</p>
   <ul>
     <li>Number of phone pickups per day</li>
-    <li>Time spent on device per session</li>
+    <li>Time spent on tracked apps per day (via iOS Screen Time API)</li>
     <li>Daily and weekly pickup history</li>
-    <li>Your daily goal setting</li>
+    <li>Your daily goal and usage alert settings</li>
     <li>Streak count</li>
     <li>App language preference</li>
     <li>Picksy Pro purchase status</li>
@@ -141,37 +184,110 @@
     <strong>This data never leaves your device.</strong> It is stored using Apple's UserDefaults and is never transmitted to any server, third party, or analytics platform.
   </div>
 
-  <h2>What data Picksy does NOT collect</h2>
+  <hr>
+
+  <h2>Location data</h2>
+  <p>Picksy requests access to your location <strong>only</strong> to display a real-time weather background on the main screen, powered by Apple WeatherKit.</p>
   <ul>
-    <li>Your name, email address, or any personal identifiers</li>
-    <li>Location data</li>
-    <li>Contacts or calendar data</li>
-    <li>Photos, camera, or microphone access</li>
-    <li>Health or biometric data</li>
-    <li>Browsing history or app usage outside of Picksy</li>
-    <li>Advertising identifiers</li>
+    <li>Location access is requested as <strong>"When In Use" only</strong> — Picksy never accesses your location in the background</li>
+    <li>Your location is sent directly to Apple's WeatherKit service to retrieve local weather conditions</li>
+    <li>Picksy does not store, log, or transmit your location to any server</li>
+    <li>Location access is optional — if denied, the weather background uses a default condition</li>
+    <li>Apple's privacy policy applies to all WeatherKit requests: <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener noreferrer">apple.com/legal/privacy</a></li>
   </ul>
 
-  <h2>Motion & activity detection</h2>
-  <p>Picksy uses CoreMotion to detect when you pick up your phone. This data is processed entirely on-device in real time and is never stored beyond the current session's pickup count. No raw motion data is retained or transmitted.</p>
+  <hr>
+
+  <h2>App usage tracking</h2>
+  <p>If you grant Screen Time access, Picksy uses Apple's DeviceActivity and FamilyControls frameworks to display how much time you spend on your selected apps each day.</p>
+  <ul>
+    <li>This data is processed entirely on-device by iOS</li>
+    <li>Picksy cannot read raw app usage data — it only receives aggregated totals provided by iOS</li>
+    <li>No app usage data is transmitted to any server or third party</li>
+    <li>You can revoke this access at any time in Settings → Screen Time</li>
+  </ul>
+
+  <hr>
+
+  <h2>Pickup detection</h2>
+  <p>Picksy detects phone pickups by monitoring screen unlock events via Darwin notifications. This detection runs entirely on-device in real time. No raw detection data is stored beyond the current day's pickup count and no data is transmitted.</p>
+
+  <hr>
+
+  <h2>Background activity</h2>
+  <p>Picksy uses Apple Push Notification service (APNs) to send periodic silent notifications that wake the app briefly in the background. This allows Picksy to keep your pickup count and Lock Screen widget up to date.</p>
+  <ul>
+    <li>Silent push notifications contain no personal data</li>
+    <li>They are sent by Picksy's own infrastructure (Supabase) solely to trigger a background sync</li>
+    <li>Your APNs device token is stored securely on Picksy's server for this purpose only and is not shared with any third party</li>
+    <li>This infrastructure does not collect, process, or store any personal information</li>
+  </ul>
+
+  <hr>
 
   <h2>In-App Purchases</h2>
   <p>Picksy Pro is available as a one-time in-app purchase processed entirely by Apple through StoreKit. Picksy does not handle, store, or have access to any payment information. Apple's privacy policy applies to all transactions.</p>
 
-  <h2>Live Activity & Lock Screen</h2>
-  <p>If enabled, Picksy displays a Live Activity on your Lock Screen showing your current pickup count. This feature uses only data already stored locally on your device and does not involve any network communication.</p>
+  <hr>
+
+  <h2>Live Activity &amp; Lock Screen</h2>
+  <p>If enabled, Picksy displays a Live Activity on your Lock Screen and Dynamic Island showing your current pickup count. This feature uses only data already stored locally on your device.</p>
+
+  <hr>
 
   <h2>Third-party services</h2>
-  <p>Picksy does not integrate with any third-party analytics, advertising, or tracking services. There are no SDKs from Facebook, Google, or similar platforms included in the app.</p>
+  <p>Picksy integrates with the following services:</p>
 
-  <h2>Data retention & deletion</h2>
-  <p>All data is stored locally on your device. To delete all Picksy data, simply delete the app from your iPhone. All associated data will be permanently removed.</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Service</th>
+        <th>Purpose</th>
+        <th>Data shared</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Apple WeatherKit</td>
+        <td>Real-time weather background</td>
+        <td>Location (sent directly to Apple)</td>
+      </tr>
+      <tr>
+        <td>Apple APNs</td>
+        <td>Silent background sync</td>
+        <td>Anonymous device token only</td>
+      </tr>
+      <tr>
+        <td>Supabase</td>
+        <td>Silent push infrastructure</td>
+        <td>Anonymous device token only</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>Picksy does not integrate with any analytics, advertising, or tracking services. There are no SDKs from Facebook, Google, or similar platforms included in the app.</p>
+
+  <hr>
+
+  <h2>Data retention &amp; deletion</h2>
+  <p>All personal data is stored locally on your device. The only data stored externally is your anonymous APNs device token, used solely for background sync.</p>
+  <p>To delete all Picksy data:</p>
+  <ol>
+    <li>Delete the app from your iPhone — all local data is permanently removed</li>
+    <li>Your APNs device token will be automatically deactivated when the app is uninstalled</li>
+  </ol>
+
+  <hr>
 
   <h2>Children's privacy</h2>
   <p>Picksy does not knowingly collect any information from children under 13. The app does not collect personal information from any user regardless of age.</p>
 
+  <hr>
+
   <h2>Changes to this policy</h2>
   <p>If this privacy policy changes, the updated version will be posted at this URL with a new effective date. Continued use of the app after changes constitutes acceptance of the updated policy.</p>
+
+  <hr>
 
   <h2>Contact</h2>
   <p>If you have any questions about this privacy policy, you can reach me at:</p>
