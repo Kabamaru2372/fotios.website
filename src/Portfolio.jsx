@@ -1,15 +1,19 @@
 import { useState, useEffect, useRef } from "react";
 
+// ─── Translations ──────────────────────────────────────────────────────────
+
 const translations = {
   en: {
     nav: { home: "Home", about: "About", skills: "Skills", certifications: "Certs", projects: "Projects", contact: "Contact" },
     hero: {
-      greeting: "Hello, I'm",
+      greeting: "Hey, I'm",
       name: "Fotios Pongas",
       title: "DevOps & Cloud Engineer",
       subtitle: "Building reliable, scalable infrastructure — with the service mindset of someone who's managed 5-star operations.",
       cta: "View My Work",
-      contact: "Get In Touch"
+      contact: "Get In Touch",
+      hackshow: "🏆 Ironhack Hackshow Winner",
+      hackshowSub: "Hotel Knowledge Assistant · Apr 2025",
     },
     about: {
       label: "About Me",
@@ -28,20 +32,8 @@ const translations = {
       label: "Certifications",
       title: "Credentials & Certificates",
       items: [
-        {
-          title: "DevOps & Cloud Computing",
-          issuer: "Ironhack",
-          date: "March 2026",
-          image: "/Screenshot 2026-03-10 at 01.01.28.png",
-          color: "#1a3a5c"
-        },
-        {
-          title: "AWS Cloud Practitioner Essentials",
-          issuer: "AWS Training & Certification",
-          date: "August 30, 2025",
-          image: "/Screenshot 2026-03-10 at 01.00.39.png",
-          color: "#FF9900"
-        }
+        { title: "DevOps & Cloud Computing", issuer: "Ironhack", date: "March 2026", image: "/Screenshot 2026-03-10 at 01.01.28.png", color: "#2563eb" },
+        { title: "AWS Cloud Practitioner Essentials", issuer: "AWS Training & Certification", date: "August 30, 2025", image: "/Screenshot 2026-03-10 at 01.00.39.png", color: "#f59e0b" }
       ]
     },
     skills: {
@@ -60,70 +52,80 @@ const translations = {
       label: "Projects",
       title: "What I've Built",
       viewCode: "View Code",
-      viewLive: "Live Demo",
       items: [
         {
-          title: "Expensy — Expense Tracking Platform",
-          description: "Full-stack expense tracker deployed on Azure AKS with a complete DevOps pipeline. Features GitHub Actions CI/CD, Prometheus & Grafana monitoring, Kubernetes secrets management, and Redis caching. Built to demonstrate production-grade cloud-native practices.",
-          tags: ["Node.js", "Next.js", "MongoDB", "Redis", "Azure AKS", "GitHub Actions", "Prometheus", "Grafana", "Kubernetes", "Docker"],
+          title: "Expensy",
+          subtitle: "Expense Tracking Platform",
+          description: "Full-stack expense tracker deployed on Azure AKS with a complete DevOps pipeline. Features GitHub Actions CI/CD, Prometheus & Grafana monitoring, Kubernetes secrets management, and Redis caching.",
+          tags: ["Azure AKS", "GitHub Actions", "Kubernetes", "Prometheus", "Grafana", "Redis", "MongoDB"],
           github: "https://github.com/Kabamaru2372/max.devops.expensy",
-          emoji: "💰"
+          emoji: "💰",
+          featured: true
         },
         {
-          title: "Hotel Knowledge Assistant — RAG AI Pipeline",
-          description: "An AI-powered hotel assistant using Retrieval-Augmented Generation on Azure. Combines Blob Storage, Azure AI Search, and Azure OpenAI with a FastAPI backend. Fully containerized and deployed on Azure Container Instances via Terraform.",
-          tags: ["Azure OpenAI", "Azure AI Foundry", "Azure AI Search", "FastAPI", "Terraform", "Docker", "Blob Storage", "Python"],
+          title: "Hotel Knowledge Assistant",
+          subtitle: "RAG AI Pipeline · 🏆 Hackshow Winner",
+          description: "An AI-powered hotel assistant using Retrieval-Augmented Generation on Azure. Combines Blob Storage, Azure AI Search, and Azure OpenAI with a FastAPI backend. Fully containerized via Terraform.",
+          tags: ["Azure OpenAI", "Azure AI Search", "FastAPI", "Terraform", "Docker", "Python"],
           github: "https://github.com/Kabamaru2372/hotel-training-RAG-pipeline",
-          emoji: "🏨"
+          emoji: "🏨",
+          featured: true
         },
         {
-          title: "W3 Combo — Multi-Service Cloud Infrastructure",
-          description: "Infrastructure as Code project provisioning a multi-service environment on AWS using Terraform. Demonstrates automated cloud resource management, networking configuration, and repeatable deployments following IaC best practices.",
-          tags: ["Terraform", "HCL", "AWS", "Infrastructure as Code", "Cloud Networking"],
-          github: "https://github.com/Kabamaru2372/w3-combo",
-          emoji: "☁️"
-        },
-        {
-          title: "3-Tier Voting App — Microservices on AWS",
-          description: "Architected and deployed a multi-tier voting system simulating real enterprise DevOps workflows. Infrastructure provisioned with Terraform, configured with Ansible, containerized with Docker Compose, and automated with GitHub Actions CI/CD pipelines.",
-          tags: ["Python", "Node.js", "C#/.NET", "Redis", "PostgreSQL", "Docker", "Terraform", "Ansible", "GitHub Actions"],
+          title: "3-Tier Voting App",
+          subtitle: "Microservices on AWS",
+          description: "Multi-tier voting system simulating real enterprise DevOps workflows. Provisioned with Terraform, configured with Ansible, containerized with Docker Compose, automated with GitHub Actions.",
+          tags: ["Terraform", "Ansible", "Docker", "GitHub Actions", "PostgreSQL", "Redis"],
           github: "https://github.com/Kabamaru2372/3-tier-application",
-          emoji: "🗳️"
+          emoji: "🗳️",
+          featured: false
+        },
+        {
+          title: "W3 Combo",
+          subtitle: "Multi-Service Cloud Infrastructure",
+          description: "Infrastructure as Code project provisioning a multi-service environment on AWS using Terraform. Automated cloud resource management, networking, and repeatable deployments.",
+          tags: ["Terraform", "HCL", "AWS", "IaC", "Networking"],
+          github: "https://github.com/Kabamaru2372/w3-combo",
+          emoji: "☁️",
+          featured: false
         },
         {
           title: "Cloud Provisioning Toolkit",
-          description: "Terraform modules and shell scripts for automated provisioning of cloud instances, security groups, and networking. Designed for rapid, repeatable infrastructure deployment across environments.",
-          tags: ["Terraform", "HCL", "Shell", "AWS", "Automation"],
+          subtitle: "Automation Scripts",
+          description: "Terraform modules and shell scripts for automated provisioning of cloud instances, security groups, and networking. Designed for rapid, repeatable infrastructure deployment.",
+          tags: ["Terraform", "Shell", "AWS", "Automation"],
           github: "https://github.com/Kabamaru2372/ironhack-project1-provisioning",
-          emoji: "⚙️"
+          emoji: "⚙️",
+          featured: false
         },
         {
-          title: "fotiospongas.dev — This Portfolio Site",
-          description: "The site you're looking at right now! A React + Vite portfolio with EN/DE language toggle, deployed to GitHub Pages via a GitHub Actions CI/CD pipeline. Every git push triggers an automated build and deploy.",
-          tags: ["React", "Vite", "GitHub Actions", "GitHub Pages", "CI/CD"],
+          title: "fotiospongas.dev",
+          subtitle: "This Portfolio Site",
+          description: "The site you're looking at. React + Vite with EN/DE language toggle, deployed to GitHub Pages via GitHub Actions CI/CD. Every git push triggers an automated build and deploy.",
+          tags: ["React", "Vite", "GitHub Actions", "GitHub Pages"],
           github: "https://github.com/Kabamaru2372/fotios.website",
-          emoji: "🌐"
+          emoji: "🌐",
+          featured: false
         }
       ]
     },
     iosApp: {
       label: "iOS App",
       title: "Picksy: Be Present",
-      story: "DevOps is my profession — but curiosity has no job title. I've always believed that the best engineers are the ones who never stop learning, even outside their lane. So I picked up Swift, dove into SwiftUI, and built Picksy from scratch. Not because it was part of a roadmap, but because I wanted to see if I could. Spoiler: I could.",
-      description: "An iOS app that gently nudges you to put your phone down and live in the moment. Picksy tracks your phone pickups, shows your worst habits with a heatmap, rewards you for improving — and even challenges you with stoic wisdom and philosophy quotes. No judgment. Just a gentle reminder to be intentional.",
-      status: "Live on the App Store",
-      appStoreUrl: "https://apps.apple.com/app/picksy-be-present/id6761116771",
-      appStoreLabel: "Download on the App Store",
-      tags: ["Swift", "SwiftUI", "iOS", "Live Activities", "WidgetKit"],
+      story: "DevOps is my profession — but curiosity has no job title. I picked up Swift, dove into SwiftUI, and built Picksy from scratch. Not because it was part of a roadmap, but because I wanted to prove I could.",
+      description: "An iOS app that tracks how many times you pick up your phone, reveals your patterns, and helps you — and your friends — use it less. Live on the App Store.",
+      appStoreUrl: "https://apps.apple.com/de/app/picksy-be-present/id6761116771",
+      learnMore: "Full landing page →",
+      tags: ["Swift", "SwiftUI", "Live Activities", "WidgetKit", "Supabase"],
     },
     journey: {
       label: "My Journey",
       title: "A Career Built on Service",
       steps: [
-        { year: "2009+", title: "Retail Management", desc: "Store Manager at Dixons in Rhodes — leading teams, managing inventory systems, and optimizing operations." },
-        { year: "2023", title: "Hospitality Management", desc: "Managed operations at international 5-star hotels including Sheraton. Learned to run 24/7 systems where failure wasn't an option." },
-        { year: "2025", title: "Career Pivot to Tech", desc: "Enrolled in Ironhack's DevOps & Cloud Computing Bootcamp. Started building real infrastructure from day one." },
-        { year: "2026", title: "DevOps Engineer", desc: "Graduating with hands-on Azure, Kubernetes, Terraform, and CI/CD experience. Ready to bring operational excellence to cloud engineering." }
+        { year: "2009+", icon: "🏪", title: "Retail Management", desc: "Store Manager at Dixons in Rhodes — leading teams, managing inventory systems, and optimizing operations under pressure." },
+        { year: "2023", icon: "🏨", title: "Hospitality Management", desc: "Managed operations at international 5-star hotels including Sheraton. Learned to run 24/7 systems where failure wasn't an option." },
+        { year: "2025", icon: "💻", title: "Career Pivot to Tech", desc: "Enrolled in Ironhack's DevOps & Cloud Computing Bootcamp. Built real infrastructure from day one — and won the Hackshow." },
+        { year: "2026", icon: "🚀", title: "DevOps Engineer", desc: "Hands-on Azure, Kubernetes, Terraform, and CI/CD experience. Bringing operational excellence to cloud engineering." }
       ]
     },
     contact: {
@@ -144,15 +146,17 @@ const translations = {
       name: "Fotios Pongas",
       title: "DevOps & Cloud Engineer",
       subtitle: "Aufbau zuverlässiger, skalierbarer Infrastruktur — mit der Service-Mentalität eines erfahrenen 5-Sterne-Hotel-Managers.",
-      cta: "Meine Arbeit",
-      contact: "Kontakt"
+      cta: "Meine Projekte",
+      contact: "Kontakt",
+      hackshow: "🏆 Ironhack Hackshow Gewinner",
+      hackshowSub: "Hotel Knowledge Assistant · Apr 2025",
     },
     about: {
       label: "Über mich",
       title: "Von der Hotellobby zur Cloud-Architektur",
-      p1: "Über ein Jahrzehnt lang habe ich anspruchsvolle, servicekritische Umgebungen geleitet — vom Empfangsbereich bei Sheraton Hotels bis zur Leitung eines Einzelhandelsgeschäfts auf Rhodos. Dabei habe ich gelernt, komplexe Systeme reibungslos zu betreiben, Teams unter Druck zu koordinieren und Ergebnisse zu liefern, auf die man sich verlassen kann.",
-      p2: "Dieselben Prinzipien wende ich jetzt auf DevOps und Cloud Engineering an. Ich entwerfe CI/CD-Pipelines, orchestriere Container mit Kubernetes, provisioniere Infrastruktur mit Terraform und überwache alles mit Prometheus und Grafana — denn ob Hotel oder Cluster, Ausfallzeiten sind keine Option.",
-      p3: "Als Absolvent des Ironhack DevOps & Cloud Computing Bootcamps in Deutschland bringe ich eine einzigartige Mischung aus operativer Disziplin, Führungserfahrung und echter Leidenschaft für Automatisierung in jedes Projekt ein.",
+      p1: "Über ein Jahrzehnt lang habe ich anspruchsvolle, servicekritische Umgebungen geleitet — vom Empfangsbereich bei Sheraton Hotels bis zur Leitung eines Einzelhandelsgeschäfts auf Rhodos.",
+      p2: "Dieselben Prinzipien wende ich jetzt auf DevOps und Cloud Engineering an. CI/CD-Pipelines, Kubernetes, Terraform, Prometheus und Grafana — denn ob Hotel oder Cluster, Ausfallzeiten sind keine Option.",
+      p3: "Als Absolvent des Ironhack DevOps & Cloud Computing Bootcamps in Deutschland bringe ich operative Disziplin, Führungserfahrung und Leidenschaft für Automatisierung in jedes Projekt.",
       stats: {
         experience: { value: "10+", label: "Jahre Berufserfahrung" },
         projects: { value: "5+", label: "Cloud-Projekte" },
@@ -164,20 +168,8 @@ const translations = {
       label: "Zertifizierungen",
       title: "Abschlüsse & Zertifikate",
       items: [
-        {
-          title: "DevOps & Cloud Computing",
-          issuer: "Ironhack",
-          date: "März 2026",
-          image: "/Screenshot 2026-03-10 at 01.01.28.png",
-          color: "#1a3a5c"
-        },
-        {
-          title: "AWS Cloud Practitioner Essentials",
-          issuer: "AWS Training & Certification",
-          date: "30. August 2025",
-          image: "/Screenshot 2026-03-10 at 01.00.39.png",
-          color: "#FF9900"
-        }
+        { title: "DevOps & Cloud Computing", issuer: "Ironhack", date: "März 2026", image: "/Screenshot 2026-03-10 at 01.01.28.png", color: "#2563eb" },
+        { title: "AWS Cloud Practitioner Essentials", issuer: "AWS Training & Certification", date: "30. August 2025", image: "/Screenshot 2026-03-10 at 01.00.39.png", color: "#f59e0b" }
       ]
     },
     skills: {
@@ -196,76 +188,86 @@ const translations = {
       label: "Projekte",
       title: "Was ich gebaut habe",
       viewCode: "Code ansehen",
-      viewLive: "Live-Demo",
       items: [
         {
-          title: "Expensy — Ausgabenverfolgungsplattform",
-          description: "Full-Stack Ausgaben-Tracker, bereitgestellt auf Azure AKS mit einer vollständigen DevOps-Pipeline. Mit GitHub Actions CI/CD, Prometheus & Grafana Monitoring, Kubernetes Secrets Management und Redis Caching.",
-          tags: ["Node.js", "Next.js", "MongoDB", "Redis", "Azure AKS", "GitHub Actions", "Prometheus", "Grafana", "Kubernetes", "Docker"],
+          title: "Expensy",
+          subtitle: "Ausgabenverfolgungsplattform",
+          description: "Full-Stack Ausgaben-Tracker auf Azure AKS mit vollständiger DevOps-Pipeline. GitHub Actions CI/CD, Prometheus & Grafana Monitoring, Kubernetes Secrets und Redis Caching.",
+          tags: ["Azure AKS", "GitHub Actions", "Kubernetes", "Prometheus", "Grafana", "Redis", "MongoDB"],
           github: "https://github.com/Kabamaru2372/max.devops.expensy",
-          emoji: "💰"
+          emoji: "💰",
+          featured: true
         },
         {
-          title: "Hotel Knowledge Assistant — RAG-KI-Pipeline",
-          description: "Ein KI-gestützter Hotelassistent mit Retrieval-Augmented Generation auf Azure. Kombiniert Blob Storage, Azure AI Search und Azure OpenAI mit einem FastAPI-Backend. Vollständig containerisiert und über Terraform auf Azure Container Instances bereitgestellt.",
-          tags: ["Azure OpenAI", "Azure AI Foundry", "Azure AI Search", "FastAPI", "Terraform", "Docker", "Blob Storage", "Python"],
+          title: "Hotel Knowledge Assistant",
+          subtitle: "RAG-KI-Pipeline · 🏆 Hackshow-Gewinner",
+          description: "KI-gestützter Hotelassistent mit Retrieval-Augmented Generation auf Azure. Azure Blob Storage, Azure AI Search und Azure OpenAI mit FastAPI-Backend. Via Terraform containerisiert.",
+          tags: ["Azure OpenAI", "Azure AI Search", "FastAPI", "Terraform", "Docker", "Python"],
           github: "https://github.com/Kabamaru2372/hotel-training-RAG-pipeline",
-          emoji: "🏨"
+          emoji: "🏨",
+          featured: true
         },
         {
-          title: "W3 Combo — Multi-Service Cloud-Infrastruktur",
-          description: "Infrastructure-as-Code-Projekt zur Bereitstellung einer Multi-Service-Umgebung auf AWS mit Terraform. Automatisiertes Cloud-Ressourcenmanagement, Netzwerkkonfiguration und wiederholbare Deployments nach IaC-Best-Practices.",
-          tags: ["Terraform", "HCL", "AWS", "Infrastructure as Code", "Cloud Networking"],
-          github: "https://github.com/Kabamaru2372/w3-combo",
-          emoji: "☁️"
-        },
-        {
-          title: "3-Tier Voting App — Microservices auf AWS",
-          description: "Entwurf und Bereitstellung eines mehrstufigen Abstimmungssystems, das reale Enterprise-DevOps-Workflows simuliert. Infrastruktur mit Terraform, Konfiguration mit Ansible, Containerisierung mit Docker Compose und Automatisierung mit GitHub Actions.",
-          tags: ["Python", "Node.js", "C#/.NET", "Redis", "PostgreSQL", "Docker", "Terraform", "Ansible", "GitHub Actions"],
+          title: "3-Tier Voting App",
+          subtitle: "Microservices auf AWS",
+          description: "Mehrstufiges Abstimmungssystem mit Terraform, Ansible, Docker Compose und GitHub Actions CI/CD-Pipelines.",
+          tags: ["Terraform", "Ansible", "Docker", "GitHub Actions", "PostgreSQL", "Redis"],
           github: "https://github.com/Kabamaru2372/3-tier-application",
-          emoji: "🗳️"
+          emoji: "🗳️",
+          featured: false
+        },
+        {
+          title: "W3 Combo",
+          subtitle: "Multi-Service Cloud-Infrastruktur",
+          description: "IaC-Projekt zur Bereitstellung einer Multi-Service-Umgebung auf AWS mit Terraform. Automatisiertes Cloud-Ressourcenmanagement und wiederholbare Deployments.",
+          tags: ["Terraform", "HCL", "AWS", "IaC", "Networking"],
+          github: "https://github.com/Kabamaru2372/w3-combo",
+          emoji: "☁️",
+          featured: false
         },
         {
           title: "Cloud-Provisioning-Toolkit",
-          description: "Terraform-Module und Shell-Skripte für die automatisierte Bereitstellung von Cloud-Instanzen, Sicherheitsgruppen und Netzwerken. Für schnelle, wiederholbare Infrastruktur-Deployments konzipiert.",
-          tags: ["Terraform", "HCL", "Shell", "AWS", "Automation"],
+          subtitle: "Automatisierungsskripte",
+          description: "Terraform-Module und Shell-Skripte für automatisierte Bereitstellung von Cloud-Instanzen und Netzwerken.",
+          tags: ["Terraform", "Shell", "AWS", "Automation"],
           github: "https://github.com/Kabamaru2372/ironhack-project1-provisioning",
-          emoji: "⚙️"
+          emoji: "⚙️",
+          featured: false
         },
         {
-          title: "fotiospongas.dev — Diese Portfolio-Seite",
-          description: "Die Seite, die Sie gerade betrachten! Eine React + Vite Portfolio-Seite mit EN/DE-Sprachumschaltung, bereitgestellt auf GitHub Pages über eine GitHub Actions CI/CD-Pipeline. Jeder Git-Push löst einen automatischen Build und Deploy aus.",
-          tags: ["React", "Vite", "GitHub Actions", "GitHub Pages", "CI/CD"],
+          title: "fotiospongas.dev",
+          subtitle: "Diese Portfolio-Seite",
+          description: "React + Vite Portfolio mit EN/DE-Sprachumschaltung, bereitgestellt auf GitHub Pages via GitHub Actions CI/CD.",
+          tags: ["React", "Vite", "GitHub Actions", "GitHub Pages"],
           github: "https://github.com/Kabamaru2372/fotios.website",
-          emoji: "🌐"
+          emoji: "🌐",
+          featured: false
         }
       ]
     },
     iosApp: {
       label: "iOS App",
       title: "Picksy: Be Present",
-      story: "DevOps ist mein Beruf — aber Neugier kennt keine Berufsbezeichnung. Ich glaube, dass die besten Engineers diejenigen sind, die nie aufhören zu lernen, auch außerhalb ihres Fachgebiets. Also habe ich Swift gelernt, mich in SwiftUI vertieft und Picksy von Grund auf gebaut. Nicht weil es Teil eines Plans war, sondern weil ich wissen wollte, ob ich es kann. Spoiler: Ich konnte.",
-      description: "Eine iOS-App, die dich sanft daran erinnert, das Handy wegzulegen und den Moment zu erleben. Picksy verfolgt deine Handy-Aufnahmen, zeigt dir deine schlechtesten Gewohnheiten mit einer Heatmap, und belohnt dich für Fortschritte — mit stoischer Weisheit und Philosophie-Zitaten. Kein Urteil. Nur eine sanfte Erinnerung, bewusster zu leben.",
-      status: "Live im App Store",
-      appStoreUrl: "https://apps.apple.com/app/picksy-be-present/id6761116771",
-      appStoreLabel: "Im App Store laden",
-      tags: ["Swift", "SwiftUI", "iOS", "Live Activities", "WidgetKit"],
+      story: "DevOps ist mein Beruf — aber Neugier kennt keine Berufsbezeichnung. Ich habe Swift gelernt und Picksy von Grund auf gebaut. Nicht weil es geplant war, sondern weil ich wissen wollte, ob ich es kann.",
+      description: "Eine iOS-App, die verfolgt, wie oft man das Handy aufnimmt, zeigt Muster auf und hilft dabei — gemeinsam mit Freunden — weniger drauf zu schauen. Live im App Store.",
+      appStoreUrl: "https://apps.apple.com/de/app/picksy-be-present/id6761116771",
+      learnMore: "Zur App-Seite →",
+      tags: ["Swift", "SwiftUI", "Live Activities", "WidgetKit", "Supabase"],
     },
     journey: {
       label: "Mein Werdegang",
       title: "Eine Karriere im Zeichen des Service",
       steps: [
-        { year: "2010er", title: "Hotelmanagement", desc: "Leitung des Betriebs in internationalen 5-Sterne-Hotels wie Sheraton. Gelernt, 24/7-Systeme zu betreiben, bei denen Ausfälle keine Option waren." },
-        { year: "2015+", title: "Einzelhandelsmanagement", desc: "Filialleiter bei Dixons auf Rhodos — Teamführung, Bestandsverwaltung und Prozessoptimierung." },
-        { year: "2025", title: "Karrierewechsel in die IT", desc: "Einschreibung im Ironhack DevOps & Cloud Computing Bootcamp. Von Tag eins an echte Infrastruktur aufgebaut." },
-        { year: "2026", title: "DevOps Engineer", desc: "Abschluss mit praktischer Erfahrung in Azure, Kubernetes, Terraform und CI/CD. Bereit, operative Exzellenz ins Cloud Engineering einzubringen." }
+        { year: "2009+", icon: "🏪", title: "Einzelhandelsmanagement", desc: "Filialleiter bei Dixons auf Rhodos — Teamführung, Bestandsverwaltung und Prozessoptimierung." },
+        { year: "2023", icon: "🏨", title: "Hotelmanagement", desc: "Leitung in internationalen 5-Sterne-Hotels wie Sheraton. 24/7-Betrieb ohne Ausfallzeiten." },
+        { year: "2025", icon: "💻", title: "Karrierewechsel in die IT", desc: "Ironhack DevOps & Cloud Computing Bootcamp. Echte Infrastruktur von Tag eins — und Hackshow-Gewinner." },
+        { year: "2026", icon: "🚀", title: "DevOps Engineer", desc: "Azure, Kubernetes, Terraform und CI/CD. Operative Exzellenz im Cloud Engineering." }
       ]
     },
     contact: {
       label: "Kontakt",
       title: "Lass uns vernetzen",
-      subtitle: "Ich suche derzeit nach DevOps & Cloud Engineering Möglichkeiten in Deutschland. Lass uns sprechen.",
+      subtitle: "Ich suche DevOps & Cloud Engineering Stellen in Deutschland. Lass uns sprechen.",
       email: "E-Mail",
       linkedin: "LinkedIn",
       github: "GitHub",
@@ -276,618 +278,580 @@ const translations = {
 };
 
 const skillsData = [
-  { category: "cloud", items: ["Azure", "AWS", "Azure AI Foundry", "Terraform", "Azure AKS", "Blob Storage", "Azure AI Search", "Azure Container Instances"] },
+  { category: "cloud",      items: ["Azure", "AWS", "Terraform", "Azure AKS", "Azure AI Foundry", "Blob Storage", "Azure AI Search", "Azure Container Instances"] },
   { category: "containers", items: ["Docker", "Kubernetes", "Docker Compose", "Helm"] },
-  { category: "cicd", items: ["GitHub Actions", "Git", "CI/CD Pipelines"] },
+  { category: "cicd",       items: ["GitHub Actions", "Git", "CI/CD Pipelines"] },
   { category: "monitoring", items: ["Prometheus", "Grafana", "Alerting"] },
-  { category: "development", items: ["Python", "Node.js", "FastAPI", "Next.js", "Bash"] },
-  { category: "databases", items: ["MongoDB", "Redis", "PostgreSQL"] }
+  { category: "development",items: ["Python", "Node.js", "FastAPI", "Next.js", "Swift", "Bash"] },
+  { category: "databases",  items: ["MongoDB", "Redis", "PostgreSQL"] }
 ];
 
-function useScrollSpy(sectionIds) {
-  const [active, setActive] = useState(sectionIds[0]);
+// ─── Hooks ─────────────────────────────────────────────────────────────────
+
+function useScrollSpy(ids) {
+  const [active, setActive] = useState(ids[0]);
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) setActive(entry.target.id);
-        });
-      },
+    const obs = new IntersectionObserver(
+      (entries) => entries.forEach(e => { if (e.isIntersecting) setActive(e.target.id); }),
       { rootMargin: "-40% 0px -55% 0px" }
     );
-    sectionIds.forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    });
-    return () => observer.disconnect();
+    ids.forEach(id => { const el = document.getElementById(id); if (el) obs.observe(el); });
+    return () => obs.disconnect();
   }, []);
   return active;
 }
 
-function FadeIn({ children, delay = 0, className = "" }) {
+function useReveal(threshold = 0.12) {
   const ref = useRef(null);
   const [visible, setVisible] = useState(false);
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
-      { threshold: 0.15 }
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) { setVisible(true); obs.disconnect(); } },
+      { threshold }
     );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
+    if (ref.current) obs.observe(ref.current);
+    return () => obs.disconnect();
   }, []);
+  return [ref, visible];
+}
+
+function Reveal({ children, delay = 0, style = {} }) {
+  const [ref, visible] = useReveal();
   return (
-    <div
-      ref={ref}
-      className={className}
-      style={{
-        opacity: visible ? 1 : 0,
-        transform: visible ? "translateY(0)" : "translateY(32px)",
-        transition: `opacity 0.7s ease ${delay}s, transform 0.7s ease ${delay}s`,
-      }}
-    >
+    <div ref={ref} style={{
+      opacity: visible ? 1 : 0,
+      transform: visible ? "translateY(0)" : "translateY(36px)",
+      transition: `opacity 0.7s cubic-bezier(.22,1,.36,1) ${delay}s, transform 0.7s cubic-bezier(.22,1,.36,1) ${delay}s`,
+      ...style
+    }}>
       {children}
     </div>
   );
 }
 
+// ─── Component ─────────────────────────────────────────────────────────────
+
 export default function Portfolio() {
   const [lang, setLang] = useState("en");
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [heroVisible, setHeroVisible] = useState(false);
   const t = translations[lang];
   const sections = ["home", "about", "journey", "skills", "certifications", "projects", "contact"];
   const active = useScrollSpy(sections);
 
   useEffect(() => {
+    const timer = setTimeout(() => setHeroVisible(true), 80);
     const onScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => { clearTimeout(timer); window.removeEventListener("scroll", onScroll); };
   }, []);
 
-  const scrollTo = (id) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-    setMenuOpen(false);
+  const scrollTo = (id) => { document.getElementById(id)?.scrollIntoView({ behavior: "smooth" }); setMenuOpen(false); };
+
+  const C = {
+    dark:    "#080812",
+    dark2:   "#111122",
+    dark3:   "#181830",
+    blue:    "#2563eb",
+    blueL:   "#60a5fa",
+    violet:  "#7c3aed",
+    text:    "#f0f0ff",
+    muted:   "#8888aa",
+    border:  "rgba(255,255,255,0.07)",
   };
 
+  const fadeIn = (delay = 0) => ({
+    opacity: heroVisible ? 1 : 0,
+    transform: heroVisible ? "translateY(0)" : "translateY(28px)",
+    transition: `opacity 0.7s cubic-bezier(.22,1,.36,1) ${delay}s, transform 0.7s cubic-bezier(.22,1,.36,1) ${delay}s`,
+  });
+
   return (
-    <div style={{ fontFamily: "'DM Sans', 'Outfit', sans-serif", background: "#FAFBFC", color: "#1a1a2e", minHeight: "100vh" }}>
-      <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <div style={{ fontFamily: "'DM Sans', 'Outfit', sans-serif", background: C.dark, color: C.text, minHeight: "100vh", overflowX: "hidden" }}>
+      <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet" />
       <style>{`
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
-        body { overflow-x: hidden; }
-        ::selection { background: #2563eb22; color: #1a1a2e; }
+        ::selection { background: #2563eb33; }
 
-        .nav-fixed {
-          position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-          transition: background 0.3s, box-shadow 0.3s, backdrop-filter 0.3s;
-        }
-        .nav-scrolled {
-          background: rgba(250,251,252,0.92);
-          backdrop-filter: blur(16px);
-          box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-        }
-
-        .nav-link {
-          position: relative; font-size: 14px; font-weight: 500; color: #64748b;
-          cursor: pointer; padding: 6px 0; transition: color 0.25s; background: none; border: none;
-          font-family: inherit; letter-spacing: 0.01em;
-        }
-        .nav-link:hover, .nav-link.active { color: #1a1a2e; }
-        .nav-link.active::after {
-          content: ''; position: absolute; bottom: 0; left: 0; right: 0;
-          height: 2px; background: #2563eb; border-radius: 1px;
+        /* ── Aurora ── */
+        .aurora { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+        .aurora-blob { position: absolute; border-radius: 50%; filter: blur(130px); opacity: 0.14; animation: drift linear infinite; }
+        .aurora-blob:nth-child(1) { width: 700px; height: 700px; background: #2563eb; top: -200px; left: -150px; animation-duration: 30s; }
+        .aurora-blob:nth-child(2) { width: 500px; height: 500px; background: #7c3aed; top: 5%; right: -100px; animation-duration: 24s; animation-delay: -10s; }
+        .aurora-blob:nth-child(3) { width: 400px; height: 400px; background: #0ea5e9; bottom: 15%; left: 25%; animation-duration: 36s; animation-delay: -18s; }
+        @keyframes drift {
+          0%   { transform: translate(0,0) scale(1); }
+          33%  { transform: translate(40px,-30px) scale(1.05); }
+          66%  { transform: translate(-20px,50px) scale(0.95); }
+          100% { transform: translate(0,0) scale(1); }
         }
 
-        .lang-toggle {
-          display: flex; border-radius: 8px; overflow: hidden; border: 1.5px solid #e2e8f0;
-          font-size: 13px; font-weight: 600; cursor: pointer;
-        }
-        .lang-btn {
-          padding: 5px 12px; border: none; cursor: pointer; transition: all 0.25s;
-          font-family: inherit; font-weight: 600; font-size: 13px;
-          background: transparent; color: #94a3b8;
-        }
-        .lang-btn.active { background: #1a1a2e; color: #fff; }
+        /* ── Nav ── */
+        .nav-wrap { position: fixed; top: 0; left: 0; right: 0; z-index: 100; transition: background 0.3s, backdrop-filter 0.3s, box-shadow 0.3s; }
+        .nav-scrolled { background: rgba(8,8,18,0.8); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); box-shadow: 0 1px 0 rgba(255,255,255,0.06); }
+        .nav-link { position: relative; font-size: 14px; font-weight: 500; color: ${C.muted}; cursor: pointer; padding: 6px 0; background: none; border: none; font-family: inherit; transition: color 0.2s; letter-spacing: 0.01em; }
+        .nav-link:hover, .nav-link.active { color: ${C.text}; }
+        .nav-link.active::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: ${C.blueL}; border-radius: 1px; }
+        .lang-toggle { display: flex; border-radius: 8px; overflow: hidden; border: 1px solid rgba(255,255,255,0.12); }
+        .lang-btn { padding: 5px 12px; border: none; cursor: pointer; font-family: inherit; font-weight: 600; font-size: 13px; background: transparent; color: ${C.muted}; transition: all 0.2s; }
+        .lang-btn.active { background: ${C.blue}; color: #fff; }
 
-        .section-label {
-          display: inline-block; font-size: 13px; font-weight: 600; letter-spacing: 0.08em;
-          text-transform: uppercase; color: #2563eb; margin-bottom: 12px;
-          padding: 4px 12px; background: #2563eb0a; border-radius: 6px;
-        }
-        .section-title {
-          font-family: 'Outfit', sans-serif; font-weight: 700; font-size: clamp(28px, 4vw, 40px);
-          color: #1a1a2e; line-height: 1.2; margin-bottom: 20px;
-        }
+        /* ── Buttons ── */
+        .btn-primary { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; border-radius: 12px; background: ${C.blue}; color: #fff; font-weight: 700; font-size: 15px; border: none; cursor: pointer; transition: all 0.25s; font-family: inherit; text-decoration: none; box-shadow: 0 0 28px rgba(37,99,235,0.3); }
+        .btn-primary:hover { opacity: 0.88; transform: translateY(-2px); box-shadow: 0 8px 36px rgba(37,99,235,0.45); }
+        .btn-outline { display: inline-flex; align-items: center; gap: 8px; padding: 13px 26px; border-radius: 12px; background: rgba(255,255,255,0.06); color: ${C.muted}; font-weight: 600; font-size: 15px; border: 1px solid ${C.border}; cursor: pointer; transition: all 0.25s; font-family: inherit; text-decoration: none; }
+        .btn-outline:hover { background: rgba(255,255,255,0.1); color: ${C.text}; }
 
-        .card {
-          background: #fff; border-radius: 16px; border: 1px solid #f0f0f5;
-          transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .card:hover {
-          transform: translateY(-4px);
-          box-shadow: 0 20px 40px rgba(0,0,0,0.06);
-        }
+        /* ── Section labels ── */
+        .section-label { display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: ${C.blueL}; margin-bottom: 12px; }
+        .section-title { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: clamp(28px, 4vw, 42px); line-height: 1.15; letter-spacing: -0.025em; margin-bottom: 20px; }
+        .gradient-text { background: linear-gradient(135deg, ${C.blueL} 0%, #a78bfa 60%, #f472b6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 
-        .skill-chip {
-          display: inline-block; padding: 6px 14px; border-radius: 8px;
-          font-size: 13px; font-weight: 500; background: #f8fafc;
-          border: 1px solid #e2e8f0; color: #475569;
-          transition: all 0.2s;
-        }
-        .skill-chip:hover { background: #2563eb; color: #fff; border-color: #2563eb; }
+        /* ── Cards ── */
+        .dark-card { background: ${C.dark2}; border: 1px solid ${C.border}; border-radius: 20px; transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s; }
+        .dark-card:hover { border-color: rgba(96,165,250,0.22); transform: translateY(-4px); box-shadow: 0 20px 48px rgba(0,0,0,0.35); }
 
-        .tag {
-          display: inline-block; padding: 3px 10px; border-radius: 6px;
-          font-size: 12px; font-weight: 500; background: #f1f5f9; color: #64748b;
-        }
+        /* ── Skill chips ── */
+        .skill-chip { display: inline-block; padding: 7px 15px; border-radius: 9px; font-size: 13px; font-weight: 500; background: rgba(255,255,255,0.05); border: 1px solid ${C.border}; color: ${C.muted}; transition: all 0.2s; cursor: default; }
+        .skill-chip:hover { background: rgba(37,99,235,0.18); border-color: rgba(96,165,250,0.35); color: ${C.blueL}; transform: translateY(-2px); }
 
-        .stat-card {
-          text-align: center; padding: 24px 16px;
-        }
-        .stat-value {
-          font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 32px;
-          color: #2563eb; line-height: 1;
-        }
-        .stat-label {
-          font-size: 13px; color: #94a3b8; margin-top: 6px; font-weight: 500;
-        }
+        /* ── Tags ── */
+        .tag { display: inline-block; padding: 3px 10px; border-radius: 6px; font-size: 12px; font-weight: 500; background: rgba(255,255,255,0.06); color: ${C.muted}; border: 1px solid ${C.border}; }
 
-        .timeline-line {
-          position: absolute; left: 23px; top: 48px; bottom: 0;
-          width: 2px; background: linear-gradient(to bottom, #2563eb, #10b981, #e2e8f0);
-        }
+        /* ── Project cards ── */
+        .project-card { background: ${C.dark2}; border: 1px solid ${C.border}; border-radius: 20px; padding: 32px; display: flex; flex-direction: column; height: 100%; position: relative; overflow: hidden; transition: all 0.3s cubic-bezier(.22,1,.36,1); }
+        .project-card::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at var(--mx,50%) var(--my,50%), rgba(96,165,250,0.07) 0%, transparent 60%); opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+        .project-card:hover { border-color: rgba(96,165,250,0.28); transform: translateY(-5px); box-shadow: 0 24px 56px rgba(0,0,0,0.4); }
+        .project-card:hover::before { opacity: 1; }
+        .project-card.featured { border-color: rgba(37,99,235,0.25); background: linear-gradient(140deg, rgba(37,99,235,0.07), ${C.dark2}); }
+        .project-card.featured:hover { border-color: rgba(96,165,250,0.4); box-shadow: 0 24px 56px rgba(37,99,235,0.15); }
+        .project-github { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 600; color: ${C.blueL}; text-decoration: none; margin-top: auto; padding-top: 20px; transition: gap 0.2s; }
+        .project-github:hover { gap: 10px; }
 
-        .btn-primary {
-          display: inline-flex; align-items: center; gap: 8px;
-          padding: 14px 28px; border-radius: 12px;
-          background: #1a1a2e; color: #fff; font-weight: 600; font-size: 15px;
-          border: none; cursor: pointer; transition: all 0.25s;
-          font-family: inherit; text-decoration: none;
-        }
-        .btn-primary:hover { background: #2563eb; transform: translateY(-2px); }
+        /* ── Timeline ── */
+        .timeline-dot { width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; border: 2px solid ${C.border}; background: ${C.dark2}; position: relative; z-index: 2; }
+        .timeline-dot.last { background: linear-gradient(135deg, ${C.blue}, ${C.violet}); border-color: transparent; }
 
-        .btn-outline {
-          display: inline-flex; align-items: center; gap: 8px;
-          padding: 14px 28px; border-radius: 12px;
-          background: transparent; color: #1a1a2e; font-weight: 600; font-size: 15px;
-          border: 1.5px solid #e2e8f0; cursor: pointer; transition: all 0.25s;
-          font-family: inherit; text-decoration: none;
-        }
-        .btn-outline:hover { border-color: #2563eb; color: #2563eb; }
+        /* ── Stat cards ── */
+        .stat-card { text-align: center; padding: 28px 16px; background: ${C.dark2}; border: 1px solid ${C.border}; border-radius: 16px; }
+        .stat-value { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 34px; background: linear-gradient(135deg, ${C.blueL}, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .stat-label { font-size: 13px; color: ${C.muted}; margin-top: 6px; font-weight: 500; }
 
+        /* ── Hackshow badge ── */
+        @keyframes shimmer { 0%,100% { opacity: 1; } 50% { opacity: 0.7; } }
+        .hackshow-badge { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; background: rgba(251,191,36,0.1); border: 1px solid rgba(251,191,36,0.3); border-radius: 100px; font-size: 13px; font-weight: 600; color: #fbbf24; animation: shimmer 2.5s ease-in-out infinite; }
+
+        /* ── Hamburger ── */
         .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 8px; }
-        .hamburger span {
-          display: block; width: 24px; height: 2px; background: #1a1a2e;
-          margin: 6px 0; transition: all 0.3s; border-radius: 1px;
-        }
+        .hamburger span { display: block; width: 24px; height: 2px; background: ${C.text}; margin: 5px 0; transition: all 0.3s; border-radius: 1px; }
 
+        /* ── Hackshow photo ── */
+        .hackshow-frame { position: relative; border-radius: 16px; overflow: hidden; border: 1px solid rgba(251,191,36,0.2); box-shadow: 0 0 60px rgba(251,191,36,0.08), 0 32px 64px rgba(0,0,0,0.5); }
+        .hackshow-frame img { width: 100%; display: block; }
+        .hackshow-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(8,8,18,0.7) 0%, transparent 50%); }
+        .hackshow-caption { position: absolute; bottom: 16px; left: 16px; right: 16px; }
+
+        /* ── Responsive ── */
         @media (max-width: 768px) {
           .desktop-nav { display: none !important; }
           .hamburger { display: block; }
-          .mobile-menu {
-            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(250,251,252,0.98); backdrop-filter: blur(20px);
-            z-index: 200; display: flex; flex-direction: column;
-            align-items: center; justify-content: center; gap: 32px;
-          }
-          .mobile-menu button {
-            font-size: 20px; font-weight: 600; color: #1a1a2e;
-            background: none; border: none; cursor: pointer; font-family: 'Outfit', sans-serif;
-          }
-          .mobile-close {
-            position: absolute; top: 24px; right: 24px;
-            font-size: 28px; background: none; border: none; cursor: pointer; color: #1a1a2e;
-          }
+          .hero-grid { grid-template-columns: 1fr !important; }
+          .hero-photo { display: none; }
+          .mobile-menu { position: fixed; inset: 0; background: rgba(8,8,18,0.97); backdrop-filter: blur(20px); z-index: 200; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 28px; }
+          .mobile-menu button { font-size: 20px; font-weight: 600; color: ${C.text}; background: none; border: none; cursor: pointer; font-family: 'Outfit', sans-serif; }
+          .mobile-close { position: absolute; top: 24px; right: 24px; font-size: 28px; background: none; border: none; cursor: pointer; color: ${C.muted}; }
         }
+        @media (min-width: 769px) { .mobile-menu { display: none !important; } }
 
-        @media (min-width: 769px) {
-          .mobile-menu { display: none !important; }
-        }
-
-        @keyframes float {
-          0%, 100% { transform: translateY(0px); box-shadow: 0 8px 32px rgba(37, 99, 235, 0.15); }
-          50% { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(37, 99, 235, 0.25); }
-        }
-        .profile-photo {
-          animation: float 4s ease-in-out infinite;
-        }
+        /* ── iOS screenshots ── */
+        .ios-scroll { display: flex; gap: 20px; padding: 8px 0 24px; overflow-x: auto; scrollbar-width: none; cursor: grab; }
+        .ios-scroll:active { cursor: grabbing; }
+        .ios-scroll::-webkit-scrollbar { display: none; }
+        .ios-scroll img { height: 460px; width: auto; border-radius: 32px; border: 1px solid ${C.border}; flex-shrink: 0; box-shadow: 0 24px 56px rgba(0,0,0,0.45); transition: transform 0.3s; }
+        .ios-scroll img:hover { transform: translateY(-8px) scale(1.02); }
       `}</style>
 
-      {/* NAV */}
-      <nav className={`nav-fixed ${scrolled ? "nav-scrolled" : ""}`}>
-        <div style={{ maxWidth: 1120, margin: "0 auto", padding: "16px 24px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <div style={{ fontFamily: "'Outfit', sans-serif", fontWeight: 700, fontSize: 20, color: "#1a1a2e", cursor: "pointer", letterSpacing: "-0.02em" }} onClick={() => scrollTo("home")}>
-            <span style={{ color: "#2563eb" }}>F</span>P
-          </div>
+      {/* ── AURORA ── */}
+      <div className="aurora" aria-hidden="true">
+        <div className="aurora-blob" /><div className="aurora-blob" /><div className="aurora-blob" />
+      </div>
 
-          <div className="desktop-nav" style={{ display: "flex", alignItems: "center", gap: 28 }}>
-            {sections.map((s) => (
-              <button key={s} className={`nav-link ${active === s ? "active" : ""}`} onClick={() => scrollTo(s)}>
-                {t.nav[s] || s.charAt(0).toUpperCase() + s.slice(1)}
-              </button>
-            ))}
-            <div className="lang-toggle">
+      <div style={{ position: "relative", zIndex: 1 }}>
+
+        {/* ── NAV ── */}
+        <nav className={`nav-wrap ${scrolled ? "nav-scrolled" : ""}`}>
+          <div style={{ maxWidth: 1120, margin: "0 auto", padding: "18px 24px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+            <div style={{ fontFamily: "'Outfit', sans-serif", fontWeight: 800, fontSize: 20, cursor: "pointer", letterSpacing: "-0.03em" }} onClick={() => scrollTo("home")}>
+              <span style={{ color: C.blueL }}>F</span><span style={{ color: C.text }}>P</span>
+            </div>
+            <div className="desktop-nav" style={{ display: "flex", alignItems: "center", gap: 28 }}>
+              {sections.map(s => (
+                <button key={s} className={`nav-link ${active === s ? "active" : ""}`} onClick={() => scrollTo(s)}>
+                  {t.nav[s] || s}
+                </button>
+              ))}
+              <div className="lang-toggle">
+                <button className={`lang-btn ${lang === "en" ? "active" : ""}`} onClick={() => setLang("en")}>EN</button>
+                <button className={`lang-btn ${lang === "de" ? "active" : ""}`} onClick={() => setLang("de")}>DE</button>
+              </div>
+            </div>
+            <button className="hamburger" onClick={() => setMenuOpen(true)}>
+              <span /><span /><span />
+            </button>
+          </div>
+        </nav>
+
+        {/* ── MOBILE MENU ── */}
+        {menuOpen && (
+          <div className="mobile-menu">
+            <button className="mobile-close" onClick={() => setMenuOpen(false)}>×</button>
+            {sections.map(s => <button key={s} onClick={() => scrollTo(s)}>{t.nav[s] || s}</button>)}
+            <div className="lang-toggle" style={{ marginTop: 12 }}>
               <button className={`lang-btn ${lang === "en" ? "active" : ""}`} onClick={() => setLang("en")}>EN</button>
               <button className={`lang-btn ${lang === "de" ? "active" : ""}`} onClick={() => setLang("de")}>DE</button>
             </div>
           </div>
+        )}
 
-          <button className="hamburger" onClick={() => setMenuOpen(true)}>
-            <span /><span /><span />
-          </button>
-        </div>
-      </nav>
+        {/* ── HERO ── */}
+        <section id="home" style={{ minHeight: "100vh", display: "flex", alignItems: "center", padding: "120px 24px 80px" }}>
+          <div style={{ maxWidth: 1120, margin: "0 auto", width: "100%" }}>
+            <div className="hero-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 64, alignItems: "center" }}>
 
-      {/* MOBILE MENU */}
-      {menuOpen && (
-        <div className="mobile-menu">
-          <button className="mobile-close" onClick={() => setMenuOpen(false)}>×</button>
-          {sections.map((s) => (
-            <button key={s} onClick={() => scrollTo(s)}>
-              {t.nav[s] || s.charAt(0).toUpperCase() + s.slice(1)}
-            </button>
-          ))}
-          <div className="lang-toggle" style={{ marginTop: 16 }}>
-            <button className={`lang-btn ${lang === "en" ? "active" : ""}`} onClick={() => setLang("en")}>EN</button>
-            <button className={`lang-btn ${lang === "de" ? "active" : ""}`} onClick={() => setLang("de")}>DE</button>
-          </div>
-        </div>
-      )}
-
-      {/* HERO */}
-      <section id="home" style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", padding: "120px 24px 80px", position: "relative", overflow: "hidden" }}>
-        <div style={{ position: "absolute", top: -200, right: -200, width: 600, height: 600, borderRadius: "50%", background: "radial-gradient(circle, #2563eb08 0%, transparent 70%)" }} />
-        <div style={{ position: "absolute", bottom: -100, left: -100, width: 400, height: 400, borderRadius: "50%", background: "radial-gradient(circle, #2563eb05 0%, transparent 70%)" }} />
-        <div style={{ maxWidth: 720, textAlign: "center", position: "relative" }}>
-          <FadeIn>
-            <div style={{ marginBottom: 32 }}>
-              <img
-                src="/profile.jpeg"
-                alt="Fotios Pongas"
-                className="profile-photo"
-                style={{
-                  width: 160,
-                  height: 160,
-                  borderRadius: "50%",
-                  objectFit: "cover",
-                  border: "4px solid #fff",
-                }}
-              />
-            </div>
-          </FadeIn>
-          <FadeIn>
-            <p style={{ fontSize: 16, fontWeight: 500, color: "#64748b", marginBottom: 12, letterSpacing: "0.02em" }}>{t.hero.greeting}</p>
-          </FadeIn>
-          <FadeIn delay={0.1}>
-            <h1 style={{ fontFamily: "'Outfit', sans-serif", fontWeight: 800, fontSize: "clamp(40px, 7vw, 72px)", color: "#1a1a2e", lineHeight: 1.05, letterSpacing: "-0.03em", marginBottom: 16 }}>
-              {t.hero.name}
-            </h1>
-          </FadeIn>
-          <FadeIn delay={0.2}>
-            <div style={{ display: "inline-block", padding: "6px 20px", borderRadius: 100, background: "#2563eb0d", marginBottom: 24 }}>
-              <span style={{ fontSize: 15, fontWeight: 600, color: "#2563eb", letterSpacing: "0.04em" }}>{t.hero.title}</span>
-            </div>
-          </FadeIn>
-          <FadeIn delay={0.3}>
-            <p style={{ fontSize: 18, lineHeight: 1.7, color: "#64748b", maxWidth: 560, margin: "0 auto 40px", fontWeight: 400 }}>
-              {t.hero.subtitle}
-            </p>
-          </FadeIn>
-          <FadeIn delay={0.4}>
-            <div style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap" }}>
-              <button className="btn-primary" onClick={() => scrollTo("projects")}>
-                {t.hero.cta} <span style={{ fontSize: 18 }}>↓</span>
-              </button>
-              <button className="btn-outline" onClick={() => scrollTo("contact")}>
-                {t.hero.contact}
-              </button>
-            </div>
-          </FadeIn>
-        </div>
-      </section>
-
-      {/* ABOUT */}
-      <section id="about" style={{ padding: "100px 24px", background: "linear-gradient(180deg, #f0f7ff 0%, #FAFBFC 100%)" }}>
-        <div style={{ maxWidth: 1120, margin: "0 auto" }}>
-        <FadeIn>
-          <span className="section-label">{t.about.label}</span>
-          <h2 className="section-title">{t.about.title}</h2>
-        </FadeIn>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 40, marginTop: 32 }}>
-          <FadeIn delay={0.1}>
-            <div>
-              <p style={{ fontSize: 16, lineHeight: 1.8, color: "#475569", marginBottom: 20 }}>{t.about.p1}</p>
-              <p style={{ fontSize: 16, lineHeight: 1.8, color: "#475569", marginBottom: 20 }}>{t.about.p2}</p>
-              <p style={{ fontSize: 16, lineHeight: 1.8, color: "#475569" }}>{t.about.p3}</p>
-            </div>
-          </FadeIn>
-          <FadeIn delay={0.2}>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
-              {Object.values(t.about.stats).map((stat, i) => (
-                <div key={i} className="card stat-card">
-                  <div className="stat-value">{stat.value}</div>
-                  <div className="stat-label">{stat.label}</div>
+              {/* Left */}
+              <div>
+                <div style={{ ...fadeIn(0), marginBottom: 24 }}>
+                  <span className="hackshow-badge">{t.hero.hackshow}</span>
                 </div>
-              ))}
-            </div>
-          </FadeIn>
-        </div>
-        </div>
-      </section>
-
-      {/* JOURNEY TIMELINE */}
-      <section id="journey" style={{ padding: "100px 24px", background: "#fff" }}>
-        <div style={{ maxWidth: 720, margin: "0 auto" }}>
-          <FadeIn>
-            <span className="section-label">{t.journey.label}</span>
-            <h2 className="section-title">{t.journey.title}</h2>
-          </FadeIn>
-          <div style={{ position: "relative", marginTop: 40 }}>
-            <div className="timeline-line" />
-            {t.journey.steps.map((step, i) => {
-              const bubbleIcons = ["🏪", "🏨", "💻", "🚀"];
-              return (
-              <FadeIn key={i} delay={i * 0.12}>
-                <div style={{ display: "flex", gap: 24, marginBottom: 40, position: "relative" }}>
-                  <div style={{ minWidth: 48, height: 48, borderRadius: "50%", background: i === t.journey.steps.length - 1 ? "linear-gradient(135deg, #2563eb, #10b981)" : "#f1f5f9", border: "3px solid #fff", boxShadow: "0 0 0 2px #e2e8f0", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 20, zIndex: 2 }}>
-                    {bubbleIcons[i]}
-                  </div>
-                  <div style={{ paddingTop: 4 }}>
-                    <div style={{ fontSize: 12, fontWeight: 600, color: "#94a3b8", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 4 }}>{step.year}</div>
-                    <div style={{ fontSize: 18, fontWeight: 700, color: "#1a1a2e", fontFamily: "'Outfit', sans-serif", marginBottom: 6 }}>{step.title}</div>
-                    <p style={{ fontSize: 15, lineHeight: 1.7, color: "#64748b" }}>{step.desc}</p>
+                <div style={fadeIn(0.08)}>
+                  <p style={{ fontSize: 16, color: C.muted, fontWeight: 500, marginBottom: 10 }}>{t.hero.greeting}</p>
+                </div>
+                <div style={fadeIn(0.15)}>
+                  <h1 style={{ fontFamily: "'Outfit', sans-serif", fontWeight: 800, fontSize: "clamp(40px, 5.5vw, 68px)", lineHeight: 1.08, letterSpacing: "-0.03em", marginBottom: 16 }}>
+                    <span className="gradient-text">{t.hero.name}</span>
+                  </h1>
+                </div>
+                <div style={fadeIn(0.22)}>
+                  <div style={{ display: "inline-block", padding: "6px 18px", borderRadius: 100, background: "rgba(37,99,235,0.12)", border: "1px solid rgba(96,165,250,0.2)", marginBottom: 24 }}>
+                    <span style={{ fontSize: 15, fontWeight: 600, color: C.blueL, letterSpacing: "0.03em" }}>{t.hero.title}</span>
                   </div>
                 </div>
-              </FadeIn>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* SKILLS */}
-      <section id="skills" style={{ padding: "100px 24px", background: "linear-gradient(180deg, #FAFBFC 0%, #f0fdf4 50%, #FAFBFC 100%)" }}>
-        <div style={{ maxWidth: 1120, margin: "0 auto" }}>
-        <FadeIn>
-          <span className="section-label">{t.skills.label}</span>
-          <h2 className="section-title">{t.skills.title}</h2>
-        </FadeIn>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 24, marginTop: 40 }}>
-          {skillsData.map((group, i) => (
-            <FadeIn key={i} delay={i * 0.08}>
-              <div className="card" style={{ padding: 28 }}>
-                <h3 style={{ fontSize: 15, fontWeight: 600, color: "#1a1a2e", marginBottom: 16, fontFamily: "'Outfit', sans-serif" }}>
-                  {t.skills.categories[group.category]}
-                </h3>
-                <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-                  {group.items.map((item, j) => (
-                    <span key={j} className="skill-chip">{item}</span>
-                  ))}
+                <div style={fadeIn(0.28)}>
+                  <p style={{ fontSize: 18, lineHeight: 1.7, color: C.muted, maxWidth: 480, marginBottom: 40, fontWeight: 400 }}>
+                    {t.hero.subtitle}
+                  </p>
+                </div>
+                <div style={{ ...fadeIn(0.34), display: "flex", gap: 14, flexWrap: "wrap" }}>
+                  <button className="btn-primary" onClick={() => scrollTo("projects")}>{t.hero.cta} ↓</button>
+                  <button className="btn-outline" onClick={() => scrollTo("contact")}>{t.hero.contact}</button>
                 </div>
               </div>
-            </FadeIn>
-          ))}
-        </div>
-        </div>
-      </section>
 
-      {/* CERTIFICATIONS */}
-      <section id="certifications" style={{ padding: "100px 24px", background: "#fff" }}>
-        <div style={{ maxWidth: 1120, margin: "0 auto" }}>
-          <FadeIn>
-            <span className="section-label">{t.certifications.label}</span>
-            <h2 className="section-title">{t.certifications.title}</h2>
-          </FadeIn>
+              {/* Right — Hackshow photo */}
+              <div className="hero-photo" style={fadeIn(0.2)}>
+                <div className="hackshow-frame">
+                  <img src="/IMG_2589.jpeg" alt="Ironhack Hackshow Winner" />
+                  <div className="hackshow-overlay" />
+                  <div className="hackshow-caption">
+                    <div style={{ fontSize: 13, fontWeight: 700, color: "#fbbf24", marginBottom: 4, letterSpacing: "0.05em", textTransform: "uppercase" }}>🏆 Ironhack Hackshow Winner</div>
+                    <div style={{ fontSize: 12, color: "rgba(255,255,255,0.6)" }}>{t.hero.hackshowSub}</div>
+                  </div>
+                </div>
+              </div>
 
-          {/* Ironhack program highlights */}
-          <FadeIn delay={0.1}>
-            <div style={{ margin: "40px 0 48px", padding: "36px 40px", borderRadius: 20, background: "linear-gradient(135deg, #1a3a5c 0%, #0f2340 100%)", color: "#fff", position: "relative", overflow: "hidden" }}>
-              <div style={{ position: "absolute", top: -60, right: -60, width: 200, height: 200, borderRadius: "50%", background: "rgba(255,255,255,0.04)" }} />
-              <div style={{ position: "absolute", bottom: -40, left: -40, width: 150, height: 150, borderRadius: "50%", background: "rgba(255,255,255,0.03)" }} />
-              <div style={{ position: "relative" }}>
-                <div style={{ fontSize: 13, fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: "#7dd3fc", marginBottom: 16 }}>Ironhack DevOps & Cloud Computing — Program Highlights</div>
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 24 }}>
+            </div>
+          </div>
+        </section>
+
+        {/* ── ABOUT ── */}
+        <section id="about" style={{ padding: "100px 24px" }}>
+          <div style={{ maxWidth: 1120, margin: "0 auto" }}>
+            <Reveal>
+              <span className="section-label">{t.about.label}</span>
+              <h2 className="section-title">{t.about.title}</h2>
+            </Reveal>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 48, marginTop: 32 }}>
+              <Reveal delay={0.1}>
+                <p style={{ fontSize: 16, lineHeight: 1.85, color: C.muted, marginBottom: 20 }}>{t.about.p1}</p>
+                <p style={{ fontSize: 16, lineHeight: 1.85, color: C.muted, marginBottom: 20 }}>{t.about.p2}</p>
+                <p style={{ fontSize: 16, lineHeight: 1.85, color: C.muted }}>{t.about.p3}</p>
+              </Reveal>
+              <Reveal delay={0.2}>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+                  {Object.values(t.about.stats).map((s, i) => (
+                    <div key={i} className="stat-card">
+                      <div className="stat-value">{s.value}</div>
+                      <div className="stat-label">{s.label}</div>
+                    </div>
+                  ))}
+                </div>
+              </Reveal>
+            </div>
+          </div>
+        </section>
+
+        {/* ── JOURNEY ── */}
+        <section id="journey" style={{ padding: "100px 24px", background: C.dark2 }}>
+          <div style={{ maxWidth: 720, margin: "0 auto" }}>
+            <Reveal>
+              <span className="section-label">{t.journey.label}</span>
+              <h2 className="section-title">{t.journey.title}</h2>
+            </Reveal>
+            <div style={{ position: "relative", marginTop: 48 }}>
+              <div style={{ position: "absolute", left: 23, top: 48, bottom: 0, width: 2, background: `linear-gradient(to bottom, ${C.blue}, ${C.violet}, ${C.border})` }} />
+              {t.journey.steps.map((step, i) => (
+                <Reveal key={i} delay={i * 0.1}>
+                  <div style={{ display: "flex", gap: 24, marginBottom: 40, position: "relative" }}>
+                    <div className={`timeline-dot ${i === t.journey.steps.length - 1 ? "last" : ""}`}>{step.icon}</div>
+                    <div style={{ paddingTop: 6 }}>
+                      <div style={{ fontSize: 11, fontWeight: 700, color: C.muted, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 4 }}>{step.year}</div>
+                      <div style={{ fontSize: 18, fontWeight: 700, fontFamily: "'Outfit', sans-serif", marginBottom: 6, color: C.text }}>{step.title}</div>
+                      <p style={{ fontSize: 15, lineHeight: 1.7, color: C.muted }}>{step.desc}</p>
+                    </div>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── SKILLS ── */}
+        <section id="skills" style={{ padding: "100px 24px" }}>
+          <div style={{ maxWidth: 1120, margin: "0 auto" }}>
+            <Reveal>
+              <span className="section-label">{t.skills.label}</span>
+              <h2 className="section-title">{t.skills.title}</h2>
+            </Reveal>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 20, marginTop: 40 }}>
+              {skillsData.map((group, i) => (
+                <Reveal key={i} delay={i * 0.07}>
+                  <div className="dark-card" style={{ padding: 28 }}>
+                    <h3 style={{ fontSize: 14, fontWeight: 700, color: C.blueL, marginBottom: 18, letterSpacing: "0.04em", textTransform: "uppercase" }}>
+                      {t.skills.categories[group.category]}
+                    </h3>
+                    <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+                      {group.items.map((item, j) => <span key={j} className="skill-chip">{item}</span>)}
+                    </div>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── CERTIFICATIONS ── */}
+        <section id="certifications" style={{ padding: "100px 24px", background: C.dark2 }}>
+          <div style={{ maxWidth: 1120, margin: "0 auto" }}>
+            <Reveal>
+              <span className="section-label">{t.certifications.label}</span>
+              <h2 className="section-title">{t.certifications.title}</h2>
+            </Reveal>
+
+            <Reveal delay={0.1}>
+              <div style={{ margin: "40px 0 48px", padding: "36px 40px", borderRadius: 20, background: "linear-gradient(135deg, rgba(37,99,235,0.12), rgba(124,58,237,0.07))", border: "1px solid rgba(96,165,250,0.18)", position: "relative", overflow: "hidden" }}>
+                <div style={{ position: "absolute", top: -60, right: -60, width: 200, height: 200, borderRadius: "50%", background: "radial-gradient(circle, rgba(96,165,250,0.1), transparent)" }} />
+                <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: C.blueL, marginBottom: 20 }}>Ironhack DevOps & Cloud Computing — Program Highlights</div>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 24 }}>
                   {[
-                    { icon: "⏱️", title: "400+ Hours", desc: "Pre-work, practical labs, hands-on projects, and career development across the full program." },
-                    { icon: "🛠️", title: "Industry Tools", desc: "Git, GitHub, Terraform, Ansible, Docker, Kubernetes, and leading cloud platforms including AWS and Azure." },
-                    { icon: "📊", title: "Observability", desc: "Real-world projects applying monitoring and deployment best practices with Prometheus and Grafana." },
-                    { icon: "☁️", title: "Cloud-Native", desc: "Built, automated, and managed scalable cloud-native systems in a professional environment." },
+                    { icon: "⏱️", title: "400+ Hours", desc: "Pre-work, labs, hands-on projects and career development." },
+                    { icon: "🛠️", title: "Industry Tools", desc: "Git, Terraform, Ansible, Docker, Kubernetes, AWS, Azure." },
+                    { icon: "📊", title: "Observability", desc: "Real-world monitoring with Prometheus and Grafana." },
+                    { icon: "🏆", title: "Hackshow Winner", desc: "Hotel Knowledge Assistant — top project of the cohort." },
                   ].map((h, i) => (
                     <div key={i} style={{ display: "flex", gap: 14, alignItems: "flex-start" }}>
-                      <div style={{ fontSize: 22, lineHeight: 1, marginTop: 2, flexShrink: 0 }}>{h.icon}</div>
+                      <div style={{ fontSize: 22, flexShrink: 0, marginTop: 2 }}>{h.icon}</div>
                       <div>
-                        <div style={{ fontSize: 15, fontWeight: 700, color: "#fff", fontFamily: "'Outfit', sans-serif", marginBottom: 4 }}>{h.title}</div>
-                        <div style={{ fontSize: 14, color: "#94a3b8", lineHeight: 1.6 }}>{h.desc}</div>
+                        <div style={{ fontSize: 15, fontWeight: 700, color: C.text, fontFamily: "'Outfit', sans-serif", marginBottom: 4 }}>{h.title}</div>
+                        <div style={{ fontSize: 14, color: C.muted, lineHeight: 1.6 }}>{h.desc}</div>
                       </div>
                     </div>
                   ))}
                 </div>
               </div>
-            </div>
-          </FadeIn>
+            </Reveal>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))", gap: 32 }}>
-            {t.certifications.items.map((cert, i) => (
-              <FadeIn key={i} delay={i * 0.15}>
-                <div className="card" style={{ overflow: "hidden" }}>
-                  <div style={{ height: 5, background: cert.color, borderRadius: "16px 16px 0 0" }} />
-                  <div style={{ padding: 28 }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
-                      <div style={{ width: 10, height: 10, borderRadius: "50%", background: cert.color, flexShrink: 0 }} />
-                      <div>
-                        <div style={{ fontSize: 18, fontWeight: 700, color: "#1a1a2e", fontFamily: "'Outfit', sans-serif", lineHeight: 1.2 }}>{cert.title}</div>
-                        <div style={{ fontSize: 13, color: "#64748b", marginTop: 3 }}>{cert.issuer} · {cert.date}</div>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: 28 }}>
+              {t.certifications.items.map((cert, i) => (
+                <Reveal key={i} delay={i * 0.12}>
+                  <div className="dark-card" style={{ overflow: "hidden" }}>
+                    <div style={{ height: 4, background: cert.color, borderRadius: "20px 20px 0 0" }} />
+                    <div style={{ padding: 28 }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
+                        <div style={{ width: 10, height: 10, borderRadius: "50%", background: cert.color, flexShrink: 0 }} />
+                        <div>
+                          <div style={{ fontSize: 17, fontWeight: 700, color: C.text, fontFamily: "'Outfit', sans-serif" }}>{cert.title}</div>
+                          <div style={{ fontSize: 13, color: C.muted, marginTop: 2 }}>{cert.issuer} · {cert.date}</div>
+                        </div>
+                      </div>
+                      <div style={{ height: 240, borderRadius: 12, overflow: "hidden", background: C.dark3, border: `1px solid ${C.border}` }}>
+                        <img src={cert.image} alt={cert.title} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
                       </div>
                     </div>
-                    <div style={{ height: 260, borderRadius: 10, border: "1px solid #f0f0f5", overflow: "hidden", background: "#f8fafc" }}>
-                      <img
-                        src={cert.image}
-                        alt={cert.title}
-                        style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center", display: "block" }}
-                      />
-                    </div>
                   </div>
-                </div>
-              </FadeIn>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* PROJECTS */}
-      <section id="projects" style={{ padding: "100px 24px", background: "#fff" }}>
-        <div style={{ maxWidth: 1120, margin: "0 auto" }}>
-          <FadeIn>
-            <span className="section-label">{t.projects.label}</span>
-            <h2 className="section-title">{t.projects.title}</h2>
-          </FadeIn>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: 28, marginTop: 40 }}>
-            {t.projects.items.map((project, i) => (
-              <FadeIn key={i} delay={i * 0.12}>
-                <div className="card" style={{ padding: 32, display: "flex", flexDirection: "column", height: "100%" }}>
-                  <div style={{ fontSize: 36, marginBottom: 16 }}>{project.emoji}</div>
-                  <h3 style={{ fontSize: 20, fontWeight: 700, color: "#1a1a2e", fontFamily: "'Outfit', sans-serif", marginBottom: 12, lineHeight: 1.3 }}>
-                    {project.title}
-                  </h3>
-                  <p style={{ fontSize: 15, lineHeight: 1.7, color: "#64748b", marginBottom: 20, flex: 1 }}>
-                    {project.description}
-                  </p>
-                  <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 20 }}>
-                    {project.tags.map((tag, j) => (
-                      <span key={j} className="tag">{tag}</span>
-                    ))}
-                  </div>
-                  <a href={project.github} target="_blank" rel="noopener noreferrer" style={{ fontSize: 14, fontWeight: 600, color: "#2563eb", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 6 }}>
-                    {t.projects.viewCode} <span>→</span>
-                  </a>
-                </div>
-              </FadeIn>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* IOS APP */}
-      <section id="iosapp" style={{ padding: "100px 24px", background: "linear-gradient(180deg, #f0f4ff 0%, #fff 100%)" }}>
-        <div style={{ maxWidth: 1120, margin: "0 auto" }}>
-          <FadeIn>
-            <span className="section-label">{t.iosApp.label}</span>
-            <h2 className="section-title">{t.iosApp.title}</h2>
-          </FadeIn>
-          <FadeIn delay={0.1}>
-            <div style={{ marginTop: 24, marginBottom: 20 }}>
-              <span style={{
-                display: "inline-flex", alignItems: "center", gap: 8,
-                background: "#f0fdf4", border: "1px solid #86efac",
-                color: "#16a34a", padding: "6px 18px", borderRadius: 999,
-                fontSize: 13, fontWeight: 600
-              }}>
-                ✅ {t.iosApp.status}
-              </span>
-            </div>
-            <p style={{ fontSize: 16, color: "#475569", lineHeight: 1.85, maxWidth: 700, marginBottom: 20, fontStyle: "italic", borderLeft: "3px solid #c7d2fe", paddingLeft: 16 }}>
-              "{t.iosApp.story}"
-            </p>
-            <p style={{ fontSize: 17, color: "#64748b", lineHeight: 1.8, maxWidth: 700, marginBottom: 24 }}>
-              {t.iosApp.description}
-            </p>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 32 }}>
-              {t.iosApp.tags.map((tag, i) => (
-                <span key={i} className="tag">{tag}</span>
+                </Reveal>
               ))}
             </div>
-            <a
-              href={t.iosApp.appStoreUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                display: "inline-flex", alignItems: "center", gap: 10,
-                background: "#000", color: "#fff",
-                padding: "12px 24px", borderRadius: 12,
-                textDecoration: "none", marginBottom: 48,
-              }}
-            >
-              <svg width="22" height="22" viewBox="0 0 814 1000" fill="white" xmlns="http://www.w3.org/2000/svg">
-                <path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76 0-103.7 40.8-165.9 40.8s-105-37.5-155.5-127.4C46.7 790.7 0 663 0 541.8c0-207.5 135.4-317.3 269-317.3 71 0 130.5 46.4 174.9 46.4 42.7 0 109.2-49 192.5-49 30.8 0 133.9 2.8 198.3 99zM528.3 35.6c24.1-28.3 41.6-67.9 41.6-107.5 0-5.4-.5-10.9-1.5-15.4-39.1 1.5-85.6 26.1-113.4 58.3-21.9 25.3-42.4 64.6-42.4 104.8 0 6 1 12 1.5 14.1 2.5.5 6.5 1 10.5 1 35.2 0 79.6-23.3 103.7-55.3z"/>
-              </svg>
-              <div style={{ display: "flex", flexDirection: "column", lineHeight: 1.2 }}>
-                <span style={{ fontSize: 11, letterSpacing: "0.04em" }}>Download on the</span>
-                <span style={{ fontSize: 17, fontWeight: 600, letterSpacing: "0.02em" }}>App Store</span>
+          </div>
+        </section>
+
+        {/* ── PROJECTS ── */}
+        <section id="projects" style={{ padding: "100px 24px" }}>
+          <div style={{ maxWidth: 1120, margin: "0 auto" }}>
+            <Reveal>
+              <span className="section-label">{t.projects.label}</span>
+              <h2 className="section-title">{t.projects.title}</h2>
+            </Reveal>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: 20, marginTop: 40 }}>
+              {t.projects.items.map((project, i) => (
+                <Reveal key={i} delay={i * 0.08}>
+                  <ProjectCard project={project} viewCode={t.projects.viewCode} C={C} />
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── iOS APP ── */}
+        <section id="iosapp" style={{ padding: "100px 24px", background: C.dark2 }}>
+          <div style={{ maxWidth: 1120, margin: "0 auto" }}>
+            <Reveal>
+              <span className="section-label">{t.iosApp.label}</span>
+              <h2 className="section-title">{t.iosApp.title}</h2>
+            </Reveal>
+            <Reveal delay={0.1}>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: 48, alignItems: "center", marginTop: 32, marginBottom: 48 }}>
+                <div>
+                  <p style={{ fontSize: 16, color: C.muted, lineHeight: 1.85, fontStyle: "italic", borderLeft: `3px solid rgba(96,165,250,0.4)`, paddingLeft: 16, marginBottom: 20 }}>
+                    "{t.iosApp.story}"
+                  </p>
+                  <p style={{ fontSize: 16, color: C.muted, lineHeight: 1.8, marginBottom: 24 }}>{t.iosApp.description}</p>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 28 }}>
+                    {t.iosApp.tags.map((tag, i) => <span key={i} className="tag">{tag}</span>)}
+                  </div>
+                  <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
+                    <a href={t.iosApp.appStoreUrl} target="_blank" rel="noopener noreferrer" className="btn-primary">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                      App Store
+                    </a>
+                    <a href="/picksy" className="btn-outline">{t.iosApp.learnMore}</a>
+                  </div>
+                </div>
+                <div style={{ fontSize: 80, textAlign: "center", opacity: 0.15, fontFamily: "serif" }}>📱</div>
               </div>
-            </a>
-          </FadeIn>
-          <FadeIn delay={0.2}>
-            <div style={{ overflowX: "auto", paddingBottom: 20, cursor: "grab" }}>
-              <div style={{ display: "flex", gap: 24, width: "max-content", paddingBottom: 4 }}>
+            </Reveal>
+            <Reveal delay={0.2}>
+              <IosCarousel C={C} />
+            </Reveal>
+          </div>
+        </section>
+
+        {/* ── CONTACT ── */}
+        <section id="contact" style={{ padding: "100px 24px 80px" }}>
+          <div style={{ maxWidth: 640, margin: "0 auto", textAlign: "center" }}>
+            <Reveal>
+              <span className="section-label">{t.contact.label}</span>
+              <h2 className="section-title">{t.contact.title}</h2>
+              <p style={{ fontSize: 17, color: C.muted, lineHeight: 1.7, marginBottom: 48 }}>{t.contact.subtitle}</p>
+            </Reveal>
+            <Reveal delay={0.15}>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(130px, 1fr))", gap: 16 }}>
                 {[
-                  "/Simulator Screenshot - iPhone 15 Pro Max - 2026-03-25 at 23.38.20.png",
-                  "/Simulator Screenshot - iPhone 15 Pro Max - 2026-03-25 at 23.38.25.png",
-                  "/Simulator Screenshot - iPhone 15 Pro Max - 2026-03-25 at 23.38.28.png",
-                  "/Simulator Screenshot - iPhone 15 Pro Max - 2026-03-25 at 23.38.30.png",
-                  "/Simulator Screenshot - iPhone 15 Pro Max - 2026-03-25 at 23.38.36.png",
-                  "/Simulator Screenshot - iPhone 15 Pro Max - 2026-03-26 at 14.46.45.png",
-                  "/Simulator Screenshot - iPhone 15 Pro Max - 2026-03-25 at 23.38.41.png",
-                ].map((src, i) => (
-                  <div key={i} style={{
-                    borderRadius: 44,
-                    overflow: "hidden",
-                    boxShadow: "0 24px 64px rgba(0,0,0,0.13), 0 4px 16px rgba(0,0,0,0.08)",
-                    border: "1.5px solid #e2e8f0",
-                    width: 200,
-                    flexShrink: 0,
-                    background: "#fff",
-                  }}>
-                    <img
-                      src={src}
-                      alt={`Picksy screen ${i + 1}`}
-                      style={{ width: "100%", display: "block" }}
-                    />
+                  { label: t.contact.email,    icon: "✉️", href: "mailto:fotis.poggas@gmail.com", value: "Get in touch" },
+                  { label: t.contact.linkedin, icon: "💼", href: "https://www.linkedin.com/in/f-pongas-devops-cloud/", value: "LinkedIn" },
+                  { label: t.contact.github,   icon: "💻", href: "https://github.com/Kabamaru2372", value: "GitHub" },
+                  { label: t.contact.location, icon: "📍", href: null, value: t.contact.locationValue },
+                ].map((item, i) => (
+                  <div key={i} className="dark-card" style={{ padding: 24, textAlign: "center" }}>
+                    <div style={{ fontSize: 24, marginBottom: 8 }}>{item.icon}</div>
+                    <div style={{ fontSize: 11, fontWeight: 700, color: C.muted, marginBottom: 6, textTransform: "uppercase", letterSpacing: "0.06em" }}>{item.label}</div>
+                    {item.href
+                      ? <a href={item.href} target="_blank" rel="noopener noreferrer" style={{ fontSize: 14, fontWeight: 600, color: C.blueL, textDecoration: "none" }}>{item.value}</a>
+                      : <span style={{ fontSize: 14, fontWeight: 500, color: C.muted }}>{item.value}</span>
+                    }
                   </div>
                 ))}
               </div>
-            </div>
-          </FadeIn>
-        </div>
-      </section>
+            </Reveal>
+          </div>
+        </section>
 
-      {/* CONTACT */}
-      <section id="contact" style={{ padding: "100px 24px 80px", background: "linear-gradient(180deg, #FAFBFC 0%, #eef2ff 100%)" }}>
-        <div style={{ maxWidth: 640, margin: "0 auto", textAlign: "center" }}>
-          <FadeIn>
-            <span className="section-label">{t.contact.label}</span>
-            <h2 className="section-title">{t.contact.title}</h2>
-            <p style={{ fontSize: 17, color: "#64748b", lineHeight: 1.7, marginBottom: 48 }}>{t.contact.subtitle}</p>
-          </FadeIn>
-          <FadeIn delay={0.15}>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: 16 }}>
-              {[
-                { label: t.contact.email, value: "Get in touch", href: "mailto:fotis.poggas@gmail.com", icon: "✉️" },
-                { label: t.contact.linkedin, value: "LinkedIn", href: "https://www.linkedin.com/in/f-pongas-devops-cloud/", icon: "💼" },
-                { label: t.contact.github, value: "GitHub", href: "https://github.com/Kabamaru2372", icon: "💻" },
-                { label: t.contact.location, value: t.contact.locationValue, href: null, icon: "📍" }
-              ].map((item, i) => (
-                <div key={i} className="card" style={{ padding: 24, textAlign: "center" }}>
-                  <div style={{ fontSize: 24, marginBottom: 8 }}>{item.icon}</div>
-                  <div style={{ fontSize: 13, fontWeight: 600, color: "#94a3b8", marginBottom: 4, textTransform: "uppercase", letterSpacing: "0.05em" }}>{item.label}</div>
-                  {item.href ? (
-                    <a href={item.href} target="_blank" rel="noopener noreferrer" style={{ fontSize: 14, fontWeight: 500, color: "#2563eb", textDecoration: "none" }}>{item.value}</a>
-                  ) : (
-                    <span style={{ fontSize: 14, fontWeight: 500, color: "#475569" }}>{item.value}</span>
-                  )}
-                </div>
-              ))}
-            </div>
-          </FadeIn>
-        </div>
-      </section>
+        {/* ── FOOTER ── */}
+        <footer style={{ padding: "28px 24px", borderTop: `1px solid ${C.border}`, textAlign: "center" }}>
+          <p style={{ fontSize: 13, color: "#3d3d55" }}>
+            © 2026 Fotios Pongas — Built with passion, deployed with CI/CD.
+          </p>
+        </footer>
 
-      {/* FOOTER */}
-      <footer style={{ padding: "32px 24px", borderTop: "1px solid #f0f0f5", textAlign: "center" }}>
-        <p style={{ fontSize: 13, color: "#94a3b8" }}>
-          © 2026 Fotios Pongas — Built with passion, deployed with CI/CD.
-        </p>
-      </footer>
+      </div>{/* /page */}
+    </div>
+  );
+}
+
+// ─── Project Card ───────────────────────────────────────────────────────────
+
+function ProjectCard({ project, viewCode, C }) {
+  const ref = useRef(null);
+
+  const handleMouseMove = (e) => {
+    const rect = ref.current.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width * 100).toFixed(1) + "%";
+    const y = ((e.clientY - rect.top)  / rect.height * 100).toFixed(1) + "%";
+    ref.current.style.setProperty("--mx", x);
+    ref.current.style.setProperty("--my", y);
+  };
+
+  return (
+    <div ref={ref} className={`project-card ${project.featured ? "featured" : ""}`} onMouseMove={handleMouseMove}>
+      {project.featured && (
+        <div style={{ position: "absolute", top: 16, right: 16, padding: "3px 10px", background: "rgba(37,99,235,0.2)", border: "1px solid rgba(96,165,250,0.3)", borderRadius: 100, fontSize: 11, fontWeight: 700, color: "#60a5fa", letterSpacing: "0.06em" }}>
+          FEATURED
+        </div>
+      )}
+      <div style={{ fontSize: 36, marginBottom: 16 }}>{project.emoji}</div>
+      <h3 style={{ fontSize: 20, fontWeight: 700, fontFamily: "'Outfit', sans-serif", color: C.text, marginBottom: 4, lineHeight: 1.2 }}>
+        {project.title}
+      </h3>
+      <div style={{ fontSize: 13, color: C.blueL, fontWeight: 600, marginBottom: 16 }}>{project.subtitle}</div>
+      <p style={{ fontSize: 14, lineHeight: 1.75, color: C.muted, flex: 1, marginBottom: 20 }}>{project.description}</p>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 4 }}>
+        {project.tags.map((tag, i) => <span key={i} className="tag">{tag}</span>)}
+      </div>
+      <a href={project.github} target="_blank" rel="noopener noreferrer" className="project-github">
+        {viewCode} <span>→</span>
+      </a>
+    </div>
+  );
+}
+
+// ─── iOS Carousel ───────────────────────────────────────────────────────────
+
+function IosCarousel({ C }) {
+  const ref = useRef(null);
+  let isDown = false, startX, scrollLeft;
+
+  const screenshots = [
+    "/IMG_3004.PNG",
+    "/IMG_2967 2.PNG",
+    "/Screenshot 2026-05-17 at 01.15.02.png",
+    "/IMG_2999.PNG",
+    "/IMG_2996.PNG",
+    "/IMG_2979.PNG",
+    "/IMG_3002.PNG",
+    "/IMG_3003.PNG",
+  ];
+
+  return (
+    <div ref={ref} className="ios-scroll"
+      onMouseDown={e => { isDown = true; startX = e.pageX - ref.current.offsetLeft; scrollLeft = ref.current.scrollLeft; }}
+      onMouseLeave={() => { isDown = false; }}
+      onMouseUp={() => { isDown = false; }}
+      onMouseMove={e => { if (!isDown) return; e.preventDefault(); const x = e.pageX - ref.current.offsetLeft; ref.current.scrollLeft = scrollLeft - (x - startX) * 1.4; }}
+    >
+      {screenshots.map((src, i) => (
+        <img key={i} src={src} alt={`Picksy screen ${i + 1}`} draggable="false" />
+      ))}
     </div>
   );
 }
