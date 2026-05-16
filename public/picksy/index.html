@@ -365,32 +365,116 @@
       gap: 16px;
     }
 
-    .feature-card {
-      background: var(--dark2);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 28px 24px;
-      transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
-      position: relative;
-      overflow: hidden;
+    /* Flip card wrapper — holds perspective */
+    .card-wrapper {
+      perspective: 900px;
+      cursor: pointer;
+      min-height: 220px;
     }
 
-    .feature-card::before {
+    .card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      min-height: 200px;
+      transform-style: preserve-3d;
+      transition: transform 0.55s cubic-bezier(.4,0,.2,1), box-shadow 0.3s;
+      border-radius: 20px;
+    }
+
+    .card-wrapper.flipped .card-inner {
+      transform: rotateY(180deg) !important; /* override tilt when flipped */
+    }
+
+    .card-front,
+    .card-back {
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      padding: 28px 24px;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+
+    /* FRONT */
+    .card-front {
+      background: var(--dark2);
+      border: 1px solid var(--border);
+      transition: border-color 0.3s;
+    }
+
+    .card-wrapper:hover .card-front {
+      border-color: rgba(96,165,250,0.3);
+    }
+
+    /* Glow that follows cursor — set via JS */
+    .card-front::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(circle at 30% 30%, rgba(37,99,235,0.08), transparent 60%);
+      border-radius: 20px;
+      background: radial-gradient(
+        circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+        rgba(96,165,250,0.1) 0%,
+        transparent 65%
+      );
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+    }
+
+    .card-wrapper:hover .card-front::before { opacity: 1; }
+
+    /* BACK */
+    .card-back {
+      background: linear-gradient(135deg, rgba(37,99,235,0.15), rgba(124,58,237,0.1));
+      border: 1px solid rgba(96,165,250,0.3);
+      transform: rotateY(180deg);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      gap: 14px;
+    }
+
+    .card-back-icon {
+      font-size: 36px;
+    }
+
+    .card-back-fact {
+      font-size: 15px;
+      color: var(--text);
+      line-height: 1.6;
+      font-weight: 500;
+    }
+
+    .card-back-fact strong {
+      color: var(--blue-light);
+      display: block;
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .card-back-tap {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    /* Tap hint on front */
+    .card-hint {
+      position: absolute;
+      bottom: 14px;
+      right: 16px;
+      font-size: 11px;
+      color: #3d3d55;
       opacity: 0;
       transition: opacity 0.3s;
     }
 
-    .feature-card:hover {
-      border-color: rgba(96,165,250,0.25);
-      transform: translateY(-4px);
-      box-shadow: 0 16px 48px rgba(0,0,0,0.3);
-    }
-
-    .feature-card:hover::before { opacity: 1; }
+    .card-wrapper:hover .card-hint { opacity: 1; }
 
     .feature-icon {
       font-size: 34px;
@@ -883,37 +967,105 @@
         <span class="section-label">What it does</span>
         <h2 class="section-title">Everything you need<br>to break the habit</h2>
       </div>
+      <p style="text-align:center; font-size:13px; color:#3d3d55; margin-top:-36px; margin-bottom:40px;">Tap a card to learn more</p>
       <div class="grid">
-        <div class="feature-card scroll-reveal delay-1">
-          <span class="feature-icon">🔢</span>
-          <div class="feature-title">Counts every pickup</div>
-          <p class="feature-desc">Detects each unlock — no manual logging, no battery drain. Just an accurate count running silently in the background.</p>
+
+        <div class="card-wrapper scroll-reveal delay-1">
+          <div class="card-inner">
+            <div class="card-front">
+              <span class="feature-icon">🔢</span>
+              <div class="feature-title">Counts every pickup</div>
+              <p class="feature-desc">Detects each unlock — no manual logging, no battery drain. Just an accurate count running silently in the background.</p>
+              <span class="card-hint">tap to flip →</span>
+            </div>
+            <div class="card-back">
+              <span class="card-back-icon">📱</span>
+              <div class="card-back-fact"><strong>96×</strong>The average person picks up their phone 96 times a day — once every 10 minutes.</div>
+              <span class="card-back-tap">tap to flip back</span>
+            </div>
+          </div>
         </div>
-        <div class="feature-card scroll-reveal delay-2">
-          <span class="feature-icon">🎯</span>
-          <div class="feature-title">Daily goal</div>
-          <p class="feature-desc">Set a realistic target. Your progress lives on the Dynamic Island so you never lose sight of how you're doing.</p>
+
+        <div class="card-wrapper scroll-reveal delay-2">
+          <div class="card-inner">
+            <div class="card-front">
+              <span class="feature-icon">🎯</span>
+              <div class="feature-title">Daily goal</div>
+              <p class="feature-desc">Set a realistic target. Your progress lives on the Dynamic Island so you never lose sight of how you're doing.</p>
+              <span class="card-hint">tap to flip →</span>
+            </div>
+            <div class="card-back">
+              <span class="card-back-icon">🏆</span>
+              <div class="card-back-fact"><strong>3× more likely</strong>People who set a specific daily goal are 3× more likely to actually reduce their screen time.</div>
+              <span class="card-back-tap">tap to flip back</span>
+            </div>
+          </div>
         </div>
-        <div class="feature-card scroll-reveal delay-3">
-          <span class="feature-icon">📊</span>
-          <div class="feature-title">Patterns & insights</div>
-          <p class="feature-desc">See which hours you reach for your phone most. Spot the triggers. Change the behaviour.</p>
+
+        <div class="card-wrapper scroll-reveal delay-3">
+          <div class="card-inner">
+            <div class="card-front">
+              <span class="feature-icon">📊</span>
+              <div class="feature-title">Patterns & insights</div>
+              <p class="feature-desc">See which hours you reach for your phone most. Spot the triggers. Change the behaviour.</p>
+              <span class="card-hint">tap to flip →</span>
+            </div>
+            <div class="card-back">
+              <span class="card-back-icon">🕗</span>
+              <div class="card-back-fact"><strong>7–9 PM</strong>Most people reach for their phone most in the evening. What's your peak hour?</div>
+              <span class="card-back-tap">tap to flip back</span>
+            </div>
+          </div>
         </div>
-        <div class="feature-card scroll-reveal delay-4">
-          <span class="feature-icon">🧘</span>
-          <div class="feature-title">Focus sessions</div>
-          <p class="feature-desc">Block distractions and track exactly how long you stay phone-free. Build the habit one session at a time.</p>
+
+        <div class="card-wrapper scroll-reveal delay-4">
+          <div class="card-inner">
+            <div class="card-front">
+              <span class="feature-icon">🧘</span>
+              <div class="feature-title">Focus sessions</div>
+              <p class="feature-desc">Block distractions and track exactly how long you stay phone-free. Build the habit one session at a time.</p>
+              <span class="card-hint">tap to flip →</span>
+            </div>
+            <div class="card-back">
+              <span class="card-back-icon">⚡</span>
+              <div class="card-back-fact"><strong>23 minutes</strong>It takes an average of 23 minutes to fully regain focus after a phone interruption.</div>
+              <span class="card-back-tap">tap to flip back</span>
+            </div>
+          </div>
         </div>
-        <div class="feature-card scroll-reveal delay-5">
-          <span class="feature-icon">🌤</span>
-          <div class="feature-title">Weather-aware</div>
-          <p class="feature-desc">The background shifts with real-time weather outside — a subtle reminder that the world exists beyond the screen.</p>
+
+        <div class="card-wrapper scroll-reveal delay-5">
+          <div class="card-inner">
+            <div class="card-front">
+              <span class="feature-icon">🌤</span>
+              <div class="feature-title">Weather-aware</div>
+              <p class="feature-desc">The background shifts with real-time weather outside — a subtle reminder that the world exists beyond the screen.</p>
+              <span class="card-hint">tap to flip →</span>
+            </div>
+            <div class="card-back">
+              <span class="card-back-icon">☀️</span>
+              <div class="card-back-fact"><strong>20% less</strong>On sunny days, people spend on average 20% less time staring at screens.</div>
+              <span class="card-back-tap">tap to flip back</span>
+            </div>
+          </div>
         </div>
-        <div class="feature-card scroll-reveal delay-6">
-          <span class="feature-icon">🔒</span>
-          <div class="feature-title">Private by design</div>
-          <p class="feature-desc">No account. No sign-up. All data stays on your device unless you explicitly choose to share with a friend.</p>
+
+        <div class="card-wrapper scroll-reveal delay-6">
+          <div class="card-inner">
+            <div class="card-front">
+              <span class="feature-icon">🔒</span>
+              <div class="feature-title">Private by design</div>
+              <p class="feature-desc">No account. No sign-up. All data stays on your device unless you explicitly choose to share with a friend.</p>
+              <span class="card-hint">tap to flip →</span>
+            </div>
+            <div class="card-back">
+              <span class="card-back-icon">🛡️</span>
+              <div class="card-back-fact"><strong>Zero bytes</strong>Not even Picksy can see your data. Everything lives on your device and nowhere else.</div>
+              <span class="card-back-tap">tap to flip back</span>
+            </div>
+          </div>
         </div>
+
       </div>
     </section>
 
@@ -1040,6 +1192,55 @@
       e.preventDefault();
       const x = e.pageX - slider.offsetLeft;
       slider.scrollLeft = scrollLeft - (x - startX) * 1.4;
+    });
+
+    // ── Feature cards: 3D tilt + flip ────────────────────────
+    document.querySelectorAll('.card-wrapper').forEach(wrapper => {
+      const inner = wrapper.querySelector('.card-inner');
+      const front = wrapper.querySelector('.card-front');
+
+      // 3D tilt on mouse move
+      wrapper.addEventListener('mousemove', e => {
+        if (wrapper.classList.contains('flipped')) return;
+        const rect   = wrapper.getBoundingClientRect();
+        const cx     = rect.left + rect.width  / 2;
+        const cy     = rect.top  + rect.height / 2;
+        const dx     = (e.clientX - cx) / (rect.width  / 2);  // -1 to +1
+        const dy     = (e.clientY - cy) / (rect.height / 2);  // -1 to +1
+        const tiltX  =  dy * -10;  // max 10deg
+        const tiltY  =  dx *  10;
+
+        // cursor glow position
+        const px = ((e.clientX - rect.left) / rect.width  * 100).toFixed(1) + '%';
+        const py = ((e.clientY - rect.top)  / rect.height * 100).toFixed(1) + '%';
+        front.style.setProperty('--mouse-x', px);
+        front.style.setProperty('--mouse-y', py);
+
+        inner.style.transition = 'transform 0.1s ease, box-shadow 0.1s ease';
+        inner.style.transform  = `rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(1.03)`;
+        inner.style.boxShadow  = `${-tiltY * 2}px ${tiltX * 2}px 40px rgba(0,0,0,0.35)`;
+      });
+
+      // Reset tilt on leave
+      wrapper.addEventListener('mouseleave', () => {
+        if (wrapper.classList.contains('flipped')) return;
+        inner.style.transition = 'transform 0.5s cubic-bezier(.22,1,.36,1), box-shadow 0.5s';
+        inner.style.transform  = '';
+        inner.style.boxShadow  = '';
+      });
+
+      // Flip on click
+      wrapper.addEventListener('click', () => {
+        const isFlipped = wrapper.classList.toggle('flipped');
+        inner.style.transition = 'transform 0.55s cubic-bezier(.4,0,.2,1), box-shadow 0.3s';
+        // Reset tilt when flipping
+        if (isFlipped) {
+          inner.style.transform = 'rotateY(180deg)';
+          inner.style.boxShadow = '';
+        } else {
+          inner.style.transform = '';
+        }
+      });
     });
   </script>
 
