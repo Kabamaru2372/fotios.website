@@ -526,12 +526,7 @@ export default function Portfolio() {
         .ios-scroll img { height: 460px; width: auto; border-radius: 32px; border: 1px solid ${C.border}; flex-shrink: 0; box-shadow: 0 24px 56px rgba(0,0,0,0.45); transition: transform 0.3s; }
         .ios-scroll img:hover { transform: translateY(-8px) scale(1.02); }
 
-        /* ── Cert flip cards ── */
-        .cert-scene { perspective: 1000px; }
-        .cert-wrapper { position: relative; width: 100%; transform-style: preserve-3d; transition: transform 0.65s cubic-bezier(.22,1,.36,1); cursor: pointer; }
-        .cert-wrapper.flipped { transform: rotateY(180deg); }
-        .cert-face { backface-visibility: hidden; -webkit-backface-visibility: hidden; border-radius: 20px; border: 1px solid ${C.border}; background: ${C.dark2}; overflow: hidden; }
-        .cert-face.back { position: absolute; inset: 0; transform: rotateY(180deg); display: flex; flex-direction: column; justify-content: center; padding: 32px 28px; }
+        /* ── Cert hint ── */
         .cert-hint { font-size: 11px; color: ${C.muted}; text-align: center; margin-top: 14px; letter-spacing: 0.04em; opacity: 0.7; }
       `}</style>
 
@@ -787,7 +782,22 @@ export default function Portfolio() {
                     <a href="/picksy" className="btn-outline">{t.iosApp.learnMore}</a>
                   </div>
                 </div>
-                <div style={{ fontSize: 80, textAlign: "center", opacity: 0.15, fontFamily: "serif" }}>📱</div>
+                <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                  <div style={{ position: "relative", width: 160, height: 160 }}>
+                    <img
+                      src="/picksy-icon.png"
+                      alt="Picksy app icon"
+                      style={{ width: 160, height: 160, borderRadius: 36, boxShadow: "0 24px 56px rgba(37,99,235,0.35), 0 8px 24px rgba(0,0,0,0.5)", display: "block" }}
+                      onError={e => {
+                        e.target.style.display = "none";
+                        e.target.nextSibling.style.display = "flex";
+                      }}
+                    />
+                    <div style={{ display: "none", width: 160, height: 160, borderRadius: 36, background: "linear-gradient(135deg, #2563eb, #7c3aed)", alignItems: "center", justifyContent: "center", fontSize: 64, boxShadow: "0 24px 56px rgba(37,99,235,0.35)" }}>
+                      📱
+                    </div>
+                  </div>
+                </div>
               </div>
             </Reveal>
             <Reveal delay={0.2}>
@@ -870,48 +880,81 @@ function ProjectCard({ project, viewCode, C }) {
 }
 
 // ─── Cert Card ──────────────────────────────────────────────────────────────
+// Uses a simulated flip (rotate to 90° → swap content → rotate back)
+// instead of CSS backface-visibility, which breaks when ancestor elements
+// have opacity/transform transitions (like the Reveal wrapper).
 
 function CertCard({ cert, C }) {
-  const [flipped, setFlipped] = useState(false);
+  const [showBack, setShowBack] = useState(false);
   const ref = useRef(null);
-  const flippedRef = useRef(false);
+  const isAnimating = useRef(false);
+  const isBack = useRef(false);
+
+  const setTrans = (t) => { ref.current.style.transition = t; };
+  const setTf   = (tf) => { ref.current.style.transform  = tf; };
 
   const handleMouseMove = (e) => {
-    if (flippedRef.current) return;
-    const el = ref.current;
-    const rect = el.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    if (isBack.current || isAnimating.current) return;
+    const rect = ref.current.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width  - 0.5;
     const y = (e.clientY - rect.top)  / rect.height - 0.5;
-    el.style.transform = `rotateY(${x * 14}deg) rotateX(${-y * 10}deg) scale(1.02)`;
+    setTrans("transform 0.1s linear");
+    setTf(`perspective(1000px) rotateY(${x * 14}deg) rotateX(${-y * 10}deg) scale(1.02)`);
   };
 
   const handleMouseLeave = () => {
-    if (!flippedRef.current) {
-      ref.current.style.transform = "rotateY(0deg) rotateX(0deg) scale(1)";
-    }
+    if (isBack.current || isAnimating.current) return;
+    setTrans("transform 0.4s cubic-bezier(.22,1,.36,1)");
+    setTf("perspective(1000px) rotateY(0deg) rotateX(0deg) scale(1)");
   };
 
   const handleClick = () => {
-    const next = !flippedRef.current;
-    flippedRef.current = next;
-    setFlipped(next);
-    ref.current.style.transform = next
-      ? "rotateY(180deg)"
-      : "rotateY(0deg) rotateX(0deg) scale(1)";
+    if (isAnimating.current) return;
+    isAnimating.current = true;
+    const goBack = !isBack.current;
+
+    // Phase 1: rotate to 90° (edge-on)
+    setTrans("transform 0.28s ease-in");
+    setTf("perspective(1000px) rotateY(90deg)");
+
+    setTimeout(() => {
+      // Swap content instantly while edge-on (invisible)
+      isBack.current = goBack;
+      setShowBack(goBack);
+
+      // Phase 2: rotate back to 0°
+      setTrans("transform 0.28s ease-out");
+      setTf("perspective(1000px) rotateY(0deg) rotateX(0deg) scale(1)");
+
+      setTimeout(() => { isAnimating.current = false; }, 290);
+    }, 285);
   };
 
+  const accentRgb = cert.color === "#2563eb" ? "37,99,235" : "245,158,11";
+
   return (
-    <div className="cert-scene">
-      <div
-        ref={ref}
-        className="cert-wrapper"
-        onClick={handleClick}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
-      >
-        {/* FRONT */}
-        <div className="cert-face">
-          <div style={{ height: 4, background: cert.color, borderRadius: "20px 20px 0 0" }} />
+    <div
+      ref={ref}
+      onClick={handleClick}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        cursor: "pointer",
+        borderRadius: 20,
+        border: `1px solid ${showBack ? cert.color + "55" : C.border}`,
+        background: showBack
+          ? `linear-gradient(140deg, rgba(${accentRgb},0.13), ${C.dark2})`
+          : C.dark2,
+        overflow: "hidden",
+        transition: "transform 0.4s cubic-bezier(.22,1,.36,1), border-color 0.3s, background 0.3s",
+        transform: "perspective(1000px) rotateY(0deg)",
+        willChange: "transform",
+      }}
+    >
+      {!showBack ? (
+        /* ── FRONT ── */
+        <>
+          <div style={{ height: 4, background: cert.color }} />
           <div style={{ padding: 28 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
               <div style={{ width: 10, height: 10, borderRadius: "50%", background: cert.color, flexShrink: 0 }} />
@@ -920,32 +963,25 @@ function CertCard({ cert, C }) {
                 <div style={{ fontSize: 13, color: C.muted, marginTop: 2 }}>{cert.issuer} · {cert.date}</div>
               </div>
             </div>
-            {/* Full image — contain so nothing is cropped */}
-            <div style={{ borderRadius: 12, overflow: "hidden", background: "#fff", border: `1px solid ${C.border}`, padding: 8 }}>
-              <img
-                src={cert.image}
-                alt={cert.title}
-                style={{ width: "100%", display: "block", objectFit: "contain", borderRadius: 8 }}
-              />
+            <div style={{ borderRadius: 12, background: "#fff", border: `1px solid ${C.border}`, padding: 8 }}>
+              <img src={cert.image} alt={cert.title} style={{ width: "100%", display: "block", objectFit: "contain", borderRadius: 8 }} />
             </div>
           </div>
-        </div>
-
-        {/* BACK */}
-        <div className="cert-face back" style={{ background: `linear-gradient(140deg, rgba(${cert.color === "#2563eb" ? "37,99,235" : "245,158,11"},0.15), ${C.dark2})`, borderColor: `${cert.color}44` }}>
+        </>
+      ) : (
+        /* ── BACK ── */
+        <div style={{ padding: "32px 28px", minHeight: 420, display: "flex", flexDirection: "column", justifyContent: "center" }}>
           <div style={{ width: 10, height: 10, borderRadius: "50%", background: cert.color, marginBottom: 20 }} />
           <div style={{ fontSize: 17, fontWeight: 700, fontFamily: "'Outfit', sans-serif", color: C.text, marginBottom: 6 }}>{cert.title}</div>
-          <div style={{ fontSize: 12, color: C.muted, marginBottom: 24 }}>{cert.issuer} · {cert.date}</div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+          <div style={{ fontSize: 12, color: C.muted, marginBottom: 28 }}>{cert.issuer} · {cert.date}</div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
             {cert.facts.map((fact, i) => (
-              <div key={i} style={{ fontSize: 14, color: C.muted, lineHeight: 1.55, paddingLeft: 4 }}>
-                {fact}
-              </div>
+              <div key={i} style={{ fontSize: 14, color: C.muted, lineHeight: 1.6 }}>{fact}</div>
             ))}
           </div>
-          <div style={{ marginTop: 24, fontSize: 12, color: cert.color, opacity: 0.7, textAlign: "center" }}>Click to flip back</div>
+          <div style={{ marginTop: 28, fontSize: 12, color: cert.color, opacity: 0.7, textAlign: "center" }}>Click to flip back</div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
