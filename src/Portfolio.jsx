@@ -13,7 +13,7 @@ const translations = {
       cta: "View My Work",
       contact: "Get In Touch",
       hackshow: "🏆 Ironhack Hackshow Winner",
-      hackshowSub: "Hotel Knowledge Assistant · Apr 2025",
+      hackshowSub: "Hotel Knowledge Assistant · Apr 2026",
     },
     about: {
       label: "About Me",
@@ -31,9 +31,36 @@ const translations = {
     certifications: {
       label: "Certifications",
       title: "Credentials & Certificates",
+      hint: "Hover to tilt · Click to flip",
       items: [
-        { title: "DevOps & Cloud Computing", issuer: "Ironhack", date: "March 2026", image: "/Screenshot 2026-03-10 at 01.01.28.png", color: "#2563eb" },
-        { title: "AWS Cloud Practitioner Essentials", issuer: "AWS Training & Certification", date: "August 30, 2025", image: "/Screenshot 2026-03-10 at 01.00.39.png", color: "#f59e0b" }
+        {
+          title: "DevOps & Cloud Computing",
+          issuer: "Ironhack",
+          date: "March 2026",
+          image: "/Screenshot 2026-03-10 at 01.01.28.png",
+          color: "#2563eb",
+          facts: [
+            "🕐 400+ hours of hands-on training, labs and real-world projects",
+            "🛠️ Covered Docker, Kubernetes, Terraform, Ansible, AWS & Azure",
+            "🏆 Won the Hackshow with Hotel Knowledge Assistant — best project of the cohort",
+            "🌍 Program based in Germany — internationally recognized curriculum",
+            "🚀 Built and deployed production-grade infrastructure from day one"
+          ]
+        },
+        {
+          title: "AWS Cloud Practitioner Essentials",
+          issuer: "AWS Training & Certification",
+          date: "August 30, 2025",
+          image: "/Screenshot 2026-03-10 at 01.00.39.png",
+          color: "#f59e0b",
+          facts: [
+            "☁️ Official AWS certification covering core cloud concepts and services",
+            "🔐 Includes IAM, security best practices and shared responsibility model",
+            "💰 Covers AWS pricing, billing and cost optimization strategies",
+            "📦 Explores EC2, S3, RDS, Lambda and key AWS global infrastructure",
+            "🎯 Foundation for AWS Solutions Architect & Developer certifications"
+          ]
+        }
       ]
     },
     skills: {
@@ -149,7 +176,7 @@ const translations = {
       cta: "Meine Projekte",
       contact: "Kontakt",
       hackshow: "🏆 Ironhack Hackshow Gewinner",
-      hackshowSub: "Hotel Knowledge Assistant · Apr 2025",
+      hackshowSub: "Hotel Knowledge Assistant · Apr 2026",
     },
     about: {
       label: "Über mich",
@@ -167,9 +194,36 @@ const translations = {
     certifications: {
       label: "Zertifizierungen",
       title: "Abschlüsse & Zertifikate",
+      hint: "Bewegen zum Kippen · Klicken zum Umdrehen",
       items: [
-        { title: "DevOps & Cloud Computing", issuer: "Ironhack", date: "März 2026", image: "/Screenshot 2026-03-10 at 01.01.28.png", color: "#2563eb" },
-        { title: "AWS Cloud Practitioner Essentials", issuer: "AWS Training & Certification", date: "30. August 2025", image: "/Screenshot 2026-03-10 at 01.00.39.png", color: "#f59e0b" }
+        {
+          title: "DevOps & Cloud Computing",
+          issuer: "Ironhack",
+          date: "März 2026",
+          image: "/Screenshot 2026-03-10 at 01.01.28.png",
+          color: "#2563eb",
+          facts: [
+            "🕐 400+ Stunden praktisches Training, Labs und echte Projekte",
+            "🛠️ Inhalte: Docker, Kubernetes, Terraform, Ansible, AWS & Azure",
+            "🏆 Hackshow-Gewinner mit Hotel Knowledge Assistant — bestes Projekt des Jahrgangs",
+            "🌍 Programm in Deutschland — international anerkanntes Curriculum",
+            "🚀 Echte Produktionsinfrastruktur von Tag eins aufgebaut"
+          ]
+        },
+        {
+          title: "AWS Cloud Practitioner Essentials",
+          issuer: "AWS Training & Certification",
+          date: "30. August 2025",
+          image: "/Screenshot 2026-03-10 at 01.00.39.png",
+          color: "#f59e0b",
+          facts: [
+            "☁️ Offizielle AWS-Zertifizierung zu Cloud-Grundlagen und Services",
+            "🔐 IAM, Sicherheitskonzepte und das geteilte Verantwortungsmodell",
+            "💰 AWS-Preismodell, Abrechnung und Kostenoptimierung",
+            "📦 EC2, S3, RDS, Lambda und die globale AWS-Infrastruktur",
+            "🎯 Grundlage für AWS Solutions Architect & Developer-Zertifizierungen"
+          ]
+        }
       ]
     },
     skills: {
@@ -471,6 +525,14 @@ export default function Portfolio() {
         .ios-scroll::-webkit-scrollbar { display: none; }
         .ios-scroll img { height: 460px; width: auto; border-radius: 32px; border: 1px solid ${C.border}; flex-shrink: 0; box-shadow: 0 24px 56px rgba(0,0,0,0.45); transition: transform 0.3s; }
         .ios-scroll img:hover { transform: translateY(-8px) scale(1.02); }
+
+        /* ── Cert flip cards ── */
+        .cert-scene { perspective: 1000px; }
+        .cert-wrapper { position: relative; width: 100%; transform-style: preserve-3d; transition: transform 0.65s cubic-bezier(.22,1,.36,1); cursor: pointer; }
+        .cert-wrapper.flipped { transform: rotateY(180deg); }
+        .cert-face { backface-visibility: hidden; -webkit-backface-visibility: hidden; border-radius: 20px; border: 1px solid ${C.border}; background: ${C.dark2}; overflow: hidden; }
+        .cert-face.back { position: absolute; inset: 0; transform: rotateY(180deg); display: flex; flex-direction: column; justify-content: center; padding: 32px 28px; }
+        .cert-hint { font-size: 11px; color: ${C.muted}; text-align: center; margin-top: 14px; letter-spacing: 0.04em; opacity: 0.7; }
       `}</style>
 
       {/* ── AURORA ── */}
@@ -672,24 +734,11 @@ export default function Portfolio() {
               </div>
             </Reveal>
 
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: 28 }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))", gap: 28 }}>
               {t.certifications.items.map((cert, i) => (
                 <Reveal key={i} delay={i * 0.12}>
-                  <div className="dark-card" style={{ overflow: "hidden" }}>
-                    <div style={{ height: 4, background: cert.color, borderRadius: "20px 20px 0 0" }} />
-                    <div style={{ padding: 28 }}>
-                      <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
-                        <div style={{ width: 10, height: 10, borderRadius: "50%", background: cert.color, flexShrink: 0 }} />
-                        <div>
-                          <div style={{ fontSize: 17, fontWeight: 700, color: C.text, fontFamily: "'Outfit', sans-serif" }}>{cert.title}</div>
-                          <div style={{ fontSize: 13, color: C.muted, marginTop: 2 }}>{cert.issuer} · {cert.date}</div>
-                        </div>
-                      </div>
-                      <div style={{ height: 240, borderRadius: 12, overflow: "hidden", background: C.dark3, border: `1px solid ${C.border}` }}>
-                        <img src={cert.image} alt={cert.title} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
-                      </div>
-                    </div>
-                  </div>
+                  <CertCard cert={cert} C={C} />
+                  <p className="cert-hint">{t.certifications.hint}</p>
                 </Reveal>
               ))}
             </div>
@@ -821,6 +870,76 @@ function ProjectCard({ project, viewCode, C }) {
       <a href={project.github} target="_blank" rel="noopener noreferrer" className="project-github">
         {viewCode} <span>→</span>
       </a>
+    </div>
+  );
+}
+
+// ─── Cert Card ──────────────────────────────────────────────────────────────
+
+function CertCard({ cert, C }) {
+  const [flipped, setFlipped] = useState(false);
+  const ref = useRef(null);
+
+  const handleMouseMove = (e) => {
+    if (flipped) return;
+    const el = ref.current;
+    const rect = el.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;   // -0.5 → 0.5
+    const y = (e.clientY - rect.top)  / rect.height - 0.5;
+    el.style.transform = `rotateY(${x * 14}deg) rotateX(${-y * 10}deg) scale(1.02)`;
+  };
+
+  const handleMouseLeave = () => {
+    if (!flipped) ref.current.style.transform = "rotateY(0deg) rotateX(0deg) scale(1)";
+  };
+
+  return (
+    <div className="cert-scene">
+      <div
+        ref={ref}
+        className={`cert-wrapper ${flipped ? "flipped" : ""}`}
+        onClick={() => setFlipped(f => !f)}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        style={{ transition: "transform 0.65s cubic-bezier(.22,1,.36,1)" }}
+      >
+        {/* FRONT */}
+        <div className="cert-face">
+          <div style={{ height: 4, background: cert.color, borderRadius: "20px 20px 0 0" }} />
+          <div style={{ padding: 28 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
+              <div style={{ width: 10, height: 10, borderRadius: "50%", background: cert.color, flexShrink: 0 }} />
+              <div>
+                <div style={{ fontSize: 17, fontWeight: 700, color: C.text, fontFamily: "'Outfit', sans-serif" }}>{cert.title}</div>
+                <div style={{ fontSize: 13, color: C.muted, marginTop: 2 }}>{cert.issuer} · {cert.date}</div>
+              </div>
+            </div>
+            {/* Full image — contain so nothing is cropped */}
+            <div style={{ borderRadius: 12, overflow: "hidden", background: "#fff", border: `1px solid ${C.border}`, padding: 8 }}>
+              <img
+                src={cert.image}
+                alt={cert.title}
+                style={{ width: "100%", display: "block", objectFit: "contain", borderRadius: 8 }}
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* BACK */}
+        <div className="cert-face back" style={{ background: `linear-gradient(140deg, rgba(${cert.color === "#2563eb" ? "37,99,235" : "245,158,11"},0.15), ${C.dark2})`, borderColor: `${cert.color}44` }}>
+          <div style={{ width: 10, height: 10, borderRadius: "50%", background: cert.color, marginBottom: 20 }} />
+          <div style={{ fontSize: 17, fontWeight: 700, fontFamily: "'Outfit', sans-serif", color: C.text, marginBottom: 6 }}>{cert.title}</div>
+          <div style={{ fontSize: 12, color: C.muted, marginBottom: 24 }}>{cert.issuer} · {cert.date}</div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+            {cert.facts.map((fact, i) => (
+              <div key={i} style={{ fontSize: 14, color: C.muted, lineHeight: 1.55, paddingLeft: 4 }}>
+                {fact}
+              </div>
+            ))}
+          </div>
+          <div style={{ marginTop: 24, fontSize: 12, color: cert.color, opacity: 0.7, textAlign: "center" }}>Click to flip back</div>
+        </div>
+      </div>
     </div>
   );
 }
