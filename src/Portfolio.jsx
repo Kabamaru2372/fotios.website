@@ -785,7 +785,7 @@ export default function Portfolio() {
                 <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                   <div style={{ position: "relative", width: 160, height: 160 }}>
                     <img
-                      src="/picksy-icon.png"
+                      src="/icon-1024-flat.png"
                       alt="Picksy app icon"
                       style={{ width: 160, height: 160, borderRadius: 36, boxShadow: "0 24px 56px rgba(37,99,235,0.35), 0 8px 24px rgba(0,0,0,0.5)", display: "block" }}
                       onError={e => {
