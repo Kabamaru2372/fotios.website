@@ -853,11 +853,6 @@ function ProjectCard({ project, viewCode, C }) {
 
   return (
     <div ref={ref} className={`project-card ${project.featured ? "featured" : ""}`} onMouseMove={handleMouseMove}>
-      {project.featured && (
-        <div style={{ position: "absolute", top: 16, right: 16, padding: "3px 10px", background: "rgba(37,99,235,0.2)", border: "1px solid rgba(96,165,250,0.3)", borderRadius: 100, fontSize: 11, fontWeight: 700, color: "#60a5fa", letterSpacing: "0.06em" }}>
-          FEATURED
-        </div>
-      )}
       <div style={{ fontSize: 36, marginBottom: 16 }}>{project.emoji}</div>
       <h3 style={{ fontSize: 20, fontWeight: 700, fontFamily: "'Outfit', sans-serif", color: C.text, marginBottom: 4, lineHeight: 1.2 }}>
         {project.title}
@@ -879,29 +874,40 @@ function ProjectCard({ project, viewCode, C }) {
 function CertCard({ cert, C }) {
   const [flipped, setFlipped] = useState(false);
   const ref = useRef(null);
+  const flippedRef = useRef(false);
 
   const handleMouseMove = (e) => {
-    if (flipped) return;
+    if (flippedRef.current) return;
     const el = ref.current;
     const rect = el.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;   // -0.5 → 0.5
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
     const y = (e.clientY - rect.top)  / rect.height - 0.5;
     el.style.transform = `rotateY(${x * 14}deg) rotateX(${-y * 10}deg) scale(1.02)`;
   };
 
   const handleMouseLeave = () => {
-    if (!flipped) ref.current.style.transform = "rotateY(0deg) rotateX(0deg) scale(1)";
+    if (!flippedRef.current) {
+      ref.current.style.transform = "rotateY(0deg) rotateX(0deg) scale(1)";
+    }
+  };
+
+  const handleClick = () => {
+    const next = !flippedRef.current;
+    flippedRef.current = next;
+    setFlipped(next);
+    ref.current.style.transform = next
+      ? "rotateY(180deg)"
+      : "rotateY(0deg) rotateX(0deg) scale(1)";
   };
 
   return (
     <div className="cert-scene">
       <div
         ref={ref}
-        className={`cert-wrapper ${flipped ? "flipped" : ""}`}
-        onClick={() => setFlipped(f => !f)}
+        className="cert-wrapper"
+        onClick={handleClick}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
-        style={{ transition: "transform 0.65s cubic-bezier(.22,1,.36,1)" }}
       >
         {/* FRONT */}
         <div className="cert-face">
