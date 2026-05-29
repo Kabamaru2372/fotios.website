@@ -23,6 +23,8 @@
       --text:        #f0f0ff;
       --muted:       #8888aa;
       --border:      rgba(255,255,255,0.07);
+      --green:       #40ff80;
+      --red:         #ff5555;
     }
 
     html { scroll-behavior: smooth; }
@@ -34,7 +36,7 @@
       overflow-x: hidden;
     }
 
-    /* ── AURORA BACKGROUND ───────────────────────────────── */
+    /* ── AURORA ───────────────────────────────────────────────── */
     .aurora {
       position: fixed;
       inset: 0;
@@ -51,40 +53,20 @@
       animation: drift linear infinite;
     }
 
-    .aurora-blob:nth-child(1) {
-      width: 700px; height: 700px;
-      background: var(--blue);
-      top: -200px; left: -150px;
-      animation-duration: 28s;
-    }
-
-    .aurora-blob:nth-child(2) {
-      width: 500px; height: 500px;
-      background: var(--violet);
-      top: 10%; right: -100px;
-      animation-duration: 22s;
-      animation-delay: -8s;
-    }
-
-    .aurora-blob:nth-child(3) {
-      width: 400px; height: 400px;
-      background: #0ea5e9;
-      bottom: 20%; left: 30%;
-      animation-duration: 35s;
-      animation-delay: -15s;
-    }
+    .aurora-blob:nth-child(1) { width:700px;height:700px;background:var(--blue);top:-200px;left:-150px;animation-duration:28s; }
+    .aurora-blob:nth-child(2) { width:500px;height:500px;background:var(--violet);top:10%;right:-100px;animation-duration:22s;animation-delay:-8s; }
+    .aurora-blob:nth-child(3) { width:400px;height:400px;background:#0ea5e9;bottom:20%;left:30%;animation-duration:35s;animation-delay:-15s; }
 
     @keyframes drift {
-      0%   { transform: translate(0, 0) scale(1); }
-      33%  { transform: translate(40px, -30px) scale(1.05); }
-      66%  { transform: translate(-20px, 50px) scale(0.95); }
-      100% { transform: translate(0, 0) scale(1); }
+      0%   { transform: translate(0,0) scale(1); }
+      33%  { transform: translate(40px,-30px) scale(1.05); }
+      66%  { transform: translate(-20px,50px) scale(0.95); }
+      100% { transform: translate(0,0) scale(1); }
     }
 
-    /* ── LAYOUT ───────────────────────────────────────────── */
     .page { position: relative; z-index: 1; }
 
-    /* ── NAV ──────────────────────────────────────────────── */
+    /* ── NAV ──────────────────────────────────────────────────── */
     nav {
       display: flex;
       align-items: center;
@@ -93,7 +75,7 @@
       border-bottom: 1px solid var(--border);
       position: sticky;
       top: 0;
-      background: rgba(8,8,18,0.75);
+      background: rgba(8,8,18,0.78);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       z-index: 100;
@@ -113,9 +95,7 @@
       width: 32px; height: 32px;
       background: linear-gradient(135deg, var(--blue), var(--violet));
       border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
       font-size: 16px;
     }
 
@@ -128,7 +108,6 @@
       font-weight: 500;
       transition: color 0.2s;
     }
-
     .nav-link:hover { color: var(--text); }
 
     .nav-cta {
@@ -141,10 +120,9 @@
       text-decoration: none;
       transition: opacity 0.2s, transform 0.2s;
     }
-
     .nav-cta:hover { opacity: 0.85; transform: translateY(-1px); }
 
-    /* ── HERO ─────────────────────────────────────────────── */
+    /* ── HERO ─────────────────────────────────────────────────── */
     .hero {
       text-align: center;
       padding: 120px 24px 80px;
@@ -152,18 +130,12 @@
       margin: 0 auto;
     }
 
-    /* Staggered entrance — JS adds .visible class */
     .reveal {
       opacity: 0;
       transform: translateY(28px);
-      transition: opacity 0.7s cubic-bezier(.22,1,.36,1),
-                  transform 0.7s cubic-bezier(.22,1,.36,1);
+      transition: opacity 0.7s cubic-bezier(.22,1,.36,1), transform 0.7s cubic-bezier(.22,1,.36,1);
     }
-
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
 
     .hero-badge {
       display: inline-flex;
@@ -237,12 +209,7 @@
       transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
       box-shadow: 0 0 32px rgba(37,99,235,0.35);
     }
-
-    .btn-primary:hover {
-      opacity: 0.88;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 40px rgba(37,99,235,0.5);
-    }
+    .btn-primary:hover { opacity: 0.88; transform: translateY(-2px); box-shadow: 0 8px 40px rgba(37,99,235,0.5); }
 
     .btn-ghost {
       display: inline-flex;
@@ -258,7 +225,6 @@
       text-decoration: none;
       transition: background 0.2s, color 0.2s;
     }
-
     .btn-ghost:hover { background: rgba(255,255,255,0.1); color: var(--text); }
 
     .hero-pricing {
@@ -266,15 +232,31 @@
       font-size: 14px;
       color: var(--muted);
     }
-
     .hero-pricing strong { color: var(--text); }
 
-    /* ── SCREENSHOTS CAROUSEL ─────────────────────────────── */
+    /* ── LANG PILLS ───────────────────────────────────────────── */
+    .lang-pills {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 18px;
+      flex-wrap: wrap;
+    }
+    .lang-pill {
+      padding: 4px 12px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    /* ── SCREENSHOTS ──────────────────────────────────────────── */
     .screenshots-wrap {
       padding: 56px 0 64px;
       position: relative;
     }
-
     .screenshots-wrap::before,
     .screenshots-wrap::after {
       content: '';
@@ -284,16 +266,8 @@
       z-index: 2;
       pointer-events: none;
     }
-
-    .screenshots-wrap::before {
-      left: 0;
-      background: linear-gradient(to right, var(--dark), transparent);
-    }
-
-    .screenshots-wrap::after {
-      right: 0;
-      background: linear-gradient(to left, var(--dark), transparent);
-    }
+    .screenshots-wrap::before { left: 0; background: linear-gradient(to right, var(--dark), transparent); }
+    .screenshots-wrap::after  { right: 0; background: linear-gradient(to left, var(--dark), transparent); }
 
     .screenshots {
       display: flex;
@@ -304,7 +278,6 @@
       scrollbar-width: none;
       cursor: grab;
     }
-
     .screenshots:active { cursor: grabbing; }
     .screenshots::-webkit-scrollbar { display: none; }
 
@@ -317,18 +290,13 @@
       box-shadow: 0 32px 64px rgba(0,0,0,0.5);
       transition: transform 0.3s cubic-bezier(.22,1,.36,1), box-shadow 0.3s;
     }
+    .screenshots img:hover { transform: translateY(-8px) scale(1.02); box-shadow: 0 48px 80px rgba(0,0,0,0.6); }
 
-    .screenshots img:hover {
-      transform: translateY(-8px) scale(1.02);
-      box-shadow: 0 48px 80px rgba(0,0,0,0.6);
-    }
-
-    /* ── SECTION HEADER ───────────────────────────────────── */
+    /* ── SECTION HEADER ───────────────────────────────────────── */
     .section-header {
       text-align: center;
       margin-bottom: 56px;
     }
-
     .section-label {
       font-size: 12px;
       font-weight: 700;
@@ -338,23 +306,21 @@
       margin-bottom: 12px;
       display: block;
     }
-
     .section-title {
       font-size: clamp(26px, 4vw, 38px);
       font-weight: 800;
       letter-spacing: -0.025em;
       line-height: 1.2;
     }
-
     .section-sub {
       font-size: 16px;
       color: var(--muted);
       margin-top: 12px;
     }
 
-    /* ── FEATURES ─────────────────────────────────────────── */
+    /* ── FEATURES ─────────────────────────────────────────────── */
     .features {
-      max-width: 960px;
+      max-width: 1000px;
       margin: 0 auto;
       padding: 80px 24px;
     }
@@ -365,7 +331,7 @@
       gap: 16px;
     }
 
-    /* Flip card wrapper — holds perspective */
+    /* Flip cards */
     .card-wrapper {
       perspective: 900px;
       cursor: pointer;
@@ -383,11 +349,10 @@
     }
 
     .card-wrapper.flipped .card-inner {
-      transform: rotateY(180deg) !important; /* override tilt when flipped */
+      transform: rotateY(180deg) !important;
     }
 
-    .card-front,
-    .card-back {
+    .card-front, .card-back {
       position: absolute;
       inset: 0;
       border-radius: 20px;
@@ -396,18 +361,13 @@
       -webkit-backface-visibility: hidden;
     }
 
-    /* FRONT */
     .card-front {
       background: var(--dark2);
       border: 1px solid var(--border);
       transition: border-color 0.3s;
     }
+    .card-wrapper:hover .card-front { border-color: rgba(96,165,250,0.3); }
 
-    .card-wrapper:hover .card-front {
-      border-color: rgba(96,165,250,0.3);
-    }
-
-    /* Glow that follows cursor — set via JS */
     .card-front::before {
       content: '';
       position: absolute;
@@ -422,10 +382,8 @@
       transition: opacity 0.3s;
       pointer-events: none;
     }
-
     .card-wrapper:hover .card-front::before { opacity: 1; }
 
-    /* BACK */
     .card-back {
       background: linear-gradient(135deg, rgba(37,99,235,0.15), rgba(124,58,237,0.1));
       border: 1px solid rgba(96,165,250,0.3);
@@ -438,17 +396,13 @@
       gap: 14px;
     }
 
-    .card-back-icon {
-      font-size: 36px;
-    }
-
+    .card-back-icon { font-size: 36px; }
     .card-back-fact {
       font-size: 15px;
       color: var(--text);
       line-height: 1.6;
       font-weight: 500;
     }
-
     .card-back-fact strong {
       color: var(--blue-light);
       display: block;
@@ -456,14 +410,8 @@
       font-weight: 800;
       margin-bottom: 6px;
     }
+    .card-back-tap { font-size: 12px; color: var(--muted); margin-top: 4px; }
 
-    .card-back-tap {
-      font-size: 12px;
-      color: var(--muted);
-      margin-top: 4px;
-    }
-
-    /* Tap hint on front */
     .card-hint {
       position: absolute;
       bottom: 14px;
@@ -473,38 +421,322 @@
       opacity: 0;
       transition: opacity 0.3s;
     }
-
     .card-wrapper:hover .card-hint { opacity: 1; }
 
-    .feature-icon {
-      font-size: 34px;
-      margin-bottom: 16px;
-      display: block;
+    .feature-icon { font-size: 34px; margin-bottom: 16px; display: block; }
+    .feature-title { font-size: 17px; font-weight: 700; margin-bottom: 8px; color: var(--text); }
+    .feature-desc { font-size: 14px; color: var(--muted); line-height: 1.65; }
+
+    /* ── DUELS SECTION ────────────────────────────────────────── */
+    .duel-section {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 24px 80px;
     }
 
-    .feature-title {
-      font-size: 17px;
+    .duel-card {
+      background: linear-gradient(140deg, rgba(20,8,60,0.9) 0%, rgba(8,8,30,0.95) 100%);
+      border: 1px solid rgba(120,80,255,0.25);
+      border-radius: 28px;
+      padding: 56px 52px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 80px rgba(100,60,255,0.12);
+    }
+
+    @media (max-width: 740px) {
+      .duel-card { grid-template-columns: 1fr; padding: 36px 28px; gap: 36px; }
+    }
+
+    /* Glowing orbs inside duel card */
+    .duel-card::before {
+      content: '';
+      position: absolute;
+      top: -100px; right: -100px;
+      width: 350px; height: 350px;
+      background: radial-gradient(circle, rgba(120,80,255,0.15), transparent 70%);
+      pointer-events: none;
+    }
+    .duel-card::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; left: -80px;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(37,99,235,0.12), transparent 70%);
+      pointer-events: none;
+    }
+
+    .duel-badge {
+      display: inline-block;
+      padding: 5px 14px;
+      background: rgba(120,80,255,0.2);
+      border: 1px solid rgba(160,120,255,0.35);
+      border-radius: 100px;
+      font-size: 11px;
       font-weight: 700;
-      margin-bottom: 8px;
-      color: var(--text);
+      color: #c4b5fd;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
     }
 
-    .feature-desc {
-      font-size: 14px;
-      color: var(--muted);
+    .duel-card h2 {
+      font-size: clamp(24px, 3.5vw, 34px);
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      line-height: 1.2;
+      margin-bottom: 14px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .duel-card .lead {
+      font-size: 15px;
+      color: rgba(200,190,255,0.7);
       line-height: 1.65;
+      margin-bottom: 28px;
+      position: relative;
+      z-index: 1;
     }
 
-    /* ── FRIEND FEATURE ───────────────────────────────────── */
+    .flow-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .flow-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 14px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .flow-step:hover {
+      background: rgba(255,255,255,0.05);
+      border-color: rgba(160,120,255,0.2);
+    }
+
+    .step-num {
+      width: 26px; height: 26px;
+      background: linear-gradient(135deg, #6d28d9, #3b82f6);
+      border-radius: 7px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: white;
+      flex-shrink: 0;
+    }
+
+    .step-text {
+      font-size: 13px;
+      color: rgba(200,190,255,0.65);
+      line-height: 1.5;
+      padding-top: 3px;
+    }
+    .step-text strong { color: var(--text); }
+
+    /* ── ANIMATED DUEL SCOREBOARD ─────────────────────────────── */
+    .duel-board-wrap {
+      position: relative;
+      z-index: 1;
+    }
+
+    .duel-board {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 24px;
+      padding: 28px 20px 20px;
+      text-align: center;
+      backdrop-filter: blur(10px);
+    }
+
+    .duel-board-header {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(200,190,255,0.5);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .sword-anim {
+      display: inline-block;
+      animation: sword-clash 2.5s ease-in-out infinite;
+    }
+
+    @keyframes sword-clash {
+      0%, 100% { transform: translateX(0) rotate(0deg); }
+      45%       { transform: translateX(3px) rotate(5deg); }
+      55%       { transform: translateX(-3px) rotate(-5deg); }
+      50%       { transform: scale(1.15); filter: drop-shadow(0 0 6px rgba(200,180,255,0.7)); }
+    }
+
+    .duel-scores {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      margin-bottom: 16px;
+    }
+
+    .duel-player {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .duel-player-name {
+      font-size: 13px;
+      color: rgba(200,190,255,0.6);
+      font-weight: 500;
+    }
+
+    .duel-score-num {
+      font-size: 68px;
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      transition: color 1s ease;
+    }
+
+    .score-winning { color: #40ff80; }
+    .score-losing  { color: #ff5555; }
+
+    .duel-score-label {
+      font-size: 11px;
+      color: rgba(200,190,255,0.35);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-top: 2px;
+    }
+
+    .winning-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 10px;
+      background: rgba(64,255,128,0.12);
+      border: 1px solid rgba(64,255,128,0.25);
+      border-radius: 100px;
+      font-size: 10px;
+      font-weight: 700;
+      color: #40ff80;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-top: 4px;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 0.5s, transform 0.5s;
+    }
+    .winning-tag.show { opacity: 1; transform: translateY(0); }
+
+    .duel-vs {
+      width: 44px;
+      text-align: center;
+      color: rgba(200,190,255,0.25);
+      font-size: 16px;
+      font-weight: 600;
+      flex-shrink: 0;
+      padding-bottom: 36px;
+    }
+
+    .duel-timer-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 0;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      margin-top: 4px;
+    }
+
+    .duel-timer-icon { font-size: 14px; opacity: 0.5; }
+
+    #duel-countdown {
+      font-size: 20px;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      color: rgba(200,190,255,0.8);
+      letter-spacing: 0.04em;
+    }
+
+    .duel-timer-label {
+      font-size: 12px;
+      color: rgba(200,190,255,0.35);
+    }
+
+    .duel-hint-row {
+      font-size: 12px;
+      color: rgba(200,190,255,0.35);
+      margin-top: 10px;
+      letter-spacing: 0.01em;
+    }
+
+    /* Taunt button */
+    .taunt-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 14px;
+      padding: 8px 18px;
+      background: rgba(120,80,255,0.15);
+      border: 1px solid rgba(160,120,255,0.25);
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #c4b5fd;
+      cursor: default;
+      animation: taunt-pulse 3s ease-in-out infinite;
+    }
+
+    @keyframes taunt-pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(120,80,255,0); }
+      50%       { box-shadow: 0 0 0 6px rgba(120,80,255,0); }
+    }
+
+    /* Confetti particles on duel entry */
+    .confetti-wrap {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      border-radius: 24px;
+    }
+
+    .confetti-particle {
+      position: absolute;
+      width: 6px; height: 6px;
+      border-radius: 1px;
+      opacity: 0;
+    }
+
+    /* ── FRIEND ACCOUNTABILITY ────────────────────────────────── */
     .friend-section {
-      max-width: 960px;
+      max-width: 1000px;
       margin: 0 auto;
       padding: 0 24px 80px;
     }
 
     .friend-card {
-      background: linear-gradient(140deg, rgba(37,99,235,0.1) 0%, rgba(124,58,237,0.06) 100%);
-      border: 1px solid rgba(96,165,250,0.2);
+      background: linear-gradient(140deg, rgba(37,99,235,0.08) 0%, rgba(124,58,237,0.05) 100%);
+      border: 1px solid rgba(96,165,250,0.15);
       border-radius: 28px;
       padding: 52px 48px;
       display: grid;
@@ -524,16 +756,7 @@
       position: absolute;
       top: -80px; right: -80px;
       width: 300px; height: 300px;
-      background: radial-gradient(circle, rgba(96,165,250,0.12), transparent 70%);
-      pointer-events: none;
-    }
-
-    .friend-card::after {
-      content: '';
-      position: absolute;
-      bottom: -60px; left: -60px;
-      width: 250px; height: 250px;
-      background: radial-gradient(circle, rgba(124,58,237,0.1), transparent 70%);
+      background: radial-gradient(circle, rgba(96,165,250,0.1), transparent 70%);
       pointer-events: none;
     }
 
@@ -552,7 +775,7 @@
     }
 
     .friend-card h2 {
-      font-size: clamp(24px, 3.5vw, 32px);
+      font-size: clamp(22px, 3vw, 30px);
       font-weight: 800;
       letter-spacing: -0.025em;
       line-height: 1.2;
@@ -560,64 +783,18 @@
     }
 
     .friend-card .lead {
-      font-size: 16px;
+      font-size: 15px;
       color: var(--muted);
       line-height: 1.65;
       margin-bottom: 28px;
     }
-
-    .flow-steps {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .flow-step {
-      display: flex;
-      align-items: flex-start;
-      gap: 14px;
-      padding: 14px 16px;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      transition: border-color 0.2s, background 0.2s;
-    }
-
-    .flow-step:hover {
-      background: rgba(255,255,255,0.05);
-      border-color: rgba(96,165,250,0.2);
-    }
-
-    .step-num {
-      width: 26px; height: 26px;
-      background: linear-gradient(135deg, var(--blue), var(--violet));
-      border-radius: 7px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      font-weight: 700;
-      color: white;
-      flex-shrink: 0;
-    }
-
-    .step-text {
-      font-size: 14px;
-      color: var(--muted);
-      line-height: 1.5;
-      padding-top: 2px;
-    }
-
-    .step-text strong { color: var(--text); }
 
     /* Notification mock */
     .notif-mock {
       background: rgba(255,255,255,0.06);
       border: 1px solid rgba(255,255,255,0.1);
       border-radius: 20px;
-      padding: 20px 20px;
+      padding: 20px;
       backdrop-filter: blur(12px);
       position: relative;
       z-index: 1;
@@ -634,9 +811,7 @@
       width: 36px; height: 36px;
       background: linear-gradient(135deg, var(--blue), var(--violet));
       border-radius: 9px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
       font-size: 18px;
       flex-shrink: 0;
     }
@@ -649,23 +824,9 @@
       letter-spacing: 0.05em;
     }
 
-    .notif-time {
-      font-size: 12px;
-      color: var(--muted);
-      margin-left: auto;
-    }
-
-    .notif-title {
-      font-size: 15px;
-      font-weight: 700;
-      margin-bottom: 4px;
-    }
-
-    .notif-body {
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.5;
-    }
+    .notif-time { font-size: 12px; color: var(--muted); margin-left: auto; }
+    .notif-title { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+    .notif-body { font-size: 13px; color: var(--muted); line-height: 1.5; }
 
     .notif-pulse {
       display: flex;
@@ -679,7 +840,6 @@
       background: var(--blue-light);
       animation: pulse-wave 1.4s ease-in-out infinite;
     }
-
     .pulse-dot:nth-child(2) { animation-delay: 0.2s; }
     .pulse-dot:nth-child(3) { animation-delay: 0.4s; }
 
@@ -688,7 +848,63 @@
       50%       { opacity: 1;   transform: scale(1.2); }
     }
 
-    /* ── PRICING ──────────────────────────────────────────── */
+    /* ── MILESTONE STRIP ──────────────────────────────────────── */
+    .milestone-strip {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 24px 80px;
+    }
+
+    .milestone-card {
+      background: var(--dark2);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 36px 44px;
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .milestone-icon-wrap {
+      width: 64px; height: 64px;
+      background: rgba(37,99,235,0.1);
+      border: 1px solid rgba(96,165,250,0.2);
+      border-radius: 18px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 30px;
+      flex-shrink: 0;
+    }
+
+    .milestone-text { flex: 1; min-width: 200px; }
+    .milestone-text h3 { font-size: 19px; font-weight: 700; margin-bottom: 8px; }
+    .milestone-text p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+    .milestone-examples {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .milestone-example {
+      padding: 8px 14px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .milestone-example em {
+      display: block;
+      font-style: normal;
+      color: var(--text);
+      font-weight: 600;
+      font-size: 12px;
+      margin-bottom: 2px;
+    }
+
+    /* ── PRICING ──────────────────────────────────────────────── */
     .pricing {
       max-width: 820px;
       margin: 0 auto;
@@ -702,9 +918,7 @@
       margin-top: 56px;
     }
 
-    @media (max-width: 600px) {
-      .pricing-grid { grid-template-columns: 1fr; }
-    }
+    @media (max-width: 600px) { .pricing-grid { grid-template-columns: 1fr; } }
 
     .pricing-card {
       background: var(--dark2);
@@ -748,18 +962,16 @@
       letter-spacing: -0.03em;
       margin-bottom: 4px;
     }
+    .plan-price span { font-size: 16px; font-weight: 500; color: var(--muted); }
 
-    .plan-price span {
-      font-size: 16px;
-      font-weight: 500;
-      color: var(--muted);
+    .plan-trial {
+      font-size: 13px;
+      color: #40ff80;
+      font-weight: 600;
+      margin-bottom: 4px;
     }
 
-    .plan-desc {
-      font-size: 14px;
-      color: var(--muted);
-      margin-bottom: 28px;
-    }
+    .plan-desc { font-size: 14px; color: var(--muted); margin-bottom: 28px; }
 
     .plan-features {
       list-style: none;
@@ -776,19 +988,15 @@
       font-size: 14px;
       color: var(--muted);
     }
-
     .plan-features li.included { color: var(--text); }
 
     .check {
       width: 20px; height: 20px;
       border-radius: 6px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
       font-size: 11px;
       flex-shrink: 0;
     }
-
     .check.yes { background: rgba(37,99,235,0.2); color: var(--blue-light); }
     .check.no  { background: rgba(255,255,255,0.04); color: #3d3d55; }
 
@@ -803,23 +1011,16 @@
       text-decoration: none;
       transition: opacity 0.2s, transform 0.2s;
     }
-
     .plan-btn.primary {
       background: var(--blue);
       color: white;
       box-shadow: 0 4px 24px rgba(37,99,235,0.35);
     }
-
     .plan-btn.primary:hover { opacity: 0.88; transform: translateY(-1px); }
-
-    .plan-btn.secondary {
-      background: rgba(255,255,255,0.06);
-      color: var(--muted);
-    }
-
+    .plan-btn.secondary { background: rgba(255,255,255,0.06); color: var(--muted); }
     .plan-btn.secondary:hover { background: rgba(255,255,255,0.09); color: var(--text); }
 
-    /* ── PRIVACY STRIP ────────────────────────────────────── */
+    /* ── PRIVACY STRIP ────────────────────────────────────────── */
     .privacy-strip {
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
@@ -827,36 +1028,29 @@
       text-align: center;
       background: var(--dark2);
     }
-
     .privacy-strip p {
       font-size: 14px;
       color: var(--muted);
-      max-width: 560px;
+      max-width: 600px;
       margin: 0 auto;
+      line-height: 1.65;
     }
-
     .privacy-strip strong { color: var(--text); }
 
-    /* ── CTA BOTTOM ───────────────────────────────────────── */
+    /* ── CTA BOTTOM ───────────────────────────────────────────── */
     .cta-bottom {
       text-align: center;
       padding: 100px 24px;
     }
-
     .cta-bottom h2 {
       font-size: clamp(30px, 5vw, 46px);
       font-weight: 800;
       letter-spacing: -0.03em;
       margin-bottom: 16px;
     }
+    .cta-bottom p { font-size: 17px; color: var(--muted); margin-bottom: 40px; }
 
-    .cta-bottom p {
-      font-size: 17px;
-      color: var(--muted);
-      margin-bottom: 40px;
-    }
-
-    /* ── FOOTER ───────────────────────────────────────────── */
+    /* ── FOOTER ───────────────────────────────────────────────── */
     footer {
       border-top: 1px solid var(--border);
       padding: 24px 40px;
@@ -866,42 +1060,37 @@
       flex-wrap: wrap;
       gap: 12px;
     }
-
     footer p, footer a {
       font-size: 13px;
       color: #3d3d55;
       text-decoration: none;
       transition: color 0.2s;
     }
-
     footer a:hover { color: var(--muted); }
     .footer-links { display: flex; gap: 20px; }
 
-    /* ── SCROLL ANIMATION ─────────────────────────────────── */
+    /* ── SCROLL ANIMATION ─────────────────────────────────────── */
     .scroll-reveal {
       opacity: 0;
       transform: translateY(32px);
       transition: opacity 0.65s cubic-bezier(.22,1,.36,1),
                   transform 0.65s cubic-bezier(.22,1,.36,1);
     }
+    .scroll-reveal.visible { opacity: 1; transform: translateY(0); }
 
-    .scroll-reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* stagger delays */
     .delay-1 { transition-delay: 0.05s; }
     .delay-2 { transition-delay: 0.12s; }
     .delay-3 { transition-delay: 0.19s; }
     .delay-4 { transition-delay: 0.26s; }
     .delay-5 { transition-delay: 0.33s; }
     .delay-6 { transition-delay: 0.40s; }
+    .delay-7 { transition-delay: 0.47s; }
+    .delay-8 { transition-delay: 0.54s; }
+    .delay-9 { transition-delay: 0.61s; }
   </style>
 </head>
 <body>
 
-  <!-- Aurora background -->
   <div class="aurora" aria-hidden="true">
     <div class="aurora-blob"></div>
     <div class="aurora-blob"></div>
@@ -918,6 +1107,7 @@
       </a>
       <div class="nav-links">
         <a class="nav-link" href="#features">Features</a>
+        <a class="nav-link" href="#pricing">Pricing</a>
         <a class="nav-link" href="https://fotiospongas.dev">Portfolio</a>
         <a class="nav-cta" href="https://apps.apple.com/de/app/picksy-be-present/id6761116771">Download</a>
       </div>
@@ -944,8 +1134,13 @@
         <a class="btn-ghost" href="#features">See features ↓</a>
       </div>
       <p class="hero-pricing reveal" style="transition-delay:0.4s">
-        Free to download · Pickup heatmap &amp; daily quotes unlock for <strong>€4.99</strong> one-time
+        Free to download · <strong>14-day Pro trial</strong> included · then <strong>€4.99</strong> one-time
       </p>
+      <div class="lang-pills reveal" style="transition-delay:0.5s">
+        <span class="lang-pill">🇬🇧 English</span>
+        <span class="lang-pill">🇬🇷 Ελληνικά</span>
+        <span class="lang-pill">🇩🇪 Deutsch</span>
+      </div>
     </section>
 
     <!-- SCREENSHOTS -->
@@ -973,7 +1168,7 @@
             <div class="card-front">
               <span class="feature-icon">🔢</span>
               <div class="feature-title">Counts every pickup</div>
-              <p class="feature-desc">Detects each unlock — no manual logging, no battery drain. Just an accurate count running silently in the background.</p>
+              <p class="feature-desc">Detects each unlock automatically — no manual logging, no battery drain. Just an accurate count running silently in the background.</p>
               <span class="card-hint">tap to flip →</span>
             </div>
             <div class="card-back">
@@ -989,12 +1184,12 @@
             <div class="card-front">
               <span class="feature-icon">🏝️</span>
               <div class="feature-title">Dynamic Island & Lock Screen</div>
-              <p class="feature-desc">Your pickups, live in the Dynamic Island and Lock Screen — even when the app is in the background.</p>
+              <p class="feature-desc">Your pickup count lives in the Dynamic Island and Lock Screen — always visible, even when the app is in the background.</p>
               <span class="card-hint">tap to flip →</span>
             </div>
             <div class="card-back">
               <span class="card-back-icon">👁️</span>
-              <div class="card-back-fact"><strong>Always visible</strong>Picksy shows live data in the Dynamic Island while running silently in the background — one of the very few apps that does this.</div>
+              <div class="card-back-fact"><strong>Always visible</strong>See your live score — and your duel opponent's — right from the Dynamic Island. No unlocking needed.</div>
               <span class="card-back-tap">tap to flip back</span>
             </div>
           </div>
@@ -1004,8 +1199,8 @@
           <div class="card-inner">
             <div class="card-front">
               <span class="feature-icon">📊</span>
-              <div class="feature-title">Patterns & insights</div>
-              <p class="feature-desc">See which hours you reach for your phone most. Spot the triggers. Change the behaviour.</p>
+              <div class="feature-title">Hourly heatmap</div>
+              <p class="feature-desc">See which hours you reach for your phone the most. Spot the triggers. Change the behaviour.</p>
               <span class="card-hint">tap to flip →</span>
             </div>
             <div class="card-back">
@@ -1021,7 +1216,7 @@
             <div class="card-front">
               <span class="feature-icon">🧘</span>
               <div class="feature-title">Focus sessions</div>
-              <p class="feature-desc">Block distractions and track exactly how long you stay phone-free. Build the habit one session at a time.</p>
+              <p class="feature-desc">Set a timer, lock out distractions, and track exactly how long you stay phone-free. Build the habit one session at a time.</p>
               <span class="card-hint">tap to flip →</span>
             </div>
             <div class="card-back">
@@ -1036,13 +1231,13 @@
           <div class="card-inner">
             <div class="card-front">
               <span class="feature-icon">🌤</span>
-              <div class="feature-title">Weather-aware</div>
-              <p class="feature-desc">The background shifts with real-time weather outside — a subtle reminder that the world exists beyond the screen.</p>
+              <div class="feature-title">Weather & mood insights</div>
+              <p class="feature-desc">Log your mood alongside your pickups. See how weather affects your habits. Connect the dots between how you feel and how much you reach for the phone.</p>
               <span class="card-hint">tap to flip →</span>
             </div>
             <div class="card-back">
               <span class="card-back-icon">☀️</span>
-              <div class="card-back-fact"><strong>20% less</strong>On sunny days, people spend on average 20% less time staring at screens.</div>
+              <div class="card-back-fact"><strong>20% less</strong>On sunny days, people spend on average 20% less time staring at screens. What's your pattern?</div>
               <span class="card-back-tap">tap to flip back</span>
             </div>
           </div>
@@ -1051,14 +1246,62 @@
         <div class="card-wrapper scroll-reveal delay-6">
           <div class="card-inner">
             <div class="card-front">
+              <span class="feature-icon">🔥</span>
+              <div class="feature-title">Streaks</div>
+              <p class="feature-desc">Track consecutive days where you stay under your pickup goal. Streaks make you think twice before breaking the chain.</p>
+              <span class="card-hint">tap to flip →</span>
+            </div>
+            <div class="card-back">
+              <span class="card-back-icon">📈</span>
+              <div class="card-back-fact"><strong>Day 7</strong>Most people who reach a 7-day streak continue for at least a month. One week is the turning point.</div>
+              <span class="card-back-tap">tap to flip back</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-wrapper scroll-reveal delay-7">
+          <div class="card-inner">
+            <div class="card-front">
+              <span class="feature-icon">📅</span>
+              <div class="feature-title">Weekly Sunday recap</div>
+              <p class="feature-desc">Every Sunday, get a rich summary of your week — trends, personal highs and lows, and insights that a single day can't show.</p>
+              <span class="card-hint">tap to flip →</span>
+            </div>
+            <div class="card-back">
+              <span class="card-back-icon">🔎</span>
+              <div class="card-back-fact"><strong>Patterns</strong>Weekly trends reveal what daily numbers hide. The Sunday recap shows you the real picture over time.</div>
+              <span class="card-back-tap">tap to flip back</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-wrapper scroll-reveal delay-8">
+          <div class="card-inner">
+            <div class="card-front">
+              <span class="feature-icon">🔔</span>
+              <div class="feature-title">Milestone nudges</div>
+              <p class="feature-desc">After 1, 2, or 3 hours on your phone, Picksy quietly suggests what you could have done instead. Not guilt — just perspective.</p>
+              <span class="card-hint">tap to flip →</span>
+            </div>
+            <div class="card-back">
+              <span class="card-back-icon">📖</span>
+              <div class="card-back-fact"><strong>1 hour</strong>In that time you could have read 50 pages, baked banana bread, or called 3 people you've been meaning to catch up with.</div>
+              <span class="card-back-tap">tap to flip back</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-wrapper scroll-reveal delay-9">
+          <div class="card-inner">
+            <div class="card-front">
               <span class="feature-icon">🔒</span>
               <div class="feature-title">Private by design</div>
-              <p class="feature-desc">No account. No sign-up. All data stays on your device unless you explicitly choose to share with a friend.</p>
+              <p class="feature-desc">No account. No email. No sign-up. Without friends, zero data ever leaves your device. With friends, only anonymous pickup stats are shared.</p>
               <span class="card-hint">tap to flip →</span>
             </div>
             <div class="card-back">
               <span class="card-back-icon">🛡️</span>
-              <div class="card-back-fact"><strong>Zero bytes</strong>Not even Picksy can see your data. Everything lives on your device and nowhere else.</div>
+              <div class="card-back-fact"><strong>Anonymous</strong>Even with friends, you're identified only by a random UUID — no name, no email, no account, ever.</div>
               <span class="card-back-tap">tap to flip back</span>
             </div>
           </div>
@@ -1067,40 +1310,118 @@
       </div>
     </section>
 
-    <!-- FRIEND FEATURE -->
-    <section class="friend-section">
-      <div class="friend-card scroll-reveal">
+    <!-- DUELS SECTION -->
+    <section class="duel-section">
+      <div class="section-header scroll-reveal" style="margin-bottom: 36px;">
+        <span class="section-label" style="color: #c4b5fd;">Competition</span>
+        <h2 class="section-title">Challenge a friend.<br>Fewer pickups wins.</h2>
+        <p class="section-sub">The simplest bet you'll ever make — and the hardest to lose.</p>
+      </div>
+
+      <div class="duel-card scroll-reveal">
         <div>
-          <span class="new-badge">New in v1.6</span>
-          <h2>Detox together<br>with a friend</h2>
+          <span class="duel-badge">⚔️ Duels</span>
+          <h2>One day. One rule.<br>Fewer pickups wins.</h2>
           <p class="lead">
-            Picksy is the only app that notifies you when your friend is also overusing their phone — right now, at the same moment as you. No accounts, no names.
+            Challenge any friend to a daily duel. From midnight to midnight, whoever picks up their phone less wins. It's surprisingly effective — and surprisingly fun.
           </p>
           <div class="flow-steps">
             <div class="flow-step">
               <div class="step-num">1</div>
-              <div class="step-text"><strong>Send a challenge link</strong> — one tap from the app.</div>
+              <div class="step-text"><strong>Send a challenge link</strong> — one tap from the Friends tab.</div>
             </div>
             <div class="flow-step">
               <div class="step-num">2</div>
-              <div class="step-text"><strong>Your friend opens it</strong> and the pair is registered anonymously.</div>
+              <div class="step-text"><strong>Your friend accepts</strong> and the duel starts instantly, anonymously.</div>
             </div>
             <div class="flow-step">
               <div class="step-num">3</div>
-              <div class="step-text">When <strong>both of you</strong> have 20+ min screen time in the last 2h — you both get a push notification simultaneously.</div>
+              <div class="step-text"><strong>Watch the live scores</strong> update in the Dynamic Island and Friends tab all day.</div>
             </div>
             <div class="flow-step">
               <div class="step-num">4</div>
-              <div class="step-text"><strong>Put them down together.</strong> It's much easier when someone else does it with you.</div>
+              <div class="step-text"><strong>At midnight</strong>, the winner is declared. Confetti for the victor. Bragging rights until tomorrow.</div>
             </div>
             <div class="flow-step">
-              <div class="step-num">💬</div>
-              <div class="step-text"><strong>Send encrypted messages</strong> directly inside Picksy — no phone number, no social account needed.</div>
+              <div class="step-num">😤</div>
+              <div class="step-text"><strong>Send a taunt</strong> when you're ahead — pre-built messages to keep things interesting.</div>
             </div>
           </div>
         </div>
 
-        <!-- Notification mockup -->
+        <!-- ANIMATED DUEL BOARD -->
+        <div class="duel-board-wrap scroll-reveal delay-2">
+          <div class="duel-board" id="duel-board">
+            <div class="confetti-wrap" id="confetti-wrap"></div>
+
+            <div class="duel-board-header">
+              <span class="sword-anim">⚔️</span>
+              ACTIVE DUEL
+              <span class="sword-anim" style="animation-delay:-1.25s">⚔️</span>
+            </div>
+
+            <div class="duel-scores">
+              <div class="duel-player">
+                <div class="duel-player-name">You</div>
+                <div class="duel-score-num score-winning" id="score-you">0</div>
+                <div class="duel-score-label">pickups</div>
+                <div class="winning-tag" id="winning-tag">🏆 Winning</div>
+              </div>
+
+              <div class="duel-vs">–</div>
+
+              <div class="duel-player">
+                <div class="duel-player-name">Alex</div>
+                <div class="duel-score-num score-losing" id="score-them">0</div>
+                <div class="duel-score-label">pickups</div>
+              </div>
+            </div>
+
+            <div class="duel-timer-row">
+              <span class="duel-timer-icon">⏱</span>
+              <span id="duel-countdown">08:22:14</span>
+              <span class="duel-timer-label">remaining</span>
+            </div>
+
+            <div class="duel-hint-row">Fewer pickups by midnight wins 🏆</div>
+
+            <div style="text-align:center">
+              <div class="taunt-btn">😤 Στείλε taunt</div>
+            </div>
+          </div>
+
+          <p style="font-size:12px; color:#3d3d55; text-align:center; margin-top:14px; line-height:1.5;">
+            Live scores · Anonymous · Run up to 2 duels simultaneously
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FRIEND ACCOUNTABILITY -->
+    <section class="friend-section">
+      <div class="friend-card scroll-reveal">
+        <div>
+          <span class="new-badge">Friend Accountability</span>
+          <h2>Detox together<br>with a friend</h2>
+          <p class="lead">
+            Picksy notifies you when your friend is also overusing their phone — right now, at the same moment as you. Put them down together.
+          </p>
+          <div class="flow-steps">
+            <div class="flow-step">
+              <div class="step-num">1</div>
+              <div class="step-text"><strong>Connect with a friend</strong> — one tap, no account needed.</div>
+            </div>
+            <div class="flow-step">
+              <div class="step-num">2</div>
+              <div class="step-text">When <strong>both of you</strong> have 20+ min screen time in the last 2 hours — you both get a push notification simultaneously.</div>
+            </div>
+            <div class="flow-step">
+              <div class="step-num">3</div>
+              <div class="step-text"><strong>Put them down together.</strong> It's much easier when someone else does it with you.</div>
+            </div>
+          </div>
+        </div>
+
         <div>
           <div class="notif-mock scroll-reveal delay-2">
             <div class="notif-header">
@@ -1118,26 +1439,93 @@
               <div class="pulse-dot"></div>
             </div>
           </div>
-
-          <p style="font-size:13px; color:#3d3d55; text-align:center; margin-top:16px; line-height:1.5;">
-            Sent to both friends simultaneously · Anonymous · No personal data
+          <p style="font-size:12px; color:#3d3d55; text-align:center; margin-top:14px; line-height:1.5;">
+            Sent simultaneously to both friends · No personal data · Disconnect anytime
           </p>
         </div>
       </div>
     </section>
 
+    <!-- MILESTONE STRIP -->
+    <section class="milestone-strip">
+      <div class="milestone-card scroll-reveal">
+        <div class="milestone-icon-wrap">🔔</div>
+        <div class="milestone-text">
+          <h3>Screen time milestone nudges</h3>
+          <p>After 1, 2, or 3 hours on your phone, Picksy quietly reminds you what you could have done instead. No guilt — just perspective.</p>
+        </div>
+        <div class="milestone-examples">
+          <div class="milestone-example">
+            <em>1 hour on phone</em>
+            "You could have baked banana bread from scratch 🍌"
+          </div>
+          <div class="milestone-example">
+            <em>2 hours on phone</em>
+            "You could have almost finished a novel 📚"
+          </div>
+        </div>
+      </div>
+    </section>
 
-    <!-- PRIVACY -->
+    <!-- PRICING -->
+    <section class="pricing" id="pricing">
+      <div class="section-header scroll-reveal">
+        <span class="section-label">Pricing</span>
+        <h2 class="section-title">Simple, honest pricing</h2>
+        <p class="section-sub">Start free. Upgrade once. No subscription, ever.</p>
+      </div>
+      <div class="pricing-grid">
+
+        <div class="pricing-card scroll-reveal delay-1">
+          <div class="plan-name">Free</div>
+          <div class="plan-price">€0 <span>forever</span></div>
+          <div class="plan-desc">Everything you need to start tracking.</div>
+          <ul class="plan-features">
+            <li class="included"><span class="check yes">✓</span> Pickup counting & history</li>
+            <li class="included"><span class="check yes">✓</span> Dynamic Island & Lock Screen</li>
+            <li class="included"><span class="check yes">✓</span> Focus sessions</li>
+            <li class="included"><span class="check yes">✓</span> Streaks & daily goal</li>
+            <li class="included"><span class="check yes">✓</span> Duels & friend challenges</li>
+            <li class="included"><span class="check yes">✓</span> Milestone nudges</li>
+            <li><span class="check no">–</span> Hourly heatmap</li>
+            <li><span class="check no">–</span> Mood & weather insights</li>
+            <li><span class="check no">–</span> Weekly Sunday recap</li>
+          </ul>
+          <a class="plan-btn secondary" href="https://apps.apple.com/de/app/picksy-be-present/id6761116771">Download free</a>
+        </div>
+
+        <div class="pricing-card pro scroll-reveal delay-2">
+          <div class="pricing-badge">Most popular</div>
+          <div class="plan-name">Pro</div>
+          <div class="plan-price">€4.99 <span>one-time</span></div>
+          <div class="plan-trial">✦ 14-day free trial included</div>
+          <div class="plan-desc">The full picture. Paid once, yours forever.</div>
+          <ul class="plan-features">
+            <li class="included"><span class="check yes">✓</span> Everything in Free</li>
+            <li class="included"><span class="check yes">✓</span> Hourly heatmap</li>
+            <li class="included"><span class="check yes">✓</span> Mood & weather insights</li>
+            <li class="included"><span class="check yes">✓</span> Weekly Sunday recap</li>
+            <li class="included"><span class="check yes">✓</span> Unlimited friends & duels</li>
+            <li class="included"><span class="check yes">✓</span> Friend accountability alerts</li>
+            <li class="included"><span class="check yes">✓</span> Custom nudges</li>
+          </ul>
+          <a class="plan-btn primary" href="https://apps.apple.com/de/app/picksy-be-present/id6761116771">Start free trial</a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- PRIVACY STRIP -->
     <div class="privacy-strip scroll-reveal">
       <p>
-        <strong>Zero personal data leaves your device.</strong> Friends are identified by random anonymous UUIDs — no names, no emails, no accounts ever. Remove any connection instantly from Settings.
+        <strong>No account. No email. No tracking.</strong> Without social features, zero data ever leaves your device. With friends and duels, only your anonymous pickup count is shared — linked to a random device ID, never to your name or identity. Remove any connection instantly from Settings.
       </p>
     </div>
 
     <!-- CTA BOTTOM -->
     <section class="cta-bottom scroll-reveal">
       <h2>Ready to be more present?</h2>
-      <p>Free to download. No ads. No subscription.</p>
+      <p>Free to download. 14-day Pro trial included. No subscription.</p>
       <a class="btn-primary" href="https://apps.apple.com/de/app/picksy-be-present/id6761116771">
         <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
         Download on the App Store
@@ -1148,7 +1536,7 @@
     <footer>
       <p>© 2026 Fotios Pongas</p>
       <div class="footer-links">
-        <a href="/privacy-policy">Privacy Policy</a>
+        <a href="/privacy-policy/">Privacy Policy</a>
         <a href="https://fotiospongas.dev">Portfolio</a>
         <a href="mailto:fotis.poggas@gmail.com">Contact</a>
       </div>
@@ -1157,7 +1545,7 @@
   </div><!-- /page -->
 
   <script>
-    // ── Hero entrance (immediate, staggered) ──────────────────
+    // ── Hero entrance ─────────────────────────────────────────
     document.querySelectorAll('.reveal').forEach((el, i) => {
       requestAnimationFrame(() => {
         setTimeout(() => el.classList.add('visible'), 80 + i * 100);
@@ -1172,28 +1560,20 @@
           observer.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
     document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
 
     // ── Drag-to-scroll carousel ───────────────────────────────
     const slider = document.getElementById('screenshots');
     let isDown = false, startX, scrollLeft;
-
-    slider.addEventListener('mousedown', e => {
-      isDown = true;
-      startX = e.pageX - slider.offsetLeft;
-      scrollLeft = slider.scrollLeft;
-    });
-
+    slider.addEventListener('mousedown', e => { isDown = true; startX = e.pageX - slider.offsetLeft; scrollLeft = slider.scrollLeft; });
     slider.addEventListener('mouseleave', () => isDown = false);
     slider.addEventListener('mouseup',    () => isDown = false);
-
     slider.addEventListener('mousemove', e => {
       if (!isDown) return;
       e.preventDefault();
-      const x = e.pageX - slider.offsetLeft;
-      slider.scrollLeft = scrollLeft - (x - startX) * 1.4;
+      slider.scrollLeft = scrollLeft - (e.pageX - slider.offsetLeft - startX) * 1.4;
     });
 
     // ── Feature cards: 3D tilt + flip ────────────────────────
@@ -1201,29 +1581,18 @@
       const inner = wrapper.querySelector('.card-inner');
       const front = wrapper.querySelector('.card-front');
 
-      // 3D tilt on mouse move
       wrapper.addEventListener('mousemove', e => {
         if (wrapper.classList.contains('flipped')) return;
-        const rect   = wrapper.getBoundingClientRect();
-        const cx     = rect.left + rect.width  / 2;
-        const cy     = rect.top  + rect.height / 2;
-        const dx     = (e.clientX - cx) / (rect.width  / 2);  // -1 to +1
-        const dy     = (e.clientY - cy) / (rect.height / 2);  // -1 to +1
-        const tiltX  =  dy * -10;  // max 10deg
-        const tiltY  =  dx *  10;
-
-        // cursor glow position
-        const px = ((e.clientX - rect.left) / rect.width  * 100).toFixed(1) + '%';
-        const py = ((e.clientY - rect.top)  / rect.height * 100).toFixed(1) + '%';
-        front.style.setProperty('--mouse-x', px);
-        front.style.setProperty('--mouse-y', py);
-
+        const rect = wrapper.getBoundingClientRect();
+        const dx = (e.clientX - rect.left - rect.width  / 2) / (rect.width  / 2);
+        const dy = (e.clientY - rect.top  - rect.height / 2) / (rect.height / 2);
+        front.style.setProperty('--mouse-x', ((e.clientX - rect.left) / rect.width  * 100).toFixed(1) + '%');
+        front.style.setProperty('--mouse-y', ((e.clientY - rect.top)  / rect.height * 100).toFixed(1) + '%');
         inner.style.transition = 'transform 0.1s ease, box-shadow 0.1s ease';
-        inner.style.transform  = `rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(1.03)`;
-        inner.style.boxShadow  = `${-tiltY * 2}px ${tiltX * 2}px 40px rgba(0,0,0,0.35)`;
+        inner.style.transform  = `rotateX(${dy * -10}deg) rotateY(${dx * 10}deg) scale(1.03)`;
+        inner.style.boxShadow  = `${-dx * 20}px ${dy * 20}px 40px rgba(0,0,0,0.35)`;
       });
 
-      // Reset tilt on leave
       wrapper.addEventListener('mouseleave', () => {
         if (wrapper.classList.contains('flipped')) return;
         inner.style.transition = 'transform 0.5s cubic-bezier(.22,1,.36,1), box-shadow 0.5s';
@@ -1231,19 +1600,103 @@
         inner.style.boxShadow  = '';
       });
 
-      // Flip on click
       wrapper.addEventListener('click', () => {
         const isFlipped = wrapper.classList.toggle('flipped');
         inner.style.transition = 'transform 0.55s cubic-bezier(.4,0,.2,1), box-shadow 0.3s';
-        // Reset tilt when flipping
-        if (isFlipped) {
-          inner.style.transform = 'rotateY(180deg)';
-          inner.style.boxShadow = '';
-        } else {
-          inner.style.transform = '';
-        }
+        inner.style.transform  = isFlipped ? 'rotateY(180deg)' : '';
+        inner.style.boxShadow  = '';
       });
     });
+
+    // ── DUEL SCOREBOARD ANIMATION ─────────────────────────────
+    const TARGET_YOU  = 7;
+    const TARGET_THEM = 14;
+    let duelAnimated  = false;
+
+    function animateCount(el, target, duration, color) {
+      const start = performance.now();
+      function step(now) {
+        const t = Math.min((now - start) / duration, 1);
+        const ease = 1 - Math.pow(1 - t, 3); // cubic ease-out
+        el.textContent = Math.round(ease * target);
+        if (t < 1) requestAnimationFrame(step);
+        else {
+          el.textContent = target;
+          if (color) el.classList.add(color);
+        }
+      }
+      requestAnimationFrame(step);
+    }
+
+    function spawnConfetti() {
+      const wrap = document.getElementById('confetti-wrap');
+      if (!wrap) return;
+      const colors = ['#40ff80','#60a5fa','#c4b5fd','#f472b6','#fbbf24','#34d399'];
+      for (let i = 0; i < 22; i++) {
+        const p = document.createElement('div');
+        p.className = 'confetti-particle';
+        p.style.cssText = `
+          left:${20 + Math.random() * 60}%;
+          top:${10 + Math.random() * 60}%;
+          background:${colors[i % colors.length]};
+          width:${4 + Math.random() * 6}px;
+          height:${4 + Math.random() * 6}px;
+          border-radius:${Math.random() > 0.5 ? '50%' : '2px'};
+          animation: confetti-fly ${0.8 + Math.random() * 0.8}s ${Math.random() * 0.4}s ease-out forwards;
+        `;
+        wrap.appendChild(p);
+      }
+    }
+
+    // Inject confetti keyframes
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes confetti-fly {
+        0%   { opacity:1; transform:translate(0,0) rotate(0deg) scale(1); }
+        100% { opacity:0; transform:translate(${Math.random()>0.5?'':'-'}${20+Math.random()*40}px, -${30+Math.random()*60}px) rotate(${180+Math.random()*180}deg) scale(0.3); }
+      }
+    `;
+    document.head.appendChild(style);
+
+    const duelObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !duelAnimated) {
+          duelAnimated = true;
+
+          const elYou  = document.getElementById('score-you');
+          const elThem = document.getElementById('score-them');
+          const tag    = document.getElementById('winning-tag');
+
+          // Start both counters
+          animateCount(elYou,  TARGET_YOU,  1200);
+          animateCount(elThem, TARGET_THEM, 1600);
+
+          // Show "winning" tag after counters settle
+          setTimeout(() => {
+            if (tag) tag.classList.add('show');
+            spawnConfetti();
+          }, 1800);
+        }
+      });
+    }, { threshold: 0.4 });
+
+    const duelBoard = document.getElementById('duel-board');
+    if (duelBoard) duelObserver.observe(duelBoard);
+
+    // ── DUEL COUNTDOWN TIMER (ticking) ───────────────────────
+    function updateCountdown() {
+      const now  = new Date();
+      const midnight = new Date(now);
+      midnight.setHours(24, 0, 0, 0);
+      const diff = Math.max(0, Math.floor((midnight - now) / 1000));
+      const h = String(Math.floor(diff / 3600)).padStart(2, '0');
+      const m = String(Math.floor((diff % 3600) / 60)).padStart(2, '0');
+      const s = String(diff % 60).padStart(2, '0');
+      const el = document.getElementById('duel-countdown');
+      if (el) el.textContent = `${h}:${m}:${s}`;
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
   </script>
 
 </body>
