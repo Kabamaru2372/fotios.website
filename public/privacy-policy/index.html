@@ -398,12 +398,12 @@
         <li><strong>Friend connection pairs</strong> — a record that two anonymous IDs are connected</li>
         <li><strong>Your daily pickup count and recent screen-on time</strong> — to power the "you're both on your phones" accountability feature, two numbers are shared with connected friends: (1) your total phone pickup count for today, and (2) your total screen-on time in the last two hours (a single integer in seconds). This screen-on time is measured by Picksy's own pickup session tracking — it is <em>not</em> data from Apple's Screen Time API, contains no per-app breakdown, and contains no browsing history. Both values are stored under your anonymous device ID and are visible only to friends you have explicitly connected with.</li>
         <li><strong>Challenge data</strong> — when you send or receive a challenge, the challenge type and timestamp are stored temporarily to deliver the notification</li>
-        <li><strong>In-app messages</strong> — short messages sent between connected friends are stored temporarily on the server for delivery</li>
+        <li><strong>Pre-defined taunt messages</strong> — when you send a taunt to a duel opponent, a short pre-defined message (chosen from a fixed list within the app) is stored temporarily on the server for delivery via push notification. No free-text messages are sent or stored.</li>
       </ul>
       <div class="highlight green">
         <strong>Social features are entirely optional.</strong> If you do not connect any friends, none of the above data is stored on the server. You can remove all friends and disconnect at any time from Settings → Connected Friends → Remove all.
       </div>
-      <p>Challenge and message data is not sold, shared with third parties, or used for any purpose other than delivering the feature to you and your friends.</p>
+      <p>Challenge and taunt data is not sold, shared with third parties, or used for any purpose other than delivering the feature to you and your duel opponent.</p>
     </div>
 
     <hr class="divider">
@@ -413,7 +413,7 @@
       <h2><span class="icon">📍</span> Location data</h2>
       <p>Picksy requests access to your location <strong>only</strong> to display a real-time weather background on the main screen, powered by Apple WeatherKit.</p>
       <ul>
-        <li>Location access is requested as <strong>"When In Use" only</strong> — Picksy never accesses your location in the background</li>
+        <li>iOS will present the standard location permission prompt with three options: <strong>Never</strong>, <strong>While Using the App</strong>, or <strong>Always</strong> — the choice is entirely yours. Picksy only uses your location to fetch weather conditions and does not benefit from background location access, but iOS offers it as a standard option.</li>
         <li>Your location is sent directly to Apple's WeatherKit service to retrieve local weather conditions</li>
         <li>Picksy does not store, log, or transmit your location to any server</li>
         <li>Location access is optional — if denied, the weather background uses a default condition</li>
@@ -518,7 +518,7 @@
             <tr>
               <td>Supabase</td>
               <td>Friends, duels &amp; push infrastructure (optional)</td>
-              <td>Anonymous device token; display name, anonymous user ID, friend connections, daily pickup count, duel scores, challenge &amp; message data — only if friends feature is used</td>
+              <td>Anonymous device token; display name, anonymous user ID, friend connections, daily pickup count, screen-on time (last 2h), duel scores, pre-defined taunt messages — only if friends feature is used</td>
             </tr>
           </tbody>
         </table>
