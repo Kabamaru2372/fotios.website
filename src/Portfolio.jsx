@@ -775,7 +775,7 @@ export default function Portfolio() {
         .ios-scroll { display: flex; gap: 20px; padding: 8px 0 24px; overflow-x: auto; scrollbar-width: none; cursor: grab; }
         .ios-scroll:active { cursor: grabbing; }
         .ios-scroll::-webkit-scrollbar { display: none; }
-        .ios-scroll img { height: 460px; width: auto; border-radius: 32px; border: 1px solid ${C.border}; flex-shrink: 0; box-shadow: 0 24px 56px rgba(0,0,0,0.45); transition: transform 0.3s; }
+        .ios-scroll img { height: 460px; width: auto; border-radius: 32px; border: 1px solid ${C.border}; flex-shrink: 0; box-shadow: 0 24px 56px rgba(0,0,0,0.45); transition: transform 0.3s; background: ${C.dark3}; }
         .ios-scroll img:hover { transform: translateY(-8px) scale(1.02); }
 
         /* ── Cert hint ── */
@@ -1268,7 +1268,7 @@ function CertCard({ cert, C }) {
               </div>
             </div>
             <div style={{ borderRadius: 12, background: "#fff", border: `1px solid ${C.border}`, padding: 8 }}>
-              <img src={cert.image} alt={cert.title} style={{ width: "100%", display: "block", objectFit: "contain", borderRadius: 8 }} />
+              <img src={cert.image} alt={cert.title} loading="lazy" decoding="async" style={{ width: "100%", display: "block", objectFit: "contain", borderRadius: 8 }} />
             </div>
           </div>
         </>
@@ -1314,7 +1314,7 @@ function IosCarousel({ C }) {
       onMouseMove={e  => { if (!isDown) return; e.preventDefault(); const x = e.pageX - ref.current.offsetLeft; ref.current.scrollLeft = scrollLeft - (x - startX) * 1.4; }}
     >
       {screenshots.map((src, i) => (
-        <img key={i} src={src} alt={`Picksy screen ${i + 1}`} draggable="false" />
+        <img key={i} src={src} alt={`Picksy screen ${i + 1}`} draggable="false" loading="lazy" decoding="async" />
       ))}
     </div>
   );
