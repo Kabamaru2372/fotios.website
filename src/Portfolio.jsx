@@ -1107,7 +1107,7 @@ export default function Portfolio() {
                 <div className="dark-card" style={{ padding: 24, textAlign: "center" }}>
                   <div style={{ fontSize: 24, marginBottom: 8 }}>✉️</div>
                   <div style={{ fontSize: 11, fontWeight: 700, color: C.muted, marginBottom: 8, textTransform: "uppercase", letterSpacing: "0.06em" }}>{t.contact.email}</div>
-                  <a href="mailto:fotis.poggas@gmail.com" style={{ fontSize: 13, fontWeight: 600, color: C.blueL, textDecoration: "none", display: "block", marginBottom: 8 }}>
+                  <a href="mailto:fotis.poggas@gmail.com" style={{ fontSize: 12.5, fontWeight: 600, color: C.blueL, textDecoration: "none", display: "block", marginBottom: 8, wordBreak: "break-word", lineHeight: 1.4 }}>
                     fotis.poggas@gmail.com
                   </a>
                   <button className="copy-btn" onClick={copyEmail}>
