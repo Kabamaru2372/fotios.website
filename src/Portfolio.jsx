@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 
 // ─── Translations ──────────────────────────────────────────────────────────
 
@@ -8,12 +8,14 @@ const translations = {
     hero: {
       greeting: "Hey, I'm",
       name: "Fotios Pongas",
-      title: "DevOps & Cloud Engineer",
+      titles: ["DevOps Engineer", "Cloud Engineer", "Platform Engineer", "Infrastructure Engineer"],
       subtitle: "Building reliable, scalable infrastructure — with the service mindset of someone who's managed 5-star operations.",
       cta: "View My Work",
+      downloadCV: "Download CV",
       contact: "Get In Touch",
       hackshow: "🏆 Ironhack Hackshow Winner",
       hackshowSub: "Hotel Knowledge Assistant · Apr 2026",
+      openToWork: "Available for opportunities",
     },
     about: {
       label: "About Me",
@@ -23,10 +25,10 @@ const translations = {
       p3: "A graduate of the Ironhack DevOps & Cloud Computing Bootcamp in Germany, I bring a unique blend of operational discipline, leadership experience, and genuine passion for automation to every project I build.",
       stats: {
         experience: { value: "10+", label: "Years in Operations" },
-        projects: { value: "5+", label: "Cloud Projects" },
-        certs: { value: "2", label: "Certifications" },
-        location: { value: "DE", label: "Based in Germany" }
-      }
+        projects:   { value: "5+",  label: "Cloud Projects" },
+        certs:      { value: "2",   label: "Certifications" },
+        location:   { value: "DE",  label: "Based in Germany" },
+      },
     },
     certifications: {
       label: "Certifications",
@@ -44,8 +46,8 @@ const translations = {
             "🛠️ Covered Docker, Kubernetes, Terraform, Ansible, AWS & Azure",
             "🏆 Won the Hackshow with Hotel Knowledge Assistant — best project of the cohort",
             "🌍 Program based in Germany — internationally recognized curriculum",
-            "🚀 Built and deployed production-grade infrastructure from day one"
-          ]
+            "🚀 Built and deployed production-grade infrastructure from day one",
+          ],
         },
         {
           title: "AWS Cloud Practitioner Essentials",
@@ -58,22 +60,22 @@ const translations = {
             "🔐 Includes IAM, security best practices and shared responsibility model",
             "💰 Covers AWS pricing, billing and cost optimization strategies",
             "📦 Explores EC2, S3, RDS, Lambda and key AWS global infrastructure",
-            "🎯 Foundation for AWS Solutions Architect & Developer certifications"
-          ]
-        }
-      ]
+            "🎯 Foundation for AWS Solutions Architect & Developer certifications",
+          ],
+        },
+      ],
     },
     skills: {
       label: "Technical Skills",
       title: "Tools & Technologies",
       categories: {
-        cloud: "Cloud & Infrastructure",
-        containers: "Containers & Orchestration",
-        cicd: "CI/CD & Automation",
-        monitoring: "Monitoring & Observability",
+        cloud:       "Cloud & Infrastructure",
+        containers:  "Containers & Orchestration",
+        cicd:        "CI/CD & Automation",
+        monitoring:  "Monitoring & Observability",
         development: "Development",
-        databases: "Databases & Caching"
-      }
+        databases:   "Databases & Caching",
+      },
     },
     projects: {
       label: "Projects",
@@ -87,7 +89,7 @@ const translations = {
           tags: ["Azure AKS", "GitHub Actions", "Kubernetes", "Prometheus", "Grafana", "Redis", "MongoDB"],
           github: "https://github.com/Kabamaru2372/max.devops.expensy",
           emoji: "💰",
-          featured: true
+          featured: true,
         },
         {
           title: "Hotel Knowledge Assistant",
@@ -96,7 +98,7 @@ const translations = {
           tags: ["Azure OpenAI", "Azure AI Search", "FastAPI", "Terraform", "Docker", "Python"],
           github: "https://github.com/Kabamaru2372/hotel-training-RAG-pipeline",
           emoji: "🏨",
-          featured: true
+          featured: true,
         },
         {
           title: "3-Tier Voting App",
@@ -105,7 +107,7 @@ const translations = {
           tags: ["Terraform", "Ansible", "Docker", "GitHub Actions", "PostgreSQL", "Redis"],
           github: "https://github.com/Kabamaru2372/3-tier-application",
           emoji: "🗳️",
-          featured: false
+          featured: false,
         },
         {
           title: "W3 Combo",
@@ -114,7 +116,7 @@ const translations = {
           tags: ["Terraform", "HCL", "AWS", "IaC", "Networking"],
           github: "https://github.com/Kabamaru2372/w3-combo",
           emoji: "☁️",
-          featured: false
+          featured: false,
         },
         {
           title: "Cloud Provisioning Toolkit",
@@ -123,7 +125,7 @@ const translations = {
           tags: ["Terraform", "Shell", "AWS", "Automation"],
           github: "https://github.com/Kabamaru2372/ironhack-project1-provisioning",
           emoji: "⚙️",
-          featured: false
+          featured: false,
         },
         {
           title: "fotiospongas.dev",
@@ -132,9 +134,9 @@ const translations = {
           tags: ["React", "Vite", "GitHub Actions", "GitHub Pages"],
           github: "https://github.com/Kabamaru2372/fotios.website",
           emoji: "🌐",
-          featured: false
-        }
-      ]
+          featured: false,
+        },
+      ],
     },
     iosApp: {
       label: "iOS App",
@@ -149,11 +151,11 @@ const translations = {
       label: "My Journey",
       title: "A Career Built on Service",
       steps: [
-        { year: "2009+", icon: "🏪", title: "Retail Management", desc: "Store Manager at Dixons in Rhodes — leading teams, managing inventory systems, and optimizing operations under pressure." },
-        { year: "2023", icon: "🏨", title: "Hospitality Management", desc: "Managed operations at international 5-star hotels including Sheraton. Learned to run 24/7 systems where failure wasn't an option." },
-        { year: "2025", icon: "💻", title: "Career Pivot to Tech", desc: "Enrolled in Ironhack's DevOps & Cloud Computing Bootcamp. Built real infrastructure from day one — and won the Hackshow." },
-        { year: "2026", icon: "🚀", title: "DevOps Engineer", desc: "Hands-on Azure, Kubernetes, Terraform, and CI/CD experience. Bringing operational excellence to cloud engineering." }
-      ]
+        { year: "2009+", icon: "🏪", title: "Retail Management",    desc: "Store Manager at Dixons in Rhodes — leading teams, managing inventory systems, and optimizing operations under pressure." },
+        { year: "2023",  icon: "🏨", title: "Hospitality Management", desc: "Managed operations at international 5-star hotels including Sheraton. Learned to run 24/7 systems where failure wasn't an option." },
+        { year: "2025",  icon: "💻", title: "Career Pivot to Tech",  desc: "Enrolled in Ironhack's DevOps & Cloud Computing Bootcamp. Built real infrastructure from day one — and won the Hackshow." },
+        { year: "2026",  icon: "🚀", title: "DevOps Engineer",       desc: "Hands-on Azure, Kubernetes, Terraform, and CI/CD experience. Bringing operational excellence to cloud engineering." },
+      ],
     },
     contact: {
       label: "Contact",
@@ -163,20 +165,24 @@ const translations = {
       linkedin: "LinkedIn",
       github: "GitHub",
       location: "Location",
-      locationValue: "Germany"
-    }
+      locationValue: "Germany",
+      copied: "Copied!",
+    },
   },
+
   de: {
     nav: { home: "Start", about: "Über mich", skills: "Fähigkeiten", certifications: "Zertifikate", projects: "Projekte", contact: "Kontakt" },
     hero: {
       greeting: "Hallo, ich bin",
       name: "Fotios Pongas",
-      title: "DevOps & Cloud Engineer",
+      titles: ["DevOps Engineer", "Cloud Engineer", "Platform Engineer", "Infrastructure Engineer"],
       subtitle: "Aufbau zuverlässiger, skalierbarer Infrastruktur — mit der Service-Mentalität eines erfahrenen 5-Sterne-Hotel-Managers.",
       cta: "Meine Projekte",
+      downloadCV: "CV herunterladen",
       contact: "Kontakt",
       hackshow: "🏆 Ironhack Hackshow Gewinner",
       hackshowSub: "Hotel Knowledge Assistant · Apr 2026",
+      openToWork: "Offen für neue Stellen",
     },
     about: {
       label: "Über mich",
@@ -186,10 +192,10 @@ const translations = {
       p3: "Als Absolvent des Ironhack DevOps & Cloud Computing Bootcamps in Deutschland bringe ich operative Disziplin, Führungserfahrung und Leidenschaft für Automatisierung in jedes Projekt.",
       stats: {
         experience: { value: "10+", label: "Jahre Berufserfahrung" },
-        projects: { value: "5+", label: "Cloud-Projekte" },
-        certs: { value: "2", label: "Zertifizierungen" },
-        location: { value: "DE", label: "Standort Deutschland" }
-      }
+        projects:   { value: "5+",  label: "Cloud-Projekte" },
+        certs:      { value: "2",   label: "Zertifizierungen" },
+        location:   { value: "DE",  label: "Standort Deutschland" },
+      },
     },
     certifications: {
       label: "Zertifizierungen",
@@ -207,8 +213,8 @@ const translations = {
             "🛠️ Inhalte: Docker, Kubernetes, Terraform, Ansible, AWS & Azure",
             "🏆 Hackshow-Gewinner mit Hotel Knowledge Assistant — bestes Projekt des Jahrgangs",
             "🌍 Programm in Deutschland — international anerkanntes Curriculum",
-            "🚀 Echte Produktionsinfrastruktur von Tag eins aufgebaut"
-          ]
+            "🚀 Echte Produktionsinfrastruktur von Tag eins aufgebaut",
+          ],
         },
         {
           title: "AWS Cloud Practitioner Essentials",
@@ -221,22 +227,22 @@ const translations = {
             "🔐 IAM, Sicherheitskonzepte und das geteilte Verantwortungsmodell",
             "💰 AWS-Preismodell, Abrechnung und Kostenoptimierung",
             "📦 EC2, S3, RDS, Lambda und die globale AWS-Infrastruktur",
-            "🎯 Grundlage für AWS Solutions Architect & Developer-Zertifizierungen"
-          ]
-        }
-      ]
+            "🎯 Grundlage für AWS Solutions Architect & Developer-Zertifizierungen",
+          ],
+        },
+      ],
     },
     skills: {
       label: "Technische Fähigkeiten",
       title: "Tools & Technologien",
       categories: {
-        cloud: "Cloud & Infrastruktur",
-        containers: "Container & Orchestrierung",
-        cicd: "CI/CD & Automatisierung",
-        monitoring: "Monitoring & Observability",
+        cloud:       "Cloud & Infrastruktur",
+        containers:  "Container & Orchestrierung",
+        cicd:        "CI/CD & Automatisierung",
+        monitoring:  "Monitoring & Observability",
         development: "Entwicklung",
-        databases: "Datenbanken & Caching"
-      }
+        databases:   "Datenbanken & Caching",
+      },
     },
     projects: {
       label: "Projekte",
@@ -250,7 +256,7 @@ const translations = {
           tags: ["Azure AKS", "GitHub Actions", "Kubernetes", "Prometheus", "Grafana", "Redis", "MongoDB"],
           github: "https://github.com/Kabamaru2372/max.devops.expensy",
           emoji: "💰",
-          featured: true
+          featured: true,
         },
         {
           title: "Hotel Knowledge Assistant",
@@ -259,7 +265,7 @@ const translations = {
           tags: ["Azure OpenAI", "Azure AI Search", "FastAPI", "Terraform", "Docker", "Python"],
           github: "https://github.com/Kabamaru2372/hotel-training-RAG-pipeline",
           emoji: "🏨",
-          featured: true
+          featured: true,
         },
         {
           title: "3-Tier Voting App",
@@ -268,7 +274,7 @@ const translations = {
           tags: ["Terraform", "Ansible", "Docker", "GitHub Actions", "PostgreSQL", "Redis"],
           github: "https://github.com/Kabamaru2372/3-tier-application",
           emoji: "🗳️",
-          featured: false
+          featured: false,
         },
         {
           title: "W3 Combo",
@@ -277,7 +283,7 @@ const translations = {
           tags: ["Terraform", "HCL", "AWS", "IaC", "Networking"],
           github: "https://github.com/Kabamaru2372/w3-combo",
           emoji: "☁️",
-          featured: false
+          featured: false,
         },
         {
           title: "Cloud-Provisioning-Toolkit",
@@ -286,7 +292,7 @@ const translations = {
           tags: ["Terraform", "Shell", "AWS", "Automation"],
           github: "https://github.com/Kabamaru2372/ironhack-project1-provisioning",
           emoji: "⚙️",
-          featured: false
+          featured: false,
         },
         {
           title: "fotiospongas.dev",
@@ -295,9 +301,9 @@ const translations = {
           tags: ["React", "Vite", "GitHub Actions", "GitHub Pages"],
           github: "https://github.com/Kabamaru2372/fotios.website",
           emoji: "🌐",
-          featured: false
-        }
-      ]
+          featured: false,
+        },
+      ],
     },
     iosApp: {
       label: "iOS App",
@@ -313,10 +319,10 @@ const translations = {
       title: "Eine Karriere im Zeichen des Service",
       steps: [
         { year: "2009+", icon: "🏪", title: "Einzelhandelsmanagement", desc: "Filialleiter bei Dixons auf Rhodos — Teamführung, Bestandsverwaltung und Prozessoptimierung." },
-        { year: "2023", icon: "🏨", title: "Hotelmanagement", desc: "Leitung in internationalen 5-Sterne-Hotels wie Sheraton. 24/7-Betrieb ohne Ausfallzeiten." },
-        { year: "2025", icon: "💻", title: "Karrierewechsel in die IT", desc: "Ironhack DevOps & Cloud Computing Bootcamp. Echte Infrastruktur von Tag eins — und Hackshow-Gewinner." },
-        { year: "2026", icon: "🚀", title: "DevOps Engineer", desc: "Azure, Kubernetes, Terraform und CI/CD. Operative Exzellenz im Cloud Engineering." }
-      ]
+        { year: "2023",  icon: "🏨", title: "Hotelmanagement",         desc: "Leitung in internationalen 5-Sterne-Hotels wie Sheraton. 24/7-Betrieb ohne Ausfallzeiten." },
+        { year: "2025",  icon: "💻", title: "Karrierewechsel in die IT", desc: "Ironhack DevOps & Cloud Computing Bootcamp. Echte Infrastruktur von Tag eins — und Hackshow-Gewinner." },
+        { year: "2026",  icon: "🚀", title: "DevOps Engineer",          desc: "Azure, Kubernetes, Terraform und CI/CD. Operative Exzellenz im Cloud Engineering." },
+      ],
     },
     contact: {
       label: "Kontakt",
@@ -326,18 +332,72 @@ const translations = {
       linkedin: "LinkedIn",
       github: "GitHub",
       location: "Standort",
-      locationValue: "Deutschland"
-    }
-  }
+      locationValue: "Deutschland",
+      copied: "Kopiert!",
+    },
+  },
 };
 
+// ─── Skills Data (with Simple Icons slugs) ─────────────────────────────────
+
 const skillsData = [
-  { category: "cloud",      items: ["Azure", "AWS", "Terraform", "Azure AKS", "Azure AI Foundry", "Blob Storage", "Azure AI Search", "Azure Container Instances"] },
-  { category: "containers", items: ["Docker", "Kubernetes", "Docker Compose", "Helm"] },
-  { category: "cicd",       items: ["GitHub Actions", "Git", "CI/CD Pipelines"] },
-  { category: "monitoring", items: ["Prometheus", "Grafana", "Alerting"] },
-  { category: "development",items: ["Python", "Node.js", "FastAPI", "Next.js", "Swift", "Bash"] },
-  { category: "databases",  items: ["MongoDB", "Redis", "PostgreSQL"] }
+  {
+    category: "cloud",
+    items: [
+      { name: "Azure",              icon: "microsoftazure", color: "0078D4" },
+      { name: "AWS",                icon: "amazonaws",      color: "FF9900" },
+      { name: "Terraform",          icon: "terraform",      color: "844FBA" },
+      { name: "Azure AKS",          icon: "microsoftazure", color: "0078D4" },
+      { name: "Azure AI Foundry",   icon: "microsoftazure", color: "0078D4" },
+      { name: "Blob Storage",       icon: "microsoftazure", color: "0078D4" },
+      { name: "Azure AI Search",    icon: "microsoftazure", color: "0078D4" },
+    ],
+  },
+  {
+    category: "containers",
+    items: [
+      { name: "Docker",         icon: "docker",     color: "2496ED" },
+      { name: "Kubernetes",     icon: "kubernetes", color: "326CE5" },
+      { name: "Docker Compose", icon: "docker",     color: "2496ED" },
+      { name: "Helm",           icon: "helm",       color: "277A9F" },
+    ],
+  },
+  {
+    category: "cicd",
+    items: [
+      { name: "GitHub Actions",  icon: "githubactions", color: "2088FF" },
+      { name: "Git",             icon: "git",           color: "F05032" },
+      { name: "Ansible",         icon: "ansible",       color: "EE0000" },
+      { name: "CI/CD Pipelines", icon: null,            color: null   },
+    ],
+  },
+  {
+    category: "monitoring",
+    items: [
+      { name: "Prometheus", icon: "prometheus", color: "E6522C" },
+      { name: "Grafana",    icon: "grafana",    color: "F46800" },
+      { name: "Alerting",   icon: null,         color: null    },
+    ],
+  },
+  {
+    category: "development",
+    items: [
+      { name: "Python",   icon: "python",    color: "3776AB" },
+      { name: "Node.js",  icon: "nodedotjs", color: "5FA04E" },
+      { name: "FastAPI",  icon: "fastapi",   color: "009688" },
+      { name: "Next.js",  icon: "nextdotjs", color: "ffffff" },
+      { name: "Swift",    icon: "swift",     color: "F05138" },
+      { name: "Bash",     icon: "gnubash",   color: "4EAA25" },
+    ],
+  },
+  {
+    category: "databases",
+    items: [
+      { name: "MongoDB",    icon: "mongodb",    color: "47A248" },
+      { name: "Redis",      icon: "redis",      color: "DC382D" },
+      { name: "PostgreSQL", icon: "postgresql", color: "4169E1" },
+    ],
+  },
 ];
 
 // ─── Hooks ─────────────────────────────────────────────────────────────────
@@ -369,55 +429,227 @@ function useReveal(threshold = 0.12) {
   return [ref, visible];
 }
 
+function useTypewriter(words, { speed = 80, deleteSpeed = 45, pauseMs = 2200 } = {}) {
+  const [text, setText]       = useState("");
+  const [wordIdx, setWordIdx] = useState(0);
+  const [deleting, setDeleting] = useState(false);
+
+  useEffect(() => {
+    const word = words[wordIdx % words.length];
+
+    if (!deleting && text === word) {
+      const t = setTimeout(() => setDeleting(true), pauseMs);
+      return () => clearTimeout(t);
+    }
+    if (deleting && text === "") {
+      setDeleting(false);
+      setWordIdx(i => (i + 1) % words.length);
+      return;
+    }
+
+    const t = setTimeout(() => {
+      setText(prev =>
+        deleting ? prev.slice(0, -1) : word.slice(0, prev.length + 1)
+      );
+    }, deleting ? deleteSpeed : speed);
+
+    return () => clearTimeout(t);
+  }, [text, deleting, wordIdx, words, speed, deleteSpeed, pauseMs]);
+
+  return text;
+}
+
+function useCountUp(rawValue, duration = 1400) {
+  const [display, setDisplay] = useState("0");
+  const [started, setStarted] = useState(false);
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const obs = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setStarted(true); obs.disconnect(); } },
+      { threshold: 0.5 }
+    );
+    if (ref.current) obs.observe(ref.current);
+    return () => obs.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!started) return;
+
+    // Extract numeric part — handle "10+", "5+", "2", "DE"
+    const isText  = isNaN(parseInt(rawValue));
+    if (isText) { setDisplay(rawValue); return; }
+
+    const hasPlus = String(rawValue).includes("+");
+    const target  = parseInt(rawValue);
+    const start   = performance.now();
+
+    const tick = (now) => {
+      const elapsed  = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased    = 1 - Math.pow(1 - progress, 3);
+      const current  = Math.round(eased * target);
+      setDisplay(current + (hasPlus && progress === 1 ? "+" : ""));
+      if (progress < 1) requestAnimationFrame(tick);
+    };
+
+    requestAnimationFrame(tick);
+  }, [started, rawValue, duration]);
+
+  return [ref, display];
+}
+
+// ─── Helpers ───────────────────────────────────────────────────────────────
+
 function Reveal({ children, delay = 0, style = {} }) {
   const [ref, visible] = useReveal();
   return (
     <div ref={ref} style={{
-      opacity: visible ? 1 : 0,
-      transform: visible ? "translateY(0)" : "translateY(36px)",
+      opacity:    visible ? 1 : 0,
+      transform:  visible ? "translateY(0)" : "translateY(36px)",
       transition: `opacity 0.7s cubic-bezier(.22,1,.36,1) ${delay}s, transform 0.7s cubic-bezier(.22,1,.36,1) ${delay}s`,
-      ...style
+      ...style,
     }}>
       {children}
     </div>
   );
 }
 
-// ─── Component ─────────────────────────────────────────────────────────────
+// ─── New Components ────────────────────────────────────────────────────────
+
+function ScrollProgressBar() {
+  const [pct, setPct] = useState(0);
+  useEffect(() => {
+    const update = () => {
+      const doc = document.documentElement;
+      const h   = doc.scrollHeight - doc.clientHeight;
+      setPct(h > 0 ? (window.scrollY / h) * 100 : 0);
+    };
+    window.addEventListener("scroll", update, { passive: true });
+    return () => window.removeEventListener("scroll", update);
+  }, []);
+  return (
+    <div style={{
+      position: "fixed", top: 0, left: 0, height: 3, zIndex: 1001,
+      width: `${pct}%`,
+      background: "linear-gradient(90deg, #2563eb 0%, #7c3aed 60%, #f472b6 100%)",
+      transition: "width 0.08s linear",
+      pointerEvents: "none",
+    }} />
+  );
+}
+
+function BackToTop({ C }) {
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setVisible(window.scrollY > 600);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+  return (
+    <button
+      onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+      title="Back to top"
+      style={{
+        position: "fixed", bottom: 32, right: 32, zIndex: 50,
+        width: 48, height: 48, borderRadius: "50%",
+        background: "linear-gradient(135deg, #2563eb, #7c3aed)",
+        border: "none", cursor: "pointer",
+        display: "flex", alignItems: "center", justifyContent: "center",
+        color: "#fff", fontSize: 18,
+        boxShadow: "0 8px 24px rgba(37,99,235,0.45)",
+        opacity: visible ? 1 : 0,
+        transform: visible ? "translateY(0) scale(1)" : "translateY(12px) scale(0.9)",
+        transition: "opacity 0.3s, transform 0.3s",
+        pointerEvents: visible ? "auto" : "none",
+      }}
+    >
+      ↑
+    </button>
+  );
+}
+
+function SkillChip({ item, C }) {
+  const iconUrl = item.icon
+    ? `https://cdn.simpleicons.org/${item.icon}/${item.color || "ffffff"}`
+    : null;
+
+  return (
+    <span className="skill-chip">
+      {iconUrl && (
+        <img
+          src={iconUrl}
+          alt={item.name}
+          width={15}
+          height={15}
+          style={{ objectFit: "contain", flexShrink: 0, verticalAlign: "middle" }}
+          onError={e => { e.target.style.display = "none"; }}
+        />
+      )}
+      {!iconUrl && <span style={{ fontSize: 14 }}>⚙️</span>}
+      {item.name}
+    </span>
+  );
+}
+
+function AnimatedStat({ value, label, C }) {
+  const [ref, display] = useCountUp(value);
+  return (
+    <div ref={ref} className="stat-card">
+      <div className="stat-value">{display}</div>
+      <div className="stat-label">{label}</div>
+    </div>
+  );
+}
+
+// ─── Main Component ────────────────────────────────────────────────────────
 
 export default function Portfolio() {
-  const [lang, setLang] = useState("en");
+  const [lang, setLang]         = useState("en");
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [heroVisible, setHeroVisible] = useState(false);
-  const t = translations[lang];
+  const [emailCopied, setEmailCopied] = useState(false);
+
+  const t        = translations[lang];
   const sections = ["home", "about", "journey", "skills", "certifications", "projects", "contact"];
-  const active = useScrollSpy(sections);
+  const active   = useScrollSpy(sections);
+  const titleText = useTypewriter(t.hero.titles);
 
   useEffect(() => {
-    const timer = setTimeout(() => setHeroVisible(true), 80);
+    const timer   = setTimeout(() => setHeroVisible(true), 80);
     const onScroll = () => setScrolled(window.scrollY > 40);
-    window.addEventListener("scroll", onScroll);
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => { clearTimeout(timer); window.removeEventListener("scroll", onScroll); };
   }, []);
 
-  const scrollTo = (id) => { document.getElementById(id)?.scrollIntoView({ behavior: "smooth" }); setMenuOpen(false); };
+  const scrollTo = (id) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    setMenuOpen(false);
+  };
+
+  const copyEmail = useCallback(() => {
+    navigator.clipboard.writeText("fotis.poggas@gmail.com").then(() => {
+      setEmailCopied(true);
+      setTimeout(() => setEmailCopied(false), 2000);
+    });
+  }, []);
 
   const C = {
-    dark:    "#080812",
-    dark2:   "#111122",
-    dark3:   "#181830",
-    blue:    "#2563eb",
-    blueL:   "#60a5fa",
-    violet:  "#7c3aed",
-    text:    "#f0f0ff",
-    muted:   "#8888aa",
-    border:  "rgba(255,255,255,0.07)",
+    dark:   "#080812",
+    dark2:  "#111122",
+    dark3:  "#181830",
+    blue:   "#2563eb",
+    blueL:  "#60a5fa",
+    violet: "#7c3aed",
+    text:   "#f0f0ff",
+    muted:  "#8888aa",
+    border: "rgba(255,255,255,0.07)",
   };
 
   const fadeIn = (delay = 0) => ({
-    opacity: heroVisible ? 1 : 0,
-    transform: heroVisible ? "translateY(0)" : "translateY(28px)",
+    opacity:    heroVisible ? 1 : 0,
+    transform:  heroVisible ? "translateY(0)" : "translateY(28px)",
     transition: `opacity 0.7s cubic-bezier(.22,1,.36,1) ${delay}s, transform 0.7s cubic-bezier(.22,1,.36,1) ${delay}s`,
   });
 
@@ -455,7 +687,9 @@ export default function Portfolio() {
         /* ── Buttons ── */
         .btn-primary { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; border-radius: 12px; background: ${C.blue}; color: #fff; font-weight: 700; font-size: 15px; border: none; cursor: pointer; transition: all 0.25s; font-family: inherit; text-decoration: none; box-shadow: 0 0 28px rgba(37,99,235,0.3); }
         .btn-primary:hover { opacity: 0.88; transform: translateY(-2px); box-shadow: 0 8px 36px rgba(37,99,235,0.45); }
-        .btn-outline { display: inline-flex; align-items: center; gap: 8px; padding: 13px 26px; border-radius: 12px; background: rgba(255,255,255,0.06); color: ${C.muted}; font-weight: 600; font-size: 15px; border: 1px solid ${C.border}; cursor: pointer; transition: all 0.25s; font-family: inherit; text-decoration: none; }
+        .btn-cv { display: inline-flex; align-items: center; gap: 8px; padding: 13px 24px; border-radius: 12px; background: rgba(124,58,237,0.15); color: #a78bfa; font-weight: 600; font-size: 15px; border: 1px solid rgba(124,58,237,0.35); cursor: pointer; transition: all 0.25s; font-family: inherit; text-decoration: none; }
+        .btn-cv:hover { background: rgba(124,58,237,0.25); color: #c4b5fd; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(124,58,237,0.25); }
+        .btn-outline { display: inline-flex; align-items: center; gap: 8px; padding: 13px 24px; border-radius: 12px; background: rgba(255,255,255,0.06); color: ${C.muted}; font-weight: 600; font-size: 15px; border: 1px solid ${C.border}; cursor: pointer; transition: all 0.25s; font-family: inherit; text-decoration: none; }
         .btn-outline:hover { background: rgba(255,255,255,0.1); color: ${C.text}; }
 
         /* ── Section labels ── */
@@ -468,8 +702,10 @@ export default function Portfolio() {
         .dark-card:hover { border-color: rgba(96,165,250,0.22); transform: translateY(-4px); box-shadow: 0 20px 48px rgba(0,0,0,0.35); }
 
         /* ── Skill chips ── */
-        .skill-chip { display: inline-block; padding: 7px 15px; border-radius: 9px; font-size: 13px; font-weight: 500; background: rgba(255,255,255,0.05); border: 1px solid ${C.border}; color: ${C.muted}; transition: all 0.2s; cursor: default; }
-        .skill-chip:hover { background: rgba(37,99,235,0.18); border-color: rgba(96,165,250,0.35); color: ${C.blueL}; transform: translateY(-2px); }
+        .skill-chip { display: inline-flex; align-items: center; gap: 7px; padding: 8px 14px; border-radius: 9px; font-size: 13px; font-weight: 500; background: rgba(255,255,255,0.05); border: 1px solid ${C.border}; color: ${C.muted}; transition: all 0.2s; cursor: default; }
+        .skill-chip:hover { background: rgba(37,99,235,0.15); border-color: rgba(96,165,250,0.32); color: ${C.blueL}; transform: translateY(-2px); }
+        .skill-chip img { filter: saturate(0.8) brightness(0.95); transition: filter 0.2s; }
+        .skill-chip:hover img { filter: saturate(1.1) brightness(1.05); }
 
         /* ── Tags ── */
         .tag { display: inline-block; padding: 3px 10px; border-radius: 6px; font-size: 12px; font-weight: 500; background: rgba(255,255,255,0.06); color: ${C.muted}; border: 1px solid ${C.border}; }
@@ -489,13 +725,23 @@ export default function Portfolio() {
         .timeline-dot.last { background: linear-gradient(135deg, ${C.blue}, ${C.violet}); border-color: transparent; }
 
         /* ── Stat cards ── */
-        .stat-card { text-align: center; padding: 28px 16px; background: ${C.dark2}; border: 1px solid ${C.border}; border-radius: 16px; }
+        .stat-card { text-align: center; padding: 28px 16px; background: ${C.dark2}; border: 1px solid ${C.border}; border-radius: 16px; transition: border-color 0.3s, transform 0.3s; }
+        .stat-card:hover { border-color: rgba(96,165,250,0.2); transform: translateY(-3px); }
         .stat-value { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 34px; background: linear-gradient(135deg, ${C.blueL}, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
         .stat-label { font-size: 13px; color: ${C.muted}; margin-top: 6px; font-weight: 500; }
 
         /* ── Hackshow badge ── */
-        @keyframes shimmer { 0%,100% { opacity: 1; } 50% { opacity: 0.7; } }
+        @keyframes shimmer { 0%,100% { opacity: 1; } 50% { opacity: 0.75; } }
         .hackshow-badge { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; background: rgba(251,191,36,0.1); border: 1px solid rgba(251,191,36,0.3); border-radius: 100px; font-size: 13px; font-weight: 600; color: #fbbf24; animation: shimmer 2.5s ease-in-out infinite; }
+
+        /* ── Open to work badge ── */
+        @keyframes pulse { 0%,100% { opacity: 1; box-shadow: 0 0 0 0 rgba(34,197,94,0.5); } 50% { opacity: 0.85; box-shadow: 0 0 0 6px rgba(34,197,94,0); } }
+        .otw-badge { display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px; background: rgba(34,197,94,0.08); border: 1px solid rgba(34,197,94,0.25); border-radius: 100px; font-size: 13px; font-weight: 600; color: #4ade80; margin-bottom: 18px; }
+        .otw-dot { width: 8px; height: 8px; border-radius: 50%; background: #22c55e; flex-shrink: 0; animation: pulse 2.2s ease-in-out infinite; }
+
+        /* ── Typewriter cursor ── */
+        .cursor { display: inline-block; width: 2px; height: 1em; background: ${C.blueL}; margin-left: 2px; vertical-align: text-bottom; animation: blink 1s step-end infinite; }
+        @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
 
         /* ── Hamburger ── */
         .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 8px; }
@@ -507,12 +753,18 @@ export default function Portfolio() {
         .hackshow-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(8,8,18,0.7) 0%, transparent 50%); }
         .hackshow-caption { position: absolute; bottom: 16px; left: 16px; right: 16px; }
 
+        /* ── Copy button ── */
+        .copy-btn { background: none; border: none; cursor: pointer; color: ${C.blueL}; font-size: 13px; font-weight: 600; font-family: inherit; padding: 4px 8px; border-radius: 6px; transition: all 0.2s; display: inline-flex; align-items: center; gap: 4px; }
+        .copy-btn:hover { background: rgba(96,165,250,0.1); }
+
         /* ── Responsive ── */
         @media (max-width: 768px) {
           .desktop-nav { display: none !important; }
           .hamburger { display: block; }
           .hero-grid { grid-template-columns: 1fr !important; }
           .hero-photo { display: none; }
+          .hero-ctas { flex-direction: column; }
+          .hero-ctas a, .hero-ctas button { width: 100%; justify-content: center; }
           .mobile-menu { position: fixed; inset: 0; background: rgba(8,8,18,0.97); backdrop-filter: blur(20px); z-index: 200; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 28px; }
           .mobile-menu button { font-size: 20px; font-weight: 600; color: ${C.text}; background: none; border: none; cursor: pointer; font-family: 'Outfit', sans-serif; }
           .mobile-close { position: absolute; top: 24px; right: 24px; font-size: 28px; background: none; border: none; cursor: pointer; color: ${C.muted}; }
@@ -528,6 +780,10 @@ export default function Portfolio() {
 
         /* ── Cert hint ── */
         .cert-hint { font-size: 11px; color: ${C.muted}; text-align: center; margin-top: 14px; letter-spacing: 0.04em; opacity: 0.7; }
+
+        /* ── Footer links ── */
+        .footer-link { color: ${C.muted}; text-decoration: none; font-size: 13px; transition: color 0.2s; }
+        .footer-link:hover { color: ${C.blueL}; }
       `}</style>
 
       {/* ── AURORA ── */}
@@ -535,12 +791,18 @@ export default function Portfolio() {
         <div className="aurora-blob" /><div className="aurora-blob" /><div className="aurora-blob" />
       </div>
 
+      {/* ── SCROLL PROGRESS ── */}
+      <ScrollProgressBar />
+
       <div style={{ position: "relative", zIndex: 1 }}>
 
         {/* ── NAV ── */}
         <nav className={`nav-wrap ${scrolled ? "nav-scrolled" : ""}`}>
           <div style={{ maxWidth: 1120, margin: "0 auto", padding: "18px 24px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-            <div style={{ fontFamily: "'Outfit', sans-serif", fontWeight: 800, fontSize: 20, cursor: "pointer", letterSpacing: "-0.03em" }} onClick={() => scrollTo("home")}>
+            <div
+              style={{ fontFamily: "'Outfit', sans-serif", fontWeight: 800, fontSize: 20, cursor: "pointer", letterSpacing: "-0.03em" }}
+              onClick={() => scrollTo("home")}
+            >
               <span style={{ color: C.blueL }}>F</span><span style={{ color: C.text }}>P</span>
             </div>
             <div className="desktop-nav" style={{ display: "flex", alignItems: "center", gap: 28 }}>
@@ -579,29 +841,55 @@ export default function Portfolio() {
 
               {/* Left */}
               <div>
-                <div style={{ ...fadeIn(0), marginBottom: 24 }}>
+                {/* Open to Work */}
+                <div style={fadeIn(0)}>
+                  <div className="otw-badge">
+                    <div className="otw-dot" />
+                    {t.hero.openToWork}
+                  </div>
+                </div>
+
+                {/* Hackshow badge */}
+                <div style={{ ...fadeIn(0.06), marginBottom: 24 }}>
                   <span className="hackshow-badge">{t.hero.hackshow}</span>
                 </div>
-                <div style={fadeIn(0.08)}>
+
+                <div style={fadeIn(0.12)}>
                   <p style={{ fontSize: 16, color: C.muted, fontWeight: 500, marginBottom: 10 }}>{t.hero.greeting}</p>
                 </div>
-                <div style={fadeIn(0.15)}>
-                  <h1 style={{ fontFamily: "'Outfit', sans-serif", fontWeight: 800, fontSize: "clamp(40px, 5.5vw, 68px)", lineHeight: 1.08, letterSpacing: "-0.03em", marginBottom: 16 }}>
+
+                <div style={fadeIn(0.18)}>
+                  <h1 style={{ fontFamily: "'Outfit', sans-serif", fontWeight: 800, fontSize: "clamp(40px, 5.5vw, 68px)", lineHeight: 1.08, letterSpacing: "-0.03em", marginBottom: 20 }}>
                     <span className="gradient-text">{t.hero.name}</span>
                   </h1>
                 </div>
-                <div style={fadeIn(0.22)}>
-                  <div style={{ display: "inline-block", padding: "6px 18px", borderRadius: 100, background: "rgba(37,99,235,0.12)", border: "1px solid rgba(96,165,250,0.2)", marginBottom: 24 }}>
-                    <span style={{ fontSize: 15, fontWeight: 600, color: C.blueL, letterSpacing: "0.03em" }}>{t.hero.title}</span>
+
+                {/* Typewriter title */}
+                <div style={fadeIn(0.24)}>
+                  <div style={{ display: "inline-block", padding: "7px 18px", borderRadius: 100, background: "rgba(37,99,235,0.12)", border: "1px solid rgba(96,165,250,0.2)", marginBottom: 24 }}>
+                    <span style={{ fontSize: 15, fontWeight: 700, color: C.blueL, letterSpacing: "0.02em", fontFamily: "'Outfit', sans-serif" }}>
+                      {titleText}
+                      <span className="cursor" />
+                    </span>
                   </div>
                 </div>
-                <div style={fadeIn(0.28)}>
+
+                <div style={fadeIn(0.30)}>
                   <p style={{ fontSize: 18, lineHeight: 1.7, color: C.muted, maxWidth: 480, marginBottom: 40, fontWeight: 400 }}>
                     {t.hero.subtitle}
                   </p>
                 </div>
-                <div style={{ ...fadeIn(0.34), display: "flex", gap: 14, flexWrap: "wrap" }}>
+
+                {/* CTAs */}
+                <div className="hero-ctas" style={{ ...fadeIn(0.36), display: "flex", gap: 12, flexWrap: "wrap" }}>
                   <button className="btn-primary" onClick={() => scrollTo("projects")}>{t.hero.cta} ↓</button>
+                  {/* ⚠️ Add Fotios_Pongas_CV.pdf to the /public folder to enable the CV download */}
+                  <a className="btn-cv" href="/Fotios_Pongas_CV.pdf" download>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+                    </svg>
+                    {t.hero.downloadCV}
+                  </a>
                   <button className="btn-outline" onClick={() => scrollTo("contact")}>{t.hero.contact}</button>
                 </div>
               </div>
@@ -638,10 +926,7 @@ export default function Portfolio() {
               <Reveal delay={0.2}>
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
                   {Object.values(t.about.stats).map((s, i) => (
-                    <div key={i} className="stat-card">
-                      <div className="stat-value">{s.value}</div>
-                      <div className="stat-label">{s.label}</div>
-                    </div>
+                    <AnimatedStat key={i} value={s.value} label={s.label} C={C} />
                   ))}
                 </div>
               </Reveal>
@@ -685,11 +970,13 @@ export default function Portfolio() {
               {skillsData.map((group, i) => (
                 <Reveal key={i} delay={i * 0.07}>
                   <div className="dark-card" style={{ padding: 28 }}>
-                    <h3 style={{ fontSize: 14, fontWeight: 700, color: C.blueL, marginBottom: 18, letterSpacing: "0.04em", textTransform: "uppercase" }}>
+                    <h3 style={{ fontSize: 13, fontWeight: 700, color: C.blueL, marginBottom: 18, letterSpacing: "0.06em", textTransform: "uppercase" }}>
                       {t.skills.categories[group.category]}
                     </h3>
                     <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-                      {group.items.map((item, j) => <span key={j} className="skill-chip">{item}</span>)}
+                      {group.items.map((item, j) => (
+                        <SkillChip key={j} item={item} C={C} />
+                      ))}
                     </div>
                   </div>
                 </Reveal>
@@ -712,9 +999,9 @@ export default function Portfolio() {
                 <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: C.blueL, marginBottom: 20 }}>Ironhack DevOps & Cloud Computing — Program Highlights</div>
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 24 }}>
                   {[
-                    { icon: "⏱️", title: "400+ Hours", desc: "Pre-work, labs, hands-on projects and career development." },
+                    { icon: "⏱️", title: "400+ Hours",     desc: "Pre-work, labs, hands-on projects and career development." },
                     { icon: "🛠️", title: "Industry Tools", desc: "Git, Terraform, Ansible, Docker, Kubernetes, AWS, Azure." },
-                    { icon: "📊", title: "Observability", desc: "Real-world monitoring with Prometheus and Grafana." },
+                    { icon: "📊", title: "Observability",  desc: "Real-world monitoring with Prometheus and Grafana." },
                     { icon: "🏆", title: "Hackshow Winner", desc: "Hotel Knowledge Assistant — top project of the cohort." },
                   ].map((h, i) => (
                     <div key={i} style={{ display: "flex", gap: 14, alignItems: "flex-start" }}>
@@ -816,10 +1103,25 @@ export default function Portfolio() {
             </Reveal>
             <Reveal delay={0.15}>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(130px, 1fr))", gap: 16 }}>
+                {/* Email — with copy button */}
+                <div className="dark-card" style={{ padding: 24, textAlign: "center" }}>
+                  <div style={{ fontSize: 24, marginBottom: 8 }}>✉️</div>
+                  <div style={{ fontSize: 11, fontWeight: 700, color: C.muted, marginBottom: 8, textTransform: "uppercase", letterSpacing: "0.06em" }}>{t.contact.email}</div>
+                  <a href="mailto:fotis.poggas@gmail.com" style={{ fontSize: 13, fontWeight: 600, color: C.blueL, textDecoration: "none", display: "block", marginBottom: 8 }}>
+                    fotis.poggas@gmail.com
+                  </a>
+                  <button className="copy-btn" onClick={copyEmail}>
+                    {emailCopied ? (
+                      <><span>✓</span> {t.contact.copied}</>
+                    ) : (
+                      <><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</>
+                    )}
+                  </button>
+                </div>
+
                 {[
-                  { label: t.contact.email,    icon: "✉️", href: "mailto:fotis.poggas@gmail.com", value: "Get in touch" },
                   { label: t.contact.linkedin, icon: "💼", href: "https://www.linkedin.com/in/f-pongas-devops-cloud/", value: "LinkedIn" },
-                  { label: t.contact.github,   icon: "💻", href: "https://github.com/Kabamaru2372", value: "GitHub" },
+                  { label: t.contact.github,   icon: "💻", href: "https://github.com/Kabamaru2372",                    value: "GitHub" },
                   { label: t.contact.location, icon: "📍", href: null, value: t.contact.locationValue },
                 ].map((item, i) => (
                   <div key={i} className="dark-card" style={{ padding: 24, textAlign: "center" }}>
@@ -837,13 +1139,24 @@ export default function Portfolio() {
         </section>
 
         {/* ── FOOTER ── */}
-        <footer style={{ padding: "28px 24px", borderTop: `1px solid ${C.border}`, textAlign: "center" }}>
-          <p style={{ fontSize: 13, color: "#3d3d55" }}>
-            © 2026 Fotios Pongas — Built with passion, deployed with CI/CD.
-          </p>
+        <footer style={{ padding: "36px 24px", borderTop: `1px solid ${C.border}` }}>
+          <div style={{ maxWidth: 1120, margin: "0 auto", display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: 16 }}>
+            <p style={{ fontSize: 13, color: "#3d3d55" }}>
+              © 2026 Fotios Pongas — Built with React, deployed with CI/CD.
+            </p>
+            <div style={{ display: "flex", gap: 20, alignItems: "center" }}>
+              <a href="https://github.com/Kabamaru2372"                          target="_blank" rel="noopener noreferrer" className="footer-link">GitHub</a>
+              <a href="https://www.linkedin.com/in/f-pongas-devops-cloud/"       target="_blank" rel="noopener noreferrer" className="footer-link">LinkedIn</a>
+              <a href="mailto:fotis.poggas@gmail.com"                                                                      className="footer-link">Email</a>
+              <a href="https://apps.apple.com/de/app/picksy-be-present/id6761116771" target="_blank" rel="noopener noreferrer" className="footer-link">Picksy</a>
+            </div>
+          </div>
         </footer>
 
       </div>{/* /page */}
+
+      {/* ── BACK TO TOP ── */}
+      <BackToTop C={C} />
     </div>
   );
 }
@@ -855,7 +1168,7 @@ function ProjectCard({ project, viewCode, C }) {
 
   const handleMouseMove = (e) => {
     const rect = ref.current.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width * 100).toFixed(1) + "%";
+    const x = ((e.clientX - rect.left) / rect.width  * 100).toFixed(1) + "%";
     const y = ((e.clientY - rect.top)  / rect.height * 100).toFixed(1) + "%";
     ref.current.style.setProperty("--mx", x);
     ref.current.style.setProperty("--my", y);
@@ -880,18 +1193,15 @@ function ProjectCard({ project, viewCode, C }) {
 }
 
 // ─── Cert Card ──────────────────────────────────────────────────────────────
-// Uses a simulated flip (rotate to 90° → swap content → rotate back)
-// instead of CSS backface-visibility, which breaks when ancestor elements
-// have opacity/transform transitions (like the Reveal wrapper).
 
 function CertCard({ cert, C }) {
   const [showBack, setShowBack] = useState(false);
-  const ref = useRef(null);
+  const ref         = useRef(null);
   const isAnimating = useRef(false);
-  const isBack = useRef(false);
+  const isBack      = useRef(false);
 
-  const setTrans = (t) => { ref.current.style.transition = t; };
-  const setTf   = (tf) => { ref.current.style.transform  = tf; };
+  const setTrans = (t)  => { ref.current.style.transition = t; };
+  const setTf    = (tf) => { ref.current.style.transform  = tf; };
 
   const handleMouseMove = (e) => {
     if (isBack.current || isAnimating.current) return;
@@ -913,19 +1223,14 @@ function CertCard({ cert, C }) {
     isAnimating.current = true;
     const goBack = !isBack.current;
 
-    // Phase 1: rotate to 90° (edge-on)
     setTrans("transform 0.28s ease-in");
     setTf("perspective(1000px) rotateY(90deg)");
 
     setTimeout(() => {
-      // Swap content instantly while edge-on (invisible)
       isBack.current = goBack;
       setShowBack(goBack);
-
-      // Phase 2: rotate back to 0°
       setTrans("transform 0.28s ease-out");
       setTf("perspective(1000px) rotateY(0deg) rotateX(0deg) scale(1)");
-
       setTimeout(() => { isAnimating.current = false; }, 290);
     }, 285);
   };
@@ -952,7 +1257,6 @@ function CertCard({ cert, C }) {
       }}
     >
       {!showBack ? (
-        /* ── FRONT ── */
         <>
           <div style={{ height: 4, background: cert.color }} />
           <div style={{ padding: 28 }}>
@@ -969,7 +1273,6 @@ function CertCard({ cert, C }) {
           </div>
         </>
       ) : (
-        /* ── BACK ── */
         <div style={{ padding: "32px 28px", minHeight: 420, display: "flex", flexDirection: "column", justifyContent: "center" }}>
           <div style={{ width: 10, height: 10, borderRadius: "50%", background: cert.color, marginBottom: 20 }} />
           <div style={{ fontSize: 17, fontWeight: 700, fontFamily: "'Outfit', sans-serif", color: C.text, marginBottom: 6 }}>{cert.title}</div>
@@ -1005,10 +1308,10 @@ function IosCarousel({ C }) {
 
   return (
     <div ref={ref} className="ios-scroll"
-      onMouseDown={e => { isDown = true; startX = e.pageX - ref.current.offsetLeft; scrollLeft = ref.current.scrollLeft; }}
+      onMouseDown={e  => { isDown = true; startX = e.pageX - ref.current.offsetLeft; scrollLeft = ref.current.scrollLeft; }}
       onMouseLeave={() => { isDown = false; }}
       onMouseUp={() => { isDown = false; }}
-      onMouseMove={e => { if (!isDown) return; e.preventDefault(); const x = e.pageX - ref.current.offsetLeft; ref.current.scrollLeft = scrollLeft - (x - startX) * 1.4; }}
+      onMouseMove={e  => { if (!isDown) return; e.preventDefault(); const x = e.pageX - ref.current.offsetLeft; ref.current.scrollLeft = scrollLeft - (x - startX) * 1.4; }}
     >
       {screenshots.map((src, i) => (
         <img key={i} src={src} alt={`Picksy screen ${i + 1}`} draggable="false" />
