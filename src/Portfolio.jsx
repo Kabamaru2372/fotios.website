@@ -1296,12 +1296,12 @@ function IosCarousel({ C }) {
   let isDown = false, startX, scrollLeft;
 
   const screenshots = [
-    "/picksy-new-1.png",
-    "/picksy-new-2.png",
-    "/picksy-new-3.png",
-    "/picksy-new-4.png",
-    "/picksy-new-5.png",
-    "/picksy-new-6.png",
+    "/picksy-new-1.jpg",
+    "/picksy-new-2.jpg",
+    "/picksy-new-3.jpg",
+    "/picksy-new-4.jpg",
+    "/picksy-new-5.jpg",
+    "/picksy-new-6.jpg",
   ];
 
   return (
