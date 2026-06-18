@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
+import GooeyNav from "./GooeyNav";
 
 // ─── Translations ──────────────────────────────────────────────────────────
 
@@ -614,6 +615,12 @@ export default function Portfolio() {
   const t        = translations[lang];
   const sections = ["home", "about", "journey", "skills", "certifications", "projects", "contact"];
   const active   = useScrollSpy(sections);
+
+  const navItems = sections.map(s => ({
+    href: `#${s}`,
+    label: t.nav[s] || (s.charAt(0).toUpperCase() + s.slice(1)),
+    onClick: () => scrollTo(s),
+  }));
   const titleText = useTypewriter(t.hero.titles);
 
   useEffect(() => {
@@ -805,12 +812,8 @@ export default function Portfolio() {
             >
               <span style={{ color: C.blueL }}>F</span><span style={{ color: C.text }}>P</span>
             </div>
-            <div className="desktop-nav" style={{ display: "flex", alignItems: "center", gap: 28 }}>
-              {sections.map(s => (
-                <button key={s} className={`nav-link ${active === s ? "active" : ""}`} onClick={() => scrollTo(s)}>
-                  {t.nav[s] || s}
-                </button>
-              ))}
+            <div className="desktop-nav" style={{ display: "flex", alignItems: "center", gap: 16 }}>
+              <GooeyNav items={navItems} initialActiveIndex={0} />
               <div className="lang-toggle">
                 <button className={`lang-btn ${lang === "en" ? "active" : ""}`} onClick={() => setLang("en")}>EN</button>
                 <button className={`lang-btn ${lang === "de" ? "active" : ""}`} onClick={() => setLang("de")}>DE</button>
