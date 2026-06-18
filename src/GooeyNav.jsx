@@ -133,13 +133,10 @@ const GooeyNav = ({
       <svg style={{ position: 'absolute', width: 0, height: 0 }} aria-hidden="true">
         <defs>
           <filter id="gooey-filter">
-            <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur" />
-            <feColorMatrix
-              in="blur"
-              mode="matrix"
-              values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9"
-              result="gooey"
-            />
+            <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur" />
+            <feColorMatrix in="blur" mode="matrix"
+              values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -9"
+              result="gooey" />
             <feComposite in="SourceGraphic" in2="gooey" operator="atop" />
           </filter>
         </defs>
@@ -170,5 +167,6 @@ const GooeyNav = ({
     </>
   );
 };
+
 
 export default GooeyNav;
