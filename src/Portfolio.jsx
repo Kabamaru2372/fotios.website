@@ -619,7 +619,7 @@ export default function Portfolio() {
   const navItems = sections.map(s => ({
     href: `#${s}`,
     label: t.nav[s] || (s.charAt(0).toUpperCase() + s.slice(1)),
-    onClick: () => scrollTo(s),
+    onClick: () => requestAnimationFrame(() => scrollTo(s)),
   }));
   const titleText = useTypewriter(t.hero.titles);
 
