@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scytale — Private Messenger</title>
+<meta name="description" content="Scytale is a privacy-first, independent messenger interoperating with the Session Network. No phone number, no plaintext, no backdoors.">
+<link rel="icon" href="data:,">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #0f0f1a;
+    --card: #1a1a2e;
+    --card-border: rgba(255,255,255,0.08);
+    --text: #ffffff;
+    --text-dim: #a0a0b8;
+    --text-faint: #6b6b88;
+    --accent: #8b5cf6;
+    --accent-dim: #6d28d9;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  a { color: var(--accent); }
+
+  header {
+    padding: 64px 24px 48px;
+    text-align: center;
+    background: radial-gradient(circle at 50% 0%, rgba(139,92,246,0.18), transparent 60%);
+  }
+
+  .logo-mark {
+    font-size: 40px;
+    display: inline-block;
+    margin-bottom: 12px;
+  }
+
+  header h1 {
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  header p.tagline {
+    color: var(--text-dim);
+    font-size: 17px;
+    max-width: 480px;
+    margin: 0 auto 28px;
+  }
+
+  .cta-row {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 13px 24px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+
+  .btn:hover { opacity: 0.85; }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #ffffff;
+  }
+
+  .btn-secondary {
+    background: rgba(255,255,255,0.06);
+    color: var(--text-dim);
+    border: 1px solid var(--card-border);
+  }
+
+  nav.toc {
+    max-width: 720px;
+    margin: 0 auto 32px;
+    padding: 0 24px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+    justify-content: center;
+  }
+
+  nav.toc a {
+    font-size: 13px;
+    color: var(--text-faint);
+    text-decoration: none;
+  }
+
+  nav.toc a:hover { color: var(--text-dim); }
+
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 24px 96px;
+  }
+
+  section {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 20px;
+    padding: 32px;
+    margin-bottom: 20px;
+    scroll-margin-top: 24px;
+  }
+
+  section h2 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+
+  section h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 20px 0 8px;
+    color: var(--text);
+  }
+
+  section p {
+    color: var(--text-dim);
+    font-size: 15px;
+    margin-bottom: 12px;
+  }
+
+  section ul {
+    color: var(--text-dim);
+    font-size: 15px;
+    margin: 0 0 12px 20px;
+  }
+
+  section ul li { margin-bottom: 6px; }
+
+  .badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: rgba(139,92,246,0.12);
+    border-radius: 6px;
+    padding: 3px 8px;
+    margin-bottom: 12px;
+  }
+
+  .subsection {
+    border-top: 1px solid var(--card-border);
+    margin-top: 20px;
+    padding-top: 20px;
+  }
+
+  footer {
+    text-align: center;
+    padding: 32px 24px 64px;
+    color: var(--text-faint);
+    font-size: 13px;
+  }
+
+  footer a { color: var(--text-faint); }
+
+  code {
+    background: rgba(255,255,255,0.06);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 13px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <span class="logo-mark">🌀</span>
+  <h1>Scytale</h1>
+  <p class="tagline">A privacy-first, independent messenger. No phone number. No plaintext. No backdoors. Built on the open Session Network.</p>
+  <div class="cta-row">
+    <a href="#download" class="btn btn-primary">Download</a>
+    <a href="#support" class="btn btn-secondary">Support</a>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#download">Download</a>
+  <a href="#faq">FAQ</a>
+  <a href="#support">Support</a>
+  <a href="#feedback">Feedback</a>
+  <a href="#terms">Terms</a>
+  <a href="#privacy">Privacy</a>
+  <a href="#survey">Survey</a>
+  <a href="#translate">Translate</a>
+  <a href="#donate">Donate</a>
+  <a href="#pro-roadmap">Pro Roadmap</a>
+  <a href="#pro-form">Pro Support</a>
+</nav>
+
+<main>
+
+  <section id="download">
+    <h2>Download</h2>
+    <p>Scytale is currently in private testing (TestFlight) ahead of public release. If you've received an invite, install <a href="https://apps.apple.com/app/testflight/id899247664">TestFlight</a> and accept it there.</p>
+    <p>A public App Store link will appear here once Scytale is released.</p>
+  </section>
+
+  <section id="faq">
+    <h2>FAQ</h2>
+
+    <h3>What is Scytale?</h3>
+    <p>Scytale is an independent iOS client that interoperates, unmodified, with the <a href="https://getsession.org" target="_blank" rel="noopener">Session Network</a> — the same onion-routed, decentralized messaging protocol used by the Session app. Scytale is a client-only rebrand and feature layer: the underlying cryptography and network protocol are untouched.</p>
+
+    <h3>Do I need a phone number to use it?</h3>
+    <p>No. Accounts are generated locally on your device — no phone number, no email, no personal identifier required to create an account.</p>
+
+    <h3>Is Scytale affiliated with Session or the Session Foundation?</h3>
+    <p>No. Scytale is an independent, unofficial fork of the open-source Session iOS client (GPLv3), maintained separately. It is not endorsed by or affiliated with the Session Foundation.</p>
+
+    <h3>Why does this exist?</h3>
+    <p>Scytale exists to offer a genuinely private messaging option outside of proposed client-side scanning / message-inspection mandates, without inventing new, unaudited cryptography — by building on Session's existing, audited protocol.</p>
+
+    <div class="subsection" id="faq-pro">
+      <span class="badge">Pro</span>
+      <h3>What is Scytale Pro?</h3>
+      <p>Pro-tier features are inherited from the underlying Session codebase. Details on what's included will be published here as they're finalized.</p>
+    </div>
+  </section>
+
+  <section id="support">
+    <h2>Support</h2>
+    <p>Having trouble with Scytale? Reach out and describe what you're seeing (device model, iOS version, and steps to reproduce help a lot):</p>
+    <ul>
+      <li>Email: <a href="mailto:fotis.poggas@gmail.com">fotis.poggas@gmail.com</a></li>
+    </ul>
+    <p>This is an independently maintained project — response times may vary.</p>
+  </section>
+
+  <section id="feedback">
+    <h2>Feedback</h2>
+    <p>Suggestions, bug reports, and feature requests are welcome at <a href="mailto:fotis.poggas@gmail.com">fotis.poggas@gmail.com</a>.</p>
+  </section>
+
+  <section id="terms">
+    <h2>Terms of Service</h2>
+    <p><em>Last updated: 2026.</em> This is a preliminary terms of service pending full legal review ahead of public release.</p>
+    <p>Scytale is provided "as is," without warranty of any kind, express or implied. By using Scytale you acknowledge that:</p>
+    <ul>
+      <li>Scytale is an independent, community-maintained fork of the open-source Session iOS client, licensed under GPLv3.</li>
+      <li>Scytale is not affiliated with, endorsed by, or supported by the Session Foundation.</li>
+      <li>Message delivery, storage, and routing occur on the decentralized Session Network, which Scytale's developer does not operate or control.</li>
+      <li>You are responsible for complying with the laws of your jurisdiction when using Scytale.</li>
+      <li>Certain experimental features may be present only in development builds and are not available in the public release.</li>
+    </ul>
+    <p>The full, complete source code and license (GPLv3) are available on request. Continued use of the app constitutes acceptance of these terms.</p>
+
+    <div class="subsection" id="pro-terms">
+      <span class="badge">Pro</span>
+      <h3>Pro Terms</h3>
+      <p>Subscription terms for optional Pro features (if enabled) follow Apple's standard auto-renewable subscription terms, in addition to the general terms above. No separate Pro-specific terms currently apply beyond those.</p>
+    </div>
+  </section>
+
+  <section id="privacy">
+    <h2>Privacy Policy</h2>
+    <p><em>Last updated: 2026.</em> This is a preliminary privacy policy pending full legal review ahead of public release.</p>
+
+    <h3>What we don't collect</h3>
+    <ul>
+      <li>No phone number, email, or government ID is required to create an account.</li>
+      <li>Message content is end-to-end encrypted; the app developer has no ability to read message content.</li>
+      <li>No message content is stored on servers operated by the app developer — messages route through the decentralized Session Network.</li>
+    </ul>
+
+    <h3>What is collected</h3>
+    <ul>
+      <li>Standard, anonymous crash/diagnostic data may be collected by Apple if you opt in via iOS system settings — this is Apple's platform mechanism, not something Scytale operates.</li>
+      <li>If you contact support directly (e.g. by email), we retain that correspondence to respond to you.</li>
+    </ul>
+
+    <h3>Third-party infrastructure</h3>
+    <p>Scytale routes messages through the Session Network's decentralized service nodes, which are operated by independent, third-party node operators — not by Scytale's developer. See the <a href="https://docs.getsession.org" target="_blank" rel="noopener">Session Network documentation</a> for details on how the underlying protocol works.</p>
+
+    <div class="subsection" id="pro-privacy">
+      <span class="badge">Pro</span>
+      <h3>Pro Privacy</h3>
+      <p>Optional Pro subscriptions (if enabled) are processed by Apple via the App Store; Scytale's developer receives only the minimum transaction status needed to enable Pro features, not your payment details.</p>
+    </div>
+  </section>
+
+  <section id="survey">
+    <h2>Survey</h2>
+    <p>No survey is currently open. Check back later, or share thoughts directly via <a href="mailto:fotis.poggas@gmail.com">email</a>.</p>
+  </section>
+
+  <section id="translate">
+    <h2>Translate</h2>
+    <p>Interested in helping translate Scytale into your language? Get in touch at <a href="mailto:fotis.poggas@gmail.com">fotis.poggas@gmail.com</a>.</p>
+  </section>
+
+  <section id="donate">
+    <h2>Donate</h2>
+    <p>Scytale itself does not currently accept donations. If you'd like to support the underlying Session Network and protocol this app depends on, see the <a href="https://getsession.org" target="_blank" rel="noopener">Session Foundation</a>.</p>
+
+    <div class="subsection" id="donate-app">
+      <h3>Supporting this app specifically</h3>
+      <p>There's currently no donation mechanism specific to Scytale. This section will be updated if that changes.</p>
+    </div>
+  </section>
+
+  <section id="pro-roadmap">
+    <h2>Pro Roadmap</h2>
+    <p>No public roadmap is available yet. This page will be updated as Pro features are finalized.</p>
+  </section>
+
+  <section id="pro-form">
+    <h2>Pro Support</h2>
+    <p>For questions about Pro features or billing, email <a href="mailto:fotis.poggas@gmail.com">fotis.poggas@gmail.com</a> with "Scytale Pro" in the subject line.</p>
+  </section>
+
+</main>
+
+<footer>
+  <p>Scytale is an independent, unofficial derivative of <a href="https://github.com/session-foundation/session-ios" target="_blank" rel="noopener">session-ios</a> (GPLv3). Not affiliated with the Session Foundation.</p>
+  <p style="margin-top:8px">© 2026 Fotios Pongas</p>
+</footer>
+
+</body>
+</html>
