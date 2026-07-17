@@ -118,6 +118,10 @@ export default function Portfolio() {
   const sectionIds = ["about", "journey", "work", "apps", "papers", "contact"];
   const activeSection = useScrollSpy(sectionIds);
   const [emailCopied, setEmailCopied] = useState(false);
+  const [flippedPapers, setFlippedPapers] = useState({});
+  const toggleFlip = useCallback((i) => {
+    setFlippedPapers((prev) => ({ ...prev, [i]: !prev[i] }));
+  }, []);
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -262,15 +266,32 @@ export default function Portfolio() {
         /* Papers */
         .papers-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; }
         @media (max-width: 700px) { .papers-grid { grid-template-columns: 1fr; } }
-        .paper-card { border: 1px solid ${C.ink}; background: ${C.paperDeep}; padding: 22px; }
+
+        .flip-card { perspective: 1600px; }
+        .flip-inner {
+          position: relative; width: 100%; min-height: 400px;
+          transform-style: preserve-3d; transition: transform 0.55s cubic-bezier(0.4, 0.1, 0.2, 1);
+          font-family: inherit; text-align: left; background: none; border: none; padding: 0; cursor: pointer;
+        }
+        .flip-inner.flipped { transform: rotateY(180deg); }
+        .flip-face {
+          position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden;
+          border: 1px solid ${C.ink}; background: ${C.paperDeep}; padding: 22px; overflow: hidden;
+          display: flex; flex-direction: column;
+        }
+        .flip-back { transform: rotateY(180deg); }
+        .flip-hint { margin-top: auto; padding-top: 14px; font-family: 'Inter', sans-serif; font-size: 11.5px; color: ${C.inkFaint}; letter-spacing: 0.06em; text-transform: uppercase; }
         .paper-thumb { border: 1px solid ${C.rule}; margin-bottom: 16px; overflow: hidden; }
         .paper-thumb img { width: 100%; display: block; }
-        .paper-card h3 { font-size: 18px; margin: 0 0 3px; font-weight: 600; }
+        .flip-face h3 { font-size: 18px; margin: 0 0 3px; font-weight: 600; }
         .paper-meta { font-family: 'Inter', sans-serif; font-size: 12.5px; color: ${C.inkFaint}; margin-bottom: 14px; }
-        .paper-facts { margin: 0; padding: 0; list-style: none; }
-        .paper-facts li { font-size: 14px; line-height: 1.6; color: ${C.inkSoft}; padding: 7px 0 7px 16px; position: relative; border-top: 1px solid ${C.rule}; }
+        .paper-facts { margin: 0; padding: 0; list-style: none; overflow-y: auto; flex: 1; min-height: 0; }
+        .paper-facts li { font-size: 13.5px; line-height: 1.55; color: ${C.inkSoft}; padding: 7px 0 7px 16px; position: relative; border-top: 1px solid ${C.rule}; }
         .paper-facts li:first-child { border-top: none; }
         .paper-facts li::before { content: ""; position: absolute; left: 0; top: 15px; width: 6px; height: 1.5px; background: ${C.inkFaint}; }
+        @media (prefers-reduced-motion: reduce) {
+          .flip-inner { transition: none; }
+        }
 
         /* Skills */
         .skills-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0; border-top: 1px solid ${C.rule}; border-left: 1px solid ${C.rule}; }
@@ -437,8 +458,10 @@ export default function Portfolio() {
             </div>
           </Reveal>
 
-          <Reveal as="div" delay={80} className="entry" style={{ display: "grid", gridTemplateColumns: "60px 1fr", gap: 20, padding: "26px 0 0", border: "none" }}>
-            <span className="no">{"//"}</span>
+          <Reveal as="div" delay={80} className="app-card" style={{ borderBottom: "none" }}>
+            <div className="app-shots">
+              <img src="/scytale-icon.png" alt="Scytale app icon" loading="lazy" />
+            </div>
             <div>
               <h3>{t.apps.scytale.title}</h3>
               <p>{t.apps.scytale.desc}</p>
@@ -456,13 +479,27 @@ export default function Portfolio() {
           <h3 className="section-title">{t.papers.title}</h3>
           <div className="papers-grid">
             {t.papers.items.map((c, i) => (
-              <Reveal key={c.title} delay={i * 80} className="paper-card">
-                <div className="paper-thumb"><img src={c.image} alt={`${c.title} certificate`} loading="lazy" /></div>
-                <h3>{c.title}</h3>
-                <div className="paper-meta">{c.issuer} · {c.date}</div>
-                <ul className="paper-facts">
-                  {c.facts.map((f) => <li key={f}>{f}</li>)}
-                </ul>
+              <Reveal key={c.title} delay={i * 80} className="flip-card">
+                <button
+                  className={`flip-inner${flippedPapers[i] ? " flipped" : ""}`}
+                  onClick={() => toggleFlip(i)}
+                  aria-pressed={!!flippedPapers[i]}
+                  aria-label={`${c.title}. ${t.papers.flipHint}`}
+                >
+                  <div className="flip-face flip-front">
+                    <div className="paper-thumb"><img src={c.image} alt={`${c.title} certificate`} loading="lazy" /></div>
+                    <h3>{c.title}</h3>
+                    <div className="paper-meta">{c.issuer} · {c.date}</div>
+                    <span className="flip-hint">{t.papers.flipHint}</span>
+                  </div>
+                  <div className="flip-face flip-back">
+                    <h3>{c.title}</h3>
+                    <div className="paper-meta">{c.issuer} · {c.date}</div>
+                    <ul className="paper-facts">
+                      {c.facts.map((f) => <li key={f}>{f}</li>)}
+                    </ul>
+                  </div>
+                </button>
               </Reveal>
             ))}
           </div>

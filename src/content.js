@@ -8,7 +8,7 @@ export const translations = {
       titleBefore: "I used to run hotel front desks. Now I keep ",
       titleAccent: "infrastructure",
       titleAfter: " running.",
-      sub: "I build CI/CD pipelines, run Kubernetes clusters and write Terraform. Before that I spent ten years keeping hotels and stores running, which turns out to be the same job with different tools: people count on you, and downtime is not an option.",
+      sub: "I build CI/CD pipelines, run Kubernetes clusters and write Terraform. Before that I spent twenty years keeping hotels and stores running, which turns out to be the same job with different tools: people count on you, and downtime is not an option.",
       viewWork: "View work",
       downloadCV: "Download CV",
       stamp: "Available for work",
@@ -16,13 +16,13 @@ export const translations = {
     about: {
       label: "About",
       title: "From the front desk to production",
-      p1: "For over a decade I managed places where things simply had to work: a Dixons store in Rhodes, then front desk operations at Sheraton hotels. When a guest arrives at two in the morning, nobody cares whose shift it was or which system failed. You fix it.",
+      p1: "For over twenty years I managed places where things simply had to work: a Dixons store in Rhodes, then front desk operations at Sheraton hotels. When a guest arrives at two in the morning, nobody cares whose shift it was or which system failed. You fix it.",
       p2: "That is the mindset I bring to DevOps. I design CI/CD pipelines, orchestrate containers with Kubernetes, provision infrastructure with Terraform and monitor everything with Prometheus and Grafana. A cluster is just another operation that has to stay open.",
       p3: "I graduated from Ironhack's DevOps and Cloud Computing bootcamp in Germany, where my final project won the Hackshow: an AI assistant that answers hotel staff questions from the hotel's own documentation. The two halves of my career finally shook hands.",
       photoCaption: "April 2026. The moment the Hackshow winner was announced, photographed from my desk.",
       photoNote: "First place, Ironhack Hackshow",
       stats: [
-        { value: "10+", label: "years in operations" },
+        { value: "20+", label: "years in operations" },
         { value: "5+", label: "cloud projects" },
         { value: "2", label: "certifications" },
         { value: "DE", label: "based in Germany" },
@@ -109,6 +109,7 @@ export const translations = {
     papers: {
       label: "The papers",
       title: "Credentials",
+      flipHint: "Click to flip",
       items: [
         {
           title: "DevOps & Cloud Computing",
@@ -116,10 +117,12 @@ export const translations = {
           date: "March 2026",
           image: "/Screenshot 2026-03-10 at 01.01.28.png",
           facts: [
-            "Over 400 hours of hands-on labs and real projects",
-            "Docker, Kubernetes, Terraform, Ansible, AWS and Azure",
-            "Won the final Hackshow with the Hotel Knowledge Assistant",
-            "Completed in Germany",
+            "400 hours over 9 weeks, full time, in Germany",
+            "Docker and Kubernetes: images, orchestration, Helm charts",
+            "Terraform and Ansible: provisioning and configuration as code",
+            "AWS and Azure: compute, storage, networking, IAM",
+            "CI/CD with GitHub Actions, from commit to production",
+            "Final project, the Hotel Knowledge Assistant, won the cohort's Hackshow: first place out of every team",
           ],
         },
         {
@@ -128,10 +131,11 @@ export const translations = {
           date: "August 2025",
           image: "/Screenshot 2026-03-10 at 01.00.39.png",
           facts: [
-            "Core cloud concepts and services, straight from AWS",
-            "IAM, security practices and the shared responsibility model",
-            "Pricing, billing and cost optimization",
-            "EC2, S3, RDS, Lambda and the global infrastructure",
+            "Core AWS services and how they fit together",
+            "IAM, security practices, the shared responsibility model",
+            "Pricing, billing and cost optimization strategies",
+            "EC2, S3, RDS and Lambda in practice",
+            "The global AWS infrastructure: regions, availability zones, edge locations",
           ],
         },
       ],
@@ -166,7 +170,7 @@ export const translations = {
       titleBefore: "Früher leitete ich Hotelrezeptionen. Heute halte ich ",
       titleAccent: "Infrastruktur",
       titleAfter: " am Laufen.",
-      sub: "Ich baue CI/CD-Pipelines, betreibe Kubernetes-Cluster und schreibe Terraform. Davor habe ich zehn Jahre lang Hotels und Geschäfte am Laufen gehalten. Im Grunde derselbe Beruf mit anderen Werkzeugen: Menschen verlassen sich auf dich, und Ausfall ist keine Option.",
+      sub: "Ich baue CI/CD-Pipelines, betreibe Kubernetes-Cluster und schreibe Terraform. Davor habe ich zwanzig Jahre lang Hotels und Geschäfte am Laufen gehalten. Im Grunde derselbe Beruf mit anderen Werkzeugen: Menschen verlassen sich auf dich, und Ausfall ist keine Option.",
       viewWork: "Projekte ansehen",
       downloadCV: "CV herunterladen",
       stamp: "Offen für Angebote",
@@ -174,13 +178,13 @@ export const translations = {
     about: {
       label: "Über mich",
       title: "Von der Rezeption in die Produktion",
-      p1: "Über ein Jahrzehnt lang habe ich Orte geleitet, an denen alles funktionieren musste: ein Dixons-Geschäft auf Rhodos, danach den Empfang in Sheraton-Hotels. Wenn ein Gast um zwei Uhr nachts ankommt, interessiert niemanden, wessen Schicht es war oder welches System versagt hat. Man löst es.",
+      p1: "Über zwanzig Jahre lang habe ich Orte geleitet, an denen alles funktionieren musste: ein Dixons-Geschäft auf Rhodos, danach den Empfang in Sheraton-Hotels. Wenn ein Gast um zwei Uhr nachts ankommt, interessiert niemanden, wessen Schicht es war oder welches System versagt hat. Man löst es.",
       p2: "Genau diese Haltung bringe ich ins DevOps-Engineering. Ich entwerfe CI/CD-Pipelines, orchestriere Container mit Kubernetes, provisioniere Infrastruktur mit Terraform und überwache alles mit Prometheus und Grafana. Ein Cluster ist am Ende auch nur ein Betrieb, der offen bleiben muss.",
       p3: "Das Ironhack-Bootcamp für DevOps und Cloud Computing habe ich in Deutschland abgeschlossen. Mein Abschlussprojekt, ein KI-Assistent für Hotelpersonal, gewann die Hackshow. Meine zwei Berufsleben haben sich endlich die Hand gegeben.",
       photoCaption: "April 2026. Der Moment der Siegerehrung, fotografiert von meinem Schreibtisch aus.",
       photoNote: "Erster Platz, Ironhack Hackshow",
       stats: [
-        { value: "10+", label: "Jahre im operativen Betrieb" },
+        { value: "20+", label: "Jahre im operativen Betrieb" },
         { value: "5+", label: "Cloud-Projekte" },
         { value: "2", label: "Zertifizierungen" },
         { value: "DE", label: "wohnhaft in Deutschland" },
@@ -267,6 +271,7 @@ export const translations = {
     papers: {
       label: "Die Papiere",
       title: "Abschlüsse",
+      flipHint: "Klicken zum Umdrehen",
       items: [
         {
           title: "DevOps & Cloud Computing",
@@ -274,10 +279,12 @@ export const translations = {
           date: "März 2026",
           image: "/Screenshot 2026-03-10 at 01.01.28.png",
           facts: [
-            "Über 400 Stunden praktische Labs und echte Projekte",
-            "Docker, Kubernetes, Terraform, Ansible, AWS und Azure",
-            "Sieger der Hackshow mit dem Hotel Knowledge Assistant",
-            "Abgeschlossen in Deutschland",
+            "400 Stunden über 9 Wochen, Vollzeit, in Deutschland",
+            "Docker und Kubernetes: Images, Orchestrierung, Helm Charts",
+            "Terraform und Ansible: Provisionierung und Konfiguration als Code",
+            "AWS und Azure: Compute, Storage, Networking, IAM",
+            "CI/CD mit GitHub Actions, vom Commit bis zur Produktion",
+            "Abschlussprojekt, der Hotel Knowledge Assistant, gewann die Hackshow des Jahrgangs: erster Platz unter allen Teams",
           ],
         },
         {
@@ -286,10 +293,11 @@ export const translations = {
           date: "August 2025",
           image: "/Screenshot 2026-03-10 at 01.00.39.png",
           facts: [
-            "Cloud-Grundlagen und Services, direkt von AWS",
-            "IAM, Sicherheitspraktiken und das Modell der geteilten Verantwortung",
-            "Preise, Abrechnung und Kostenoptimierung",
-            "EC2, S3, RDS, Lambda und die globale Infrastruktur",
+            "Zentrale AWS-Services und ihr Zusammenspiel",
+            "IAM, Sicherheitspraktiken, das Modell der geteilten Verantwortung",
+            "Preise, Abrechnung und Strategien zur Kostenoptimierung",
+            "EC2, S3, RDS und Lambda in der Praxis",
+            "Die globale AWS-Infrastruktur: Regionen, Availability Zones, Edge-Standorte",
           ],
         },
       ],
@@ -319,7 +327,7 @@ export const translations = {
 };
 
 export const links = {
-  email: "fotis.poggas@gmail.com",
+  email: "hello@fotiospongas.dev",
   github: "https://github.com/Kabamaru2372",
   linkedin: "https://www.linkedin.com/in/f-pongas-devops-cloud/",
   cv: "/Fotios_Pongas_CV.pdf",
