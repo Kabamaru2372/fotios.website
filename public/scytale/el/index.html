@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scytale — Ιδιωτικός Αγγελιοφόρος</title>
+<meta name="description" content="Το Scytale είναι μια ιδιωτική, ανεξάρτητη εφαρμογή μηνυμάτων που συνεργάζεται με το Session Network. Χωρίς αριθμό τηλεφώνου, χωρίς απλό κείμενο, χωρίς κερκόπορτες.">
+<link rel="icon" href="/scytale-icon.png">
+<link href="/fonts/fonts.css" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --paper:      #efe9db;
+    --paper-deep: #e6dfcc;
+    --ink:        #24201a;
+    --ink-soft:   #454035;
+    --ink-faint:  #6e6552;
+    --rule:       #cfc6b2;
+    --green:      #1d4a38;
+    --rust:       #a8382b;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Source Serif 4', Georgia, serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.6;
+  }
+
+  .ui { font-family: 'Inter', -apple-system, sans-serif; }
+
+  a { color: var(--green); }
+
+  header {
+    padding: 56px 24px 40px;
+    text-align: center;
+    border-bottom: 2px solid var(--ink);
+  }
+
+  .logo-mark {
+    width: 56px;
+    height: 56px;
+    display: inline-block;
+    margin-bottom: 16px;
+    border: 1px solid var(--ink);
+    border-radius: 13px;
+    object-fit: cover;
+  }
+
+  header h1 {
+    font-size: 38px;
+    font-weight: 500;
+    margin-bottom: 10px;
+    letter-spacing: -0.01em;
+  }
+
+  header p.tagline {
+    font-family: 'Inter', sans-serif;
+    color: var(--ink-soft);
+    font-size: 16px;
+    line-height: 1.6;
+    max-width: 480px;
+    margin: 0 auto 28px;
+  }
+
+  .cta-row {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    font-family: 'Inter', sans-serif;
+    display: inline-block;
+    padding: 12px 24px;
+    font-size: 14.5px;
+    font-weight: 600;
+    text-decoration: none;
+    border: 1.5px solid var(--ink);
+    transition: transform 0.15s ease;
+  }
+  .btn:hover { transform: translateY(-1px); }
+
+  .btn-primary {
+    background: var(--green);
+    border-color: var(--green);
+    color: var(--paper) !important;
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--ink) !important;
+  }
+
+  nav.toc {
+    font-family: 'Inter', sans-serif;
+    max-width: 720px;
+    margin: 24px auto 0;
+    padding: 20px 24px 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 18px;
+    justify-content: center;
+  }
+
+  nav.toc a {
+    font-size: 12.5px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    color: var(--ink-faint) !important;
+    text-decoration: none;
+  }
+
+  nav.toc a:hover { color: var(--ink) !important; }
+
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 40px 24px 96px;
+  }
+
+  section {
+    border-bottom: 1px solid var(--rule);
+    padding: 32px 0;
+    scroll-margin-top: 24px;
+  }
+  section:first-of-type { padding-top: 0; }
+
+  section h2 {
+    font-size: 22px;
+    font-weight: 500;
+    margin-bottom: 16px;
+  }
+
+  section h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    margin: 20px 0 8px;
+    color: var(--green);
+  }
+
+  section p {
+    color: var(--ink-soft);
+    font-size: 15.5px;
+    line-height: 1.7;
+    margin-bottom: 12px;
+  }
+
+  section ul {
+    color: var(--ink-soft);
+    font-size: 15.5px;
+    line-height: 1.7;
+    margin: 0 0 12px 20px;
+  }
+
+  section ul li { margin-bottom: 6px; }
+
+  .badge {
+    font-family: 'Inter', sans-serif;
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--rust);
+    border: 1px solid var(--rust);
+    padding: 3px 9px;
+    margin-bottom: 12px;
+  }
+
+  .subsection {
+    border-top: 1px solid var(--rule);
+    margin-top: 20px;
+    padding-top: 20px;
+  }
+
+  .why-intro {
+    color: var(--ink-soft);
+    font-size: 15.5px;
+    line-height: 1.7;
+    margin-bottom: 12px;
+  }
+
+  .why-grid {
+    display: grid;
+    gap: 0;
+    border-top: 1px solid var(--rule);
+    border-left: 1px solid var(--rule);
+    margin: 24px 0;
+  }
+  @media (min-width: 560px) { .why-grid { grid-template-columns: 1fr 1fr; } }
+
+  .why-item {
+    padding: 20px 22px;
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .why-item h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    margin: 0 0 8px;
+    color: var(--green);
+  }
+
+  .why-item p {
+    font-family: 'Inter', sans-serif;
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .why-item-wide { grid-column: 1 / -1; }
+
+  .network-diagram {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 28px 0 8px;
+  }
+
+  .network-panel {
+    flex: 1 1 220px;
+    max-width: 280px;
+    text-align: center;
+  }
+
+  .network-panel svg { width: 100%; height: auto; }
+
+  .network-panel .caption {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-top: 10px;
+  }
+
+  .hub-node { fill: var(--rust); }
+  .hub-spoke { stroke: var(--rule); stroke-width: 1.5; }
+  .hub-leaf { fill: var(--ink-faint); }
+
+  @keyframes hub-pulse {
+    0%, 100% { opacity: 1; r: 10; }
+    50% { opacity: 0.55; r: 13; }
+  }
+  .hub-node { animation: hub-pulse 2.2s ease-in-out infinite; }
+
+  .mesh-edge { stroke: var(--rule); stroke-width: 1.5; fill: none; }
+  .mesh-node { fill: var(--green); }
+
+  .mesh-packet {
+    fill: var(--green);
+    offset-rotate: 0deg;
+  }
+  .mesh-packet-a { offset-path: path('M 30,30 L 150,60'); animation: mesh-travel 2.6s linear infinite; }
+  .mesh-packet-b { offset-path: path('M 150,60 L 60,150'); animation: mesh-travel 2.6s linear infinite; animation-delay: 0.9s; }
+  .mesh-packet-c { offset-path: path('M 60,150 L 190,180'); animation: mesh-travel 2.6s linear infinite; animation-delay: 1.8s; }
+
+  @keyframes mesh-travel {
+    0% { offset-distance: 0%; opacity: 0; }
+    10%, 90% { opacity: 1; }
+    100% { offset-distance: 100%; opacity: 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hub-node, .mesh-packet-a, .mesh-packet-b, .mesh-packet-c { animation: none; }
+  }
+
+  footer {
+    text-align: center;
+    padding: 32px 24px 64px;
+    color: var(--ink-faint);
+    font-family: 'Inter', sans-serif;
+    font-size: 12.5px;
+    border-top: 2px solid var(--ink);
+  }
+
+  footer a { color: var(--ink-faint) !important; }
+
+  .lang-switch {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    margin-bottom: 20px;
+  }
+  .lang-switch a { color: var(--ink-faint); text-decoration: none; }
+  .lang-switch a.active { color: var(--ink); border-bottom: 1.5px solid var(--rust); }
+  .lang-switch span { color: var(--rule); margin: 0 6px; }
+
+  code {
+    background: var(--paper-deep);
+    border: 1px solid var(--rule);
+    padding: 2px 6px;
+    font-size: 13px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="lang-switch">
+    <a href="/scytale/">EN</a><span>·</span><a href="/scytale/el/" class="active">ΕΛ</a>
+  </div>
+  <img class="logo-mark" src="/scytale-icon.png" alt="Εικονίδιο εφαρμογής Scytale">
+  <h1>Scytale</h1>
+  <p class="tagline">Ιδιωτική, ανεξάρτητη εφαρμογή μηνυμάτων. Χωρίς αριθμό τηλεφώνου. Χωρίς απλό κείμενο. Χωρίς κερκόπορτες. Χτισμένο πάνω στο ανοιχτό Session Network.</p>
+  <div class="cta-row">
+    <a href="#download" class="btn btn-primary">Λήψη</a>
+    <a href="#support" class="btn btn-secondary">Υποστήριξη</a>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#features">Χαρακτηριστικά</a>
+  <a href="#why">Γιατί το Scytale</a>
+  <a href="#download">Λήψη</a>
+  <a href="#faq">Συχνές Ερωτήσεις</a>
+  <a href="#support">Υποστήριξη</a>
+  <a href="#feedback">Σχόλια</a>
+  <a href="#terms">Όροι</a>
+  <a href="#privacy">Απόρρητο</a>
+  <a href="#survey">Έρευνα</a>
+  <a href="#translate">Μετάφραση</a>
+  <a href="#donate">Δωρεά</a>
+  <a href="#pro-roadmap">Χάρτης Pro</a>
+  <a href="#pro-form">Υποστήριξη Pro</a>
+</nav>
+
+<main>
+
+  <section id="features">
+    <h2>Χαρακτηριστικά</h2>
+    <ul>
+      <li><strong>Κρυπτογράφηση από άκρο σε άκρο</strong> μέσω του αποκεντρωμένου Session Network με onion-routing — κανένας κεντρικός server δεν κρατά τα μηνύματά σου.</li>
+      <li><strong>Δεν χρειάζεται αριθμός τηλεφώνου.</strong> Ο λογαριασμός σου δημιουργείται τοπικά, στη δική σου συσκευή.</li>
+      <li><strong>Φωνητικές και βιντεοκλήσεις.</strong></li>
+      <li><strong>Ενσωματωμένο πληκτρολόγιο εφαρμογής</strong> — η πληκτρολόγηση μένει μέσα στην εφαρμογή αντί να περνάει από πληκτρολόγιο τρίτου κατασκευαστή. Διαθέσιμο στα Αγγλικά, Ελληνικά, Γερμανικά, Γαλλικά και Ισπανικά, το καθένα με τη δική του πραγματική διάταξη (όχι απλά μεταφρασμένο QWERTY) και τόνους με παρατεταμένο πάτημα.</li>
+      <li><strong>Ανοιχτού κώδικα (GPLv3).</strong> Ανεξάρτητο, μη επίσημο fork του Session iOS — χωρίς σχέση με το Session Foundation.</li>
+    </ul>
+  </section>
+
+  <section id="why">
+    <h2>Γιατί το Scytale</h2>
+    <p class="why-intro">Οι περισσότερες εφαρμογές μηνυμάτων λειτουργούν από μία εταιρεία, με ένα γραφείο και ένα δωμάτιο με servers. Αν μια κυβέρνηση πιέσει αυτή την εταιρεία, μπορεί να συμμορφωθεί — γιατί υπάρχει κάτι να πιέσει. Ακριβώς πάνω σε αυτό το μοντέλο βασίζονται προτάσεις όπως το «Chat Control» της ΕΕ: πίεσε την εταιρεία, και η εφαρμογή αλλάζει για όλους όσους τη χρησιμοποιούν.</p>
+    <p class="why-intro">Το Scytale δεν είναι χτισμένο έτσι — και όχι επειδή υποσχόμαστε να παλέψουμε πιο σκληρά. Δεν υπάρχει δομικά τίποτα να πιεστεί.</p>
+
+    <div class="network-diagram">
+      <div class="network-panel">
+        <svg viewBox="0 0 200 200" aria-hidden="true">
+          <line class="hub-spoke" x1="100" y1="100" x2="170" y2="100"></line>
+          <line class="hub-spoke" x1="100" y1="100" x2="135" y2="160.6"></line>
+          <line class="hub-spoke" x1="100" y1="100" x2="65" y2="160.6"></line>
+          <line class="hub-spoke" x1="100" y1="100" x2="30" y2="100"></line>
+          <line class="hub-spoke" x1="100" y1="100" x2="65" y2="39.4"></line>
+          <line class="hub-spoke" x1="100" y1="100" x2="135" y2="39.4"></line>
+          <circle class="hub-leaf" cx="170" cy="100" r="5"></circle>
+          <circle class="hub-leaf" cx="135" cy="160.6" r="5"></circle>
+          <circle class="hub-leaf" cx="65" cy="160.6" r="5"></circle>
+          <circle class="hub-leaf" cx="30" cy="100" r="5"></circle>
+          <circle class="hub-leaf" cx="65" cy="39.4" r="5"></circle>
+          <circle class="hub-leaf" cx="135" cy="39.4" r="5"></circle>
+          <circle class="hub-node" cx="100" cy="100" r="10"></circle>
+        </svg>
+        <div class="caption">Οι περισσότερες άλλες εφαρμογές — μία εταιρεία, μία πόρτα</div>
+      </div>
+      <div class="network-panel">
+        <svg viewBox="0 0 200 200" aria-hidden="true">
+          <line class="mesh-edge" x1="30" y1="30" x2="150" y2="60"></line>
+          <line class="mesh-edge" x1="30" y1="30" x2="110" y2="110"></line>
+          <line class="mesh-edge" x1="150" y1="60" x2="110" y2="110"></line>
+          <line class="mesh-edge" x1="150" y1="60" x2="190" y2="180"></line>
+          <line class="mesh-edge" x1="110" y1="110" x2="60" y2="150"></line>
+          <line class="mesh-edge" x1="60" y1="150" x2="190" y2="180"></line>
+          <circle class="mesh-node" cx="30" cy="30" r="6"></circle>
+          <circle class="mesh-node" cx="150" cy="60" r="6"></circle>
+          <circle class="mesh-node" cx="110" cy="110" r="6"></circle>
+          <circle class="mesh-node" cx="60" cy="150" r="6"></circle>
+          <circle class="mesh-node" cx="190" cy="180" r="6"></circle>
+          <circle class="mesh-packet mesh-packet-a" r="3.5"></circle>
+          <circle class="mesh-packet mesh-packet-b" r="3.5"></circle>
+          <circle class="mesh-packet mesh-packet-c" r="3.5"></circle>
+        </svg>
+        <div class="caption">Scytale — χωρίς κέντρο, χωρίς μία πόρτα</div>
+      </div>
+    </div>
+
+    <div class="why-grid">
+      <div class="why-item">
+        <h3>Χωρίς αριθμό τηλεφώνου, ποτέ</h3>
+        <p>Οι περισσότερες εφαρμογές δεν σε αφήνουν να στείλεις ούτε ένα μήνυμα αν δεν δώσεις πρώτα τον αριθμό τηλεφώνου σου. Το Scytale δεν ρωτάει ποτέ — η ταυτότητά σου δημιουργείται εξ ολοκλήρου στη συσκευή σου. Δεν υπήρξε ποτέ αριθμός να συλλεχθεί, άρα δεν υπάρχει αριθμός να ζητηθεί δικαστικά ή να διαρρεύσει.</p>
+      </div>
+      <div class="why-item">
+        <h3>Καμία εταιρεία να πιεστεί</h3>
+        <p>Το WhatsApp, το Telegram, ακόμα και οι περισσότερες εφαρμογές που αυτοαποκαλούνται «ιδιωτικές» λειτουργούν από μία εταιρεία με μία νομική έδρα. Το Scytale τρέχει σε ένα δίκτυο ανεξάρτητα λειτουργούμενων υπολογιστών χωρίς καμία έδρα — καμία πόρτα για κάποιον ρυθμιστή, ή οποιονδήποτε άλλο, να χτυπήσει.</p>
+      </div>
+      <div class="why-item">
+        <h3>Ανοιχτός κώδικας. Όχι υπόσχεση — απόδειξη</h3>
+        <p>Εφαρμογές όπως το Brrro ισχυρίζονται ότι προστατεύουν το απόρρητό σου, αλλά κανείς εκτός της εταιρείας δεν έχει δει ποτέ ούτε μία γραμμή του κώδικά τους — απλά σου ζητούν να τους πιστέψεις. Κάθε γραμμή του Scytale είναι δημόσια. Οποιοσδήποτε, οπουδήποτε, μπορεί να επαληθεύσει ακριβώς τι κάνει, και αν κάποια «συμμορφωμένη» έκδοση προσπαθούσε ποτέ να κρύψει κώδικα παρακολούθησης, όλος ο κόσμος θα το έβλεπε αμέσως.</p>
+      </div>
+      <div class="why-item">
+        <h3>Το πληκτρολόγιό σου δεν βγαίνει ποτέ από την εφαρμογή</h3>
+        <p>Το πληκτρολόγιο στο κινητό σου συνήθως φτιάχνεται από διαφορετική εταιρεία απ' αυτήν της εφαρμογής που χρησιμοποιείς — και μπορεί να βλέπει κάθε λέξη που πληκτρολογείς, σε κάθε εφαρμογή. Το Scytale έχει το δικό του πληκτρολόγιο ενσωματωμένο, οπότε ό,τι γράφεις δεν χρειάζεται ποτέ να βγει από αυτό.</p>
+      </div>
+      <div class="why-item why-item-wide">
+        <h3>Τα screenshots δεν χρειάζεται να δείχνουν τίποτα</h3>
+        <p>Σημείωσε ένα μήνυμα ή φωτογραφία με <code>#secure</code> πριν το στείλεις, και εμφανίζεται κενό τη στιγμή που κάποιος προσπαθήσει να το κάνει screenshot ή screen recording. Δοκίμασε να ηχογραφήσεις οθόνη ή να προβάλεις μια ολόκληρη συνομιλία σε τηλεόραση ή Mac, και η οθόνη μαυρίζει όσο διαρκεί η εγγραφή. Και για το μόνο πράγμα που καμία εφαρμογή στο iPhone δεν μπορεί τεχνικά να σταματήσει — ένα απλό screenshot ενός μηνύματος που δεν σημείωσες — ενημερώνεσαι τη στιγμή που συμβαίνει, κάθε φορά.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="download">
+    <h2>Λήψη</h2>
+    <p>Το Scytale βρίσκεται προς το παρόν σε ιδιωτική δοκιμή (TestFlight) πριν τη δημόσια κυκλοφορία. Αν έχεις λάβει πρόσκληση, εγκατέστησε το <a href="https://apps.apple.com/app/testflight/id899247664">TestFlight</a> και αποδέξου την εκεί.</p>
+    <p>Ένας δημόσιος σύνδεσμος του App Store θα εμφανιστεί εδώ μόλις κυκλοφορήσει το Scytale.</p>
+  </section>
+
+  <section id="faq">
+    <h2>Συχνές Ερωτήσεις</h2>
+
+    <h3>Τι είναι το Scytale;</h3>
+    <p>Το Scytale είναι ένας ανεξάρτητος iOS client που συνεργάζεται, χωρίς τροποποιήσεις, με το <a href="https://getsession.org" target="_blank" rel="noopener">Session Network</a> — το ίδιο αποκεντρωμένο πρωτόκολλο μηνυμάτων με onion-routing που χρησιμοποιεί η εφαρμογή Session. Το Scytale είναι ένα rebrand και ένα επιπλέον επίπεδο χαρακτηριστικών μόνο στην πλευρά του client: η υποκείμενη κρυπτογραφία και το πρωτόκολλο δικτύου παραμένουν ανέπαφα.</p>
+
+    <h3>Χρειάζομαι αριθμό τηλεφώνου για να το χρησιμοποιήσω;</h3>
+    <p>Όχι. Οι λογαριασμοί δημιουργούνται τοπικά στη συσκευή σου — δεν απαιτείται αριθμός τηλεφώνου, email, ή οποιοδήποτε προσωπικό στοιχείο για τη δημιουργία λογαριασμού.</p>
+
+    <h3>Είναι το Scytale συνδεδεμένο με το Session ή το Session Foundation;</h3>
+    <p>Όχι. Το Scytale είναι ένα ανεξάρτητο, μη επίσημο fork του ανοιχτού κώδικα Session iOS client (GPLv3), που συντηρείται ξεχωριστά. Δεν υποστηρίζεται ούτε εγκρίνεται από το Session Foundation.</p>
+
+    <h3>Γιατί υπάρχει αυτό;</h3>
+    <p>Το Scytale υπάρχει για να προσφέρει μια πραγματικά ιδιωτική επιλογή μηνυμάτων, έξω από προτεινόμενες εντολές ελέγχου/σάρωσης στην πλευρά του client, χωρίς να εφευρίσκει νέα, μη ελεγμένη κρυπτογραφία — χτίζοντας πάνω στο ήδη ελεγμένο πρωτόκολλο του Session.</p>
+
+    <div class="subsection" id="faq-pro">
+      <span class="badge">Pro</span>
+      <h3>Τι είναι το Scytale Pro;</h3>
+      <p>Τα χαρακτηριστικά Pro κληρονομούνται από τον υποκείμενο κώδικα του Session. Λεπτομέρειες για το τι περιλαμβάνεται θα δημοσιευτούν εδώ μόλις οριστικοποιηθούν.</p>
+    </div>
+  </section>
+
+  <section id="support">
+    <h2>Υποστήριξη</h2>
+    <p>Αντιμετωπίζεις πρόβλημα με το Scytale; Επικοινώνησε και περιέγραψε τι βλέπεις (μοντέλο συσκευής, έκδοση iOS, και βήματα αναπαραγωγής βοηθούν πολύ):</p>
+    <ul>
+      <li>Email: <a href="mailto:hello@fotiospongas.dev">hello@fotiospongas.dev</a></li>
+    </ul>
+    <p>Αυτό είναι ένα ανεξάρτητα συντηρούμενο project — οι χρόνοι απόκρισης μπορεί να ποικίλλουν.</p>
+  </section>
+
+  <section id="feedback">
+    <h2>Σχόλια</h2>
+    <p>Προτάσεις, αναφορές σφαλμάτων, και αιτήματα για νέα χαρακτηριστικά είναι ευπρόσδεκτα στο <a href="mailto:hello@fotiospongas.dev">hello@fotiospongas.dev</a>.</p>
+  </section>
+
+  <section id="terms">
+    <h2>Όροι Χρήσης</h2>
+    <p><em>Τελευταία ενημέρωση: 2026.</em> Αυτοί είναι προκαταρκτικοί όροι χρήσης, εν αναμονή πλήρους νομικού ελέγχου πριν τη δημόσια κυκλοφορία.</p>
+    <p>Το Scytale παρέχεται «ως έχει», χωρίς καμία εγγύηση, ρητή ή σιωπηρή. Χρησιμοποιώντας το Scytale αναγνωρίζεις ότι:</p>
+    <ul>
+      <li>Το Scytale είναι ένα ανεξάρτητο, συντηρούμενο από την κοινότητα fork του ανοιχτού κώδικα Session iOS client, υπό άδεια GPLv3.</li>
+      <li>Το Scytale δεν είναι συνδεδεμένο, εγκεκριμένο, ή υποστηριζόμενο από το Session Foundation.</li>
+      <li>Η παράδοση, αποθήκευση, και δρομολόγηση μηνυμάτων γίνεται στο αποκεντρωμένο Session Network, το οποίο ο προγραμματιστής του Scytale δεν λειτουργεί ούτε ελέγχει.</li>
+      <li>Είσαι υπεύθυνος/η για τη συμμόρφωση με τους νόμους της δικαιοδοσίας σου κατά τη χρήση του Scytale.</li>
+      <li>Ορισμένα πειραματικά χαρακτηριστικά μπορεί να υπάρχουν μόνο σε development builds και να μην είναι διαθέσιμα στη δημόσια έκδοση.</li>
+    </ul>
+    <p>Ο πλήρης πηγαίος κώδικας και η άδεια (GPLv3) διατίθενται κατόπιν αιτήματος. Η συνέχιση της χρήσης της εφαρμογής συνιστά αποδοχή αυτών των όρων.</p>
+
+    <div class="subsection" id="pro-terms">
+      <span class="badge">Pro</span>
+      <h3>Όροι Pro</h3>
+      <p>Οι όροι συνδρομής για προαιρετικά χαρακτηριστικά Pro (αν ενεργοποιηθούν) ακολουθούν τους τυπικούς όρους αυτόματα ανανεούμενης συνδρομής της Apple, επιπλέον των γενικών όρων παραπάνω. Δεν ισχύουν προς το παρόν ξεχωριστοί όροι ειδικά για το Pro πέρα από αυτούς.</p>
+    </div>
+  </section>
+
+  <section id="privacy">
+    <h2>Πολιτική Απορρήτου</h2>
+    <p><em>Τελευταία ενημέρωση: 2026.</em> Αυτή είναι μια προκαταρκτική πολιτική απορρήτου, εν αναμονή πλήρους νομικού ελέγχου πριν τη δημόσια κυκλοφορία.</p>
+
+    <h3>Τι ΔΕΝ συλλέγουμε</h3>
+    <ul>
+      <li>Δεν απαιτείται αριθμός τηλεφώνου, email, ή κρατική ταυτότητα για τη δημιουργία λογαριασμού.</li>
+      <li>Το περιεχόμενο των μηνυμάτων είναι κρυπτογραφημένο από άκρο σε άκρο· ο προγραμματιστής της εφαρμογής δεν έχει καμία δυνατότητα να διαβάσει το περιεχόμενο μηνυμάτων.</li>
+      <li>Κανένα περιεχόμενο μηνυμάτων δεν αποθηκεύεται σε servers που λειτουργεί ο προγραμματιστής της εφαρμογής — τα μηνύματα δρομολογούνται μέσω του αποκεντρωμένου Session Network.</li>
+    </ul>
+
+    <h3>Τι συλλέγεται</h3>
+    <ul>
+      <li>Τυπικά, ανώνυμα δεδομένα crash/διάγνωσης μπορεί να συλλέγονται από την Apple αν επιλέξεις να συμμετάσχεις μέσω των ρυθμίσεων συστήματος iOS — αυτός είναι μηχανισμός της πλατφόρμας της Apple, όχι κάτι που λειτουργεί το Scytale.</li>
+      <li>Αν επικοινωνήσεις απευθείας με την υποστήριξη (π.χ. μέσω email), διατηρούμε αυτή την αλληλογραφία για να σου απαντήσουμε.</li>
+    </ul>
+
+    <h3>Υποδομή τρίτων</h3>
+    <p>Το Scytale δρομολογεί μηνύματα μέσω των αποκεντρωμένων service nodes του Session Network, τα οποία λειτουργούνται από ανεξάρτητους, τρίτους operators — όχι από τον προγραμματιστή του Scytale. Δες την <a href="https://docs.getsession.org" target="_blank" rel="noopener">τεκμηρίωση του Session Network</a> για λεπτομέρειες σχετικά με το πώς λειτουργεί το υποκείμενο πρωτόκολλο.</p>
+
+    <div class="subsection" id="pro-privacy">
+      <span class="badge">Pro</span>
+      <h3>Απόρρητο Pro</h3>
+      <p>Οι προαιρετικές συνδρομές Pro (αν ενεργοποιηθούν) επεξεργάζονται από την Apple μέσω του App Store· ο προγραμματιστής του Scytale λαμβάνει μόνο την ελάχιστη κατάσταση συναλλαγής που απαιτείται για την ενεργοποίηση χαρακτηριστικών Pro, όχι τα στοιχεία πληρωμής σου.</p>
+    </div>
+  </section>
+
+  <section id="survey">
+    <h2>Έρευνα</h2>
+    <p>Δεν υπάρχει ανοιχτή έρευνα αυτή τη στιγμή. Έλεγξε ξανά αργότερα, ή μοιράσου τις σκέψεις σου απευθείας μέσω <a href="mailto:hello@fotiospongas.dev">email</a>.</p>
+  </section>
+
+  <section id="translate">
+    <h2>Μετάφραση</h2>
+    <p>Ενδιαφέρεσαι να βοηθήσεις να μεταφραστεί το Scytale σε άλλη γλώσσα; Επικοινώνησε στο <a href="mailto:hello@fotiospongas.dev">hello@fotiospongas.dev</a>.</p>
+  </section>
+
+  <section id="donate">
+    <h2>Δωρεά</h2>
+    <p>Το ίδιο το Scytale δεν δέχεται δωρεές — είναι ένας μικρός, ανεξάρτητος client χωρίς δική του υποδομή προς χρηματοδότηση. Το Session Network από κάτω είναι διαφορετική ιστορία. Τον Απρίλιο του 2026, το Session Technology Foundation απέλυσε ολόκληρη την έμμισθη ομάδα του και προειδοποίησε ότι θα έκλεινε μέσα σε 90 μέρες χωρίς $1 εκατομμύριο χρηματοδότηση. Η κοινότητα συνεισέφερε ακριβώς όσο χρειαζόταν για να το κρατήσει σε λειτουργία, αλλά η ομάδα πίσω από αυτό είναι πλέον μόλις δύο ή τρεις προγραμματιστές. Το Scytale υπάρχει επειδή υπάρχει αυτό το δίκτυο — αν θέλεις να το στηρίξεις, <a href="https://getsession.org/donate" target="_blank" rel="noopener">δώρισε απευθείας στο Session</a>. Εκεί πραγματικά κρατάει τα φώτα αναμμένα.</p>
+
+    <div class="subsection" id="donate-app">
+      <h3>Υποστήριξη αυτής της εφαρμογής συγκεκριμένα</h3>
+      <p>Δεν υπάρχει προς το παρόν μηχανισμός δωρεάς ειδικά για το Scytale. Αυτή η ενότητα θα ενημερωθεί αν αυτό αλλάξει.</p>
+    </div>
+  </section>
+
+  <section id="pro-roadmap">
+    <h2>Χάρτης Pro</h2>
+    <p>Δεν υπάρχει ακόμα δημόσιος χάρτης πορείας. Αυτή η σελίδα θα ενημερωθεί καθώς οριστικοποιούνται τα χαρακτηριστικά Pro.</p>
+  </section>
+
+  <section id="pro-form">
+    <h2>Υποστήριξη Pro</h2>
+    <p>Για ερωτήσεις σχετικά με χαρακτηριστικά Pro ή χρεώσεις, στείλε email στο <a href="mailto:hello@fotiospongas.dev">hello@fotiospongas.dev</a> με «Scytale Pro» στο θέμα.</p>
+  </section>
+
+</main>
+
+<footer>
+  <p>Το Scytale είναι ένα ανεξάρτητο, μη επίσημο παράγωγο του <a href="https://github.com/session-foundation/session-ios" target="_blank" rel="noopener">session-ios</a> (GPLv3). Χωρίς σχέση με το Session Foundation.</p>
+  <p style="margin-top:8px">© 2026 Fotios Pongas</p>
+</footer>
+
+</body>
+</html>

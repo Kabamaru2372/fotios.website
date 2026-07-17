@@ -287,6 +287,17 @@
 
   footer a { color: var(--ink-faint) !important; }
 
+  .lang-switch {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    margin-bottom: 20px;
+  }
+  .lang-switch a { color: var(--ink-faint); text-decoration: none; }
+  .lang-switch a.active { color: var(--ink); border-bottom: 1.5px solid var(--rust); }
+  .lang-switch span { color: var(--rule); margin: 0 6px; }
+
   code {
     background: var(--paper-deep);
     border: 1px solid var(--rule);
@@ -302,6 +313,9 @@
 <body>
 
 <header>
+  <div class="lang-switch">
+    <a href="/scytale/" class="active">EN</a><span>·</span><a href="/scytale/el/">ΕΛ</a>
+  </div>
   <img class="logo-mark" src="/scytale-icon.png" alt="Scytale app icon">
   <h1>Scytale</h1>
   <p class="tagline">A privacy-first, independent messenger. No phone number. No plaintext. No backdoors. Built on the open Session Network.</p>

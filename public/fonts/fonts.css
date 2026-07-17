@@ -1,8 +1,8 @@
 /* Self-hosted Inter + Source Serif 4 (variable fonts), replacing the Google Fonts CDN.
    Loading fonts live from fonts.googleapis.com sends every visitor's IP to Google without
-   consent - self-hosting removes that entirely. Only latin + latin-ext are included (covers
-   English and German, including umlauts/ß); other Google-served unicode ranges (cyrillic,
-   vietnamese, greek, etc.) were dropped since this site's own text never uses them. */
+   consent - self-hosting removes that entirely. latin + latin-ext (English and German,
+   including umlauts/ß) plus greek + greek-ext (scytale/el/) are included; other Google-served
+   unicode ranges (cyrillic, vietnamese, etc.) were dropped since no page here uses them. */
 
 @font-face {
   font-family: 'Inter';
@@ -51,4 +51,36 @@
   font-display: swap;
   src: url('/fonts/source-serif-4-italic-latin-ext.woff2') format('woff2');
   unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/fonts/inter-greek.woff2') format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/fonts/inter-greek-ext.woff2') format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+@font-face {
+  font-family: 'Source Serif 4';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/fonts/source-serif-4-normal-greek.woff2') format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+@font-face {
+  font-family: 'Source Serif 4';
+  font-style: italic;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/fonts/source-serif-4-italic-greek.woff2') format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
 }
