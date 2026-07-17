@@ -180,6 +180,103 @@
     padding-top: 20px;
   }
 
+  .why-intro {
+    color: var(--ink-soft);
+    font-size: 15.5px;
+    line-height: 1.7;
+    margin-bottom: 12px;
+  }
+
+  .why-grid {
+    display: grid;
+    gap: 0;
+    border-top: 1px solid var(--rule);
+    border-left: 1px solid var(--rule);
+    margin: 24px 0;
+  }
+  @media (min-width: 560px) { .why-grid { grid-template-columns: 1fr 1fr; } }
+
+  .why-item {
+    padding: 20px 22px;
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .why-item h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    margin: 0 0 8px;
+    color: var(--green);
+  }
+
+  .why-item p {
+    font-family: 'Inter', sans-serif;
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .why-item-wide { grid-column: 1 / -1; }
+
+  .network-diagram {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 28px 0 8px;
+  }
+
+  .network-panel {
+    flex: 1 1 220px;
+    max-width: 280px;
+    text-align: center;
+  }
+
+  .network-panel svg { width: 100%; height: auto; }
+
+  .network-panel .caption {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-top: 10px;
+  }
+
+  .hub-node { fill: var(--rust); }
+  .hub-spoke { stroke: var(--rule); stroke-width: 1.5; }
+  .hub-leaf { fill: var(--ink-faint); }
+
+  @keyframes hub-pulse {
+    0%, 100% { opacity: 1; r: 10; }
+    50% { opacity: 0.55; r: 13; }
+  }
+  .hub-node { animation: hub-pulse 2.2s ease-in-out infinite; }
+
+  .mesh-edge { stroke: var(--rule); stroke-width: 1.5; fill: none; }
+  .mesh-node { fill: var(--green); }
+
+  .mesh-packet {
+    fill: var(--green);
+    offset-rotate: 0deg;
+  }
+  .mesh-packet-a { offset-path: path('M 30,30 L 150,60'); animation: mesh-travel 2.6s linear infinite; }
+  .mesh-packet-b { offset-path: path('M 150,60 L 60,150'); animation: mesh-travel 2.6s linear infinite; animation-delay: 0.9s; }
+  .mesh-packet-c { offset-path: path('M 60,150 L 190,180'); animation: mesh-travel 2.6s linear infinite; animation-delay: 1.8s; }
+
+  @keyframes mesh-travel {
+    0% { offset-distance: 0%; opacity: 0; }
+    10%, 90% { opacity: 1; }
+    100% { offset-distance: 100%; opacity: 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hub-node, .mesh-packet-a, .mesh-packet-b, .mesh-packet-c { animation: none; }
+  }
+
   footer {
     text-align: center;
     padding: 32px 24px 64px;
@@ -216,6 +313,8 @@
 </header>
 
 <nav class="toc">
+  <a href="#features">Features</a>
+  <a href="#why">Why Scytale</a>
   <a href="#download">Download</a>
   <a href="#faq">FAQ</a>
   <a href="#support">Support</a>
@@ -230,6 +329,86 @@
 </nav>
 
 <main>
+
+  <section id="features">
+    <h2>Features</h2>
+    <ul>
+      <li><strong>End-to-end encrypted messaging</strong> over the decentralized, onion-routed Session Network — no central server holds your messages.</li>
+      <li><strong>No phone number required.</strong> Your account is generated locally on your device.</li>
+      <li><strong>Voice and video calls.</strong></li>
+      <li><strong>Custom in-app keyboard</strong> — typing stays inside the app instead of going through a third-party keyboard extension. Available in English, Greek, German, French, and Spanish, each with its own proper layout (not just a translated QWERTY) and long-press accents.</li>
+      <li><strong>Open source (GPLv3).</strong> Independent, unofficial fork of Session iOS — not affiliated with the Session Foundation.</li>
+    </ul>
+  </section>
+
+  <section id="why">
+    <h2>Why Scytale</h2>
+    <p class="why-intro">Most messaging apps are run by one company, with one office and one server room. If a government leans on that company, it can comply — because there's something to lean on. That's exactly the model regulations like the EU's "Chat Control" depend on: pressure the company, and the app changes for everyone who uses it.</p>
+    <p class="why-intro">Scytale isn't built that way — and not because we promise to fight harder. There's structurally nothing to pressure.</p>
+
+    <div class="network-diagram">
+      <div class="network-panel">
+        <svg viewBox="0 0 200 200" aria-hidden="true">
+          <line class="hub-spoke" x1="100" y1="100" x2="170" y2="100"></line>
+          <line class="hub-spoke" x1="100" y1="100" x2="135" y2="160.6"></line>
+          <line class="hub-spoke" x1="100" y1="100" x2="65" y2="160.6"></line>
+          <line class="hub-spoke" x1="100" y1="100" x2="30" y2="100"></line>
+          <line class="hub-spoke" x1="100" y1="100" x2="65" y2="39.4"></line>
+          <line class="hub-spoke" x1="100" y1="100" x2="135" y2="39.4"></line>
+          <circle class="hub-leaf" cx="170" cy="100" r="5"></circle>
+          <circle class="hub-leaf" cx="135" cy="160.6" r="5"></circle>
+          <circle class="hub-leaf" cx="65" cy="160.6" r="5"></circle>
+          <circle class="hub-leaf" cx="30" cy="100" r="5"></circle>
+          <circle class="hub-leaf" cx="65" cy="39.4" r="5"></circle>
+          <circle class="hub-leaf" cx="135" cy="39.4" r="5"></circle>
+          <circle class="hub-node" cx="100" cy="100" r="10"></circle>
+        </svg>
+        <div class="caption">Most other apps — one company, one door</div>
+      </div>
+      <div class="network-panel">
+        <svg viewBox="0 0 200 200" aria-hidden="true">
+          <line class="mesh-edge" x1="30" y1="30" x2="150" y2="60"></line>
+          <line class="mesh-edge" x1="30" y1="30" x2="110" y2="110"></line>
+          <line class="mesh-edge" x1="150" y1="60" x2="110" y2="110"></line>
+          <line class="mesh-edge" x1="150" y1="60" x2="190" y2="180"></line>
+          <line class="mesh-edge" x1="110" y1="110" x2="60" y2="150"></line>
+          <line class="mesh-edge" x1="60" y1="150" x2="190" y2="180"></line>
+          <circle class="mesh-node" cx="30" cy="30" r="6"></circle>
+          <circle class="mesh-node" cx="150" cy="60" r="6"></circle>
+          <circle class="mesh-node" cx="110" cy="110" r="6"></circle>
+          <circle class="mesh-node" cx="60" cy="150" r="6"></circle>
+          <circle class="mesh-node" cx="190" cy="180" r="6"></circle>
+          <circle class="mesh-packet mesh-packet-a" r="3.5"></circle>
+          <circle class="mesh-packet mesh-packet-b" r="3.5"></circle>
+          <circle class="mesh-packet mesh-packet-c" r="3.5"></circle>
+        </svg>
+        <div class="caption">Scytale — no center, no single door</div>
+      </div>
+    </div>
+
+    <div class="why-grid">
+      <div class="why-item">
+        <h3>No phone number, ever</h3>
+        <p>Most apps won't let you send a single message until you hand over your phone number. Scytale never asks — your identity is generated entirely on your device. There was never a number to collect, so there's never one to subpoena or leak.</p>
+      </div>
+      <div class="why-item">
+        <h3>No company to pressure</h3>
+        <p>WhatsApp, Telegram, even most messengers that call themselves "private" are run by one company with one legal address. Scytale runs on a network of independently operated computers with no headquarters at all — no door for a regulator, or anyone else, to knock on.</p>
+      </div>
+      <div class="why-item">
+        <h3>Open source. Not a promise — proof</h3>
+        <p>Apps like Brrro claim to protect your privacy, but nobody outside the company has ever seen a single line of their code — you're simply asked to believe them. Every line of Scytale is public. Anyone, anywhere, can verify exactly what it does, and if a compromised version ever tried to sneak in surveillance code, the whole world would see it instantly.</p>
+      </div>
+      <div class="why-item">
+        <h3>Your keyboard never leaves the app</h3>
+        <p>The keyboard on your phone is usually built by a different company than the app you're typing into — and it can see every word you type, in every app. Scytale has its own keyboard built directly in, so what you type never has to leave it.</p>
+      </div>
+      <div class="why-item why-item-wide">
+        <h3>Screenshots don't have to show anything</h3>
+        <p>Mark a message or photo with <code>#secure</code> before sending, and it renders as blank the instant someone tries to screenshot or screen-record it. Try to record or mirror a whole conversation to a TV or a Mac, and the screen goes black for as long as the recording runs. And for the one thing no app on iPhone can technically stop — an ordinary screenshot of a message you didn't mark — you're told the moment it happens, every time.</p>
+      </div>
+    </div>
+  </section>
 
   <section id="download">
     <h2>Download</h2>
@@ -332,7 +511,7 @@
 
   <section id="donate">
     <h2>Donate</h2>
-    <p>Scytale itself does not currently accept donations. If you'd like to support the underlying Session Network and protocol this app depends on, see the <a href="https://getsession.org" target="_blank" rel="noopener">Session Foundation</a>.</p>
+    <p>Scytale itself doesn't accept donations — it's a small, independent client with no infrastructure of its own to fund. The Session Network underneath it is a different story. In April 2026, the Session Technology Foundation laid off its entire paid team and warned it would shut down within 90 days without $1 million in funding. The community pulled together just enough to keep it running, but the team behind it is now down to two or three developers. Scytale exists because that network exists — if you want to support it, <a href="https://getsession.org/donate" target="_blank" rel="noopener">donate directly to Session</a>. That's where it actually keeps the lights on.</p>
 
     <div class="subsection" id="donate-app">
       <h3>Supporting this app specifically</h3>
