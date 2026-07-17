@@ -117,7 +117,7 @@ export const translations = {
           date: "March 2026",
           image: "/Screenshot 2026-03-10 at 01.01.28.png",
           facts: [
-            "400 hours over 9 weeks, full time, in Germany",
+            "400 hours over 6 months, in Germany",
             "Docker and Kubernetes: images, orchestration, Helm charts",
             "Terraform and Ansible: provisioning and configuration as code",
             "AWS and Azure: compute, storage, networking, IAM",
@@ -279,7 +279,7 @@ export const translations = {
           date: "März 2026",
           image: "/Screenshot 2026-03-10 at 01.01.28.png",
           facts: [
-            "400 Stunden über 9 Wochen, Vollzeit, in Deutschland",
+            "400 Stunden über 6 Monate, in Deutschland",
             "Docker und Kubernetes: Images, Orchestrierung, Helm Charts",
             "Terraform und Ansible: Provisionierung und Konfiguration als Code",
             "AWS und Azure: Compute, Storage, Networking, IAM",
