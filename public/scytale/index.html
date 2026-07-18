@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Scytale — Private Messenger</title>
+<title>Scytale: Private Messenger</title>
 <meta name="description" content="Scytale is a privacy-first, independent messenger interoperating with the Session Network. No phone number, no plaintext, no backdoors.">
 <link rel="icon" href="/scytale-icon.png">
 <link href="/fonts/fonts.css" rel="stylesheet">
@@ -346,18 +346,24 @@
   <section id="features">
     <h2>Features</h2>
     <ul>
-      <li><strong>End-to-end encrypted messaging</strong> over the decentralized, onion-routed Session Network — no central server holds your messages.</li>
+      <li><strong>End-to-end encrypted messaging,</strong> over the decentralized, onion-routed Session Network, with no central server holding your messages.</li>
       <li><strong>No phone number required.</strong> Your account is generated locally on your device.</li>
       <li><strong>Voice and video calls.</strong></li>
-      <li><strong>Custom in-app keyboard</strong> — typing stays inside the app instead of going through a third-party keyboard extension. Available in English, Greek, German, French, and Spanish, each with its own proper layout (not just a translated QWERTY) and long-press accents.</li>
-      <li><strong>Open source (GPLv3).</strong> Independent, unofficial fork of Session iOS — not affiliated with the Session Foundation.</li>
+      <li><strong>Disappearing messages,</strong> with a per-conversation timer.</li>
+      <li><strong>Group chats and public Communities,</strong> not just one-to-one conversations.</li>
+      <li><strong>App Lock,</strong> requiring your device passcode or biometrics before the app opens.</li>
+      <li><strong>Custom in-app keyboard,</strong> so typing stays inside the app instead of going through a third-party keyboard extension. Available in English, Greek, German, French, and Spanish, each with its own proper layout (not just a translated QWERTY) and long-press accents.</li>
+      <li><strong>Screenshot and screen-recording protection</strong> for messages marked <code>#secure</code>, plus a notification whenever an ordinary screenshot is taken.</li>
+      <li><strong>Read receipts, typing indicators, and link previews</strong> are each their own toggle, so you decide what's on.</li>
+      <li><strong>Blocked contacts,</strong> managed in one place.</li>
+      <li><strong>Open source (GPLv3).</strong> Independent, unofficial fork of Session iOS, not affiliated with the Session Foundation.</li>
     </ul>
   </section>
 
   <section id="why">
     <h2>Why Scytale</h2>
-    <p class="why-intro">Most messaging apps are run by one company, with one office and one server room. If a government leans on that company, it can comply — because there's something to lean on. That's exactly the model regulations like the EU's "Chat Control" depend on: pressure the company, and the app changes for everyone who uses it.</p>
-    <p class="why-intro">Scytale isn't built that way — and not because we promise to fight harder. There's structurally nothing to pressure.</p>
+    <p class="why-intro">Most messaging apps are run by one company, with one office and one server room. If a government leans on that company, it can comply: there's something to lean on. That's exactly the model regulations like the EU's "Chat Control" depend on: pressure the company, and the app changes for everyone who uses it.</p>
+    <p class="why-intro">Scytale isn't built that way, and not because we promise to fight harder. There's structurally nothing to pressure.</p>
 
     <div class="network-diagram">
       <div class="network-panel">
@@ -376,7 +382,7 @@
           <circle class="hub-leaf" cx="135" cy="39.4" r="5"></circle>
           <circle class="hub-node" cx="100" cy="100" r="10"></circle>
         </svg>
-        <div class="caption">Most other apps — one company, one door</div>
+        <div class="caption">Most other apps: one company, one door</div>
       </div>
       <div class="network-panel">
         <svg viewBox="0 0 200 200" aria-hidden="true">
@@ -395,30 +401,30 @@
           <circle class="mesh-packet mesh-packet-b" r="3.5"></circle>
           <circle class="mesh-packet mesh-packet-c" r="3.5"></circle>
         </svg>
-        <div class="caption">Scytale — no center, no single door</div>
+        <div class="caption">Scytale: no center, no single door</div>
       </div>
     </div>
 
     <div class="why-grid">
       <div class="why-item">
         <h3>No phone number, ever</h3>
-        <p>Most apps won't let you send a single message until you hand over your phone number. Scytale never asks — your identity is generated entirely on your device. There was never a number to collect, so there's never one to subpoena or leak.</p>
+        <p>Most apps won't let you send a single message until you hand over your phone number. Scytale never asks: your identity is generated entirely on your device. There was never a number to collect, so there's never one to subpoena or leak.</p>
       </div>
       <div class="why-item">
         <h3>No company to pressure</h3>
-        <p>WhatsApp, Telegram, even most messengers that call themselves "private" are run by one company with one legal address. Scytale runs on a network of independently operated computers with no headquarters at all — no door for a regulator, or anyone else, to knock on.</p>
+        <p>WhatsApp, Telegram, even most messengers that call themselves "private" are run by one company with one legal address. Scytale runs on a network of independently operated computers with no headquarters at all: no door for a regulator, or anyone else, to knock on.</p>
       </div>
       <div class="why-item">
-        <h3>Open source. Not a promise — proof</h3>
-        <p>Apps like Brrro claim to protect your privacy, but nobody outside the company has ever seen a single line of their code — you're simply asked to believe them. Every line of Scytale is public. Anyone, anywhere, can verify exactly what it does, and if a compromised version ever tried to sneak in surveillance code, the whole world would see it instantly.</p>
+        <h3>Open source. Not a promise. Proof.</h3>
+        <p>Apps like Brrro claim to protect your privacy, but nobody outside the company has ever seen a single line of their code: you're simply asked to believe them. Every line of Scytale is public. Anyone, anywhere, can verify exactly what it does, and if a compromised version ever tried to sneak in surveillance code, the whole world would see it instantly.</p>
       </div>
       <div class="why-item">
         <h3>Your keyboard never leaves the app</h3>
-        <p>The keyboard on your phone is usually built by a different company than the app you're typing into — and it can see every word you type, in every app. Scytale has its own keyboard built directly in, so what you type never has to leave it.</p>
+        <p>The keyboard on your phone is usually built by a different company than the app you're typing into, and it can see every word you type, in every app. Scytale has its own keyboard built directly in, so what you type never has to leave it.</p>
       </div>
       <div class="why-item why-item-wide">
         <h3>Screenshots don't have to show anything</h3>
-        <p>Mark a message or photo with <code>#secure</code> before sending, and it renders as blank the instant someone tries to screenshot or screen-record it. Try to record or mirror a whole conversation to a TV or a Mac, and the screen goes black for as long as the recording runs. And for the one thing no app on iPhone can technically stop — an ordinary screenshot of a message you didn't mark — you're told the moment it happens, every time.</p>
+        <p>Mark a message or photo with <code>#secure</code> before sending, and it renders as blank the instant someone tries to screenshot or screen-record it. Try to record or mirror a whole conversation to a TV or a Mac, and the screen goes black for as long as the recording runs. And for the one thing no app on iPhone can technically stop (an ordinary screenshot of a message you didn't mark), you're told the moment it happens, every time.</p>
       </div>
     </div>
   </section>
@@ -433,16 +439,16 @@
     <h2>FAQ</h2>
 
     <h3>What is Scytale?</h3>
-    <p>Scytale is an independent iOS client that interoperates, unmodified, with the <a href="https://getsession.org" target="_blank" rel="noopener">Session Network</a> — the same onion-routed, decentralized messaging protocol used by the Session app. Scytale is a client-only rebrand and feature layer: the underlying cryptography and network protocol are untouched.</p>
+    <p>Scytale is an independent iOS client that interoperates, unmodified, with the <a href="https://getsession.org" target="_blank" rel="noopener">Session Network</a>, the same onion-routed, decentralized messaging protocol used by the Session app. Scytale is a client-only rebrand and feature layer: the underlying cryptography and network protocol are untouched.</p>
 
     <h3>Do I need a phone number to use it?</h3>
-    <p>No. Accounts are generated locally on your device — no phone number, no email, no personal identifier required to create an account.</p>
+    <p>No. Accounts are generated locally on your device: no phone number, no email, no personal identifier required to create an account.</p>
 
     <h3>Is Scytale affiliated with Session or the Session Foundation?</h3>
     <p>No. Scytale is an independent, unofficial fork of the open-source Session iOS client (GPLv3), maintained separately. It is not endorsed by or affiliated with the Session Foundation.</p>
 
     <h3>Why does this exist?</h3>
-    <p>Scytale exists to offer a genuinely private messaging option outside of proposed client-side scanning / message-inspection mandates, without inventing new, unaudited cryptography — by building on Session's existing, audited protocol.</p>
+    <p>Scytale exists to offer a genuinely private messaging option outside of proposed client-side scanning / message-inspection mandates, without inventing new, unaudited cryptography. It does that by building on Session's existing, audited protocol.</p>
 
     <div class="subsection" id="faq-pro">
       <span class="badge">Pro</span>
@@ -457,7 +463,7 @@
     <ul>
       <li>Email: <a href="mailto:hello@fotiospongas.dev">hello@fotiospongas.dev</a></li>
     </ul>
-    <p>This is an independently maintained project — response times may vary.</p>
+    <p>This is an independently maintained project, so response times may vary.</p>
   </section>
 
   <section id="feedback">
@@ -493,17 +499,17 @@
     <ul>
       <li>No phone number, email, or government ID is required to create an account.</li>
       <li>Message content is end-to-end encrypted; the app developer has no ability to read message content.</li>
-      <li>No message content is stored on servers operated by the app developer — messages route through the decentralized Session Network.</li>
+      <li>No message content is stored on servers operated by the app developer: messages route through the decentralized Session Network.</li>
     </ul>
 
     <h3>What is collected</h3>
     <ul>
-      <li>Standard, anonymous crash/diagnostic data may be collected by Apple if you opt in via iOS system settings — this is Apple's platform mechanism, not something Scytale operates.</li>
+      <li>Standard, anonymous crash/diagnostic data may be collected by Apple if you opt in via iOS system settings; this is Apple's platform mechanism, not something Scytale operates.</li>
       <li>If you contact support directly (e.g. by email), we retain that correspondence to respond to you.</li>
     </ul>
 
     <h3>Third-party infrastructure</h3>
-    <p>Scytale routes messages through the Session Network's decentralized service nodes, which are operated by independent, third-party node operators — not by Scytale's developer. See the <a href="https://docs.getsession.org" target="_blank" rel="noopener">Session Network documentation</a> for details on how the underlying protocol works.</p>
+    <p>Scytale routes messages through the Session Network's decentralized service nodes, which are operated by independent, third-party node operators, not by Scytale's developer. See the <a href="https://docs.getsession.org" target="_blank" rel="noopener">Session Network documentation</a> for details on how the underlying protocol works.</p>
 
     <div class="subsection" id="pro-privacy">
       <span class="badge">Pro</span>
@@ -524,7 +530,7 @@
 
   <section id="donate">
     <h2>Donate</h2>
-    <p>Scytale itself doesn't accept donations — it's a small, independent client with no infrastructure of its own to fund. The Session Network underneath it is a different story. In April 2026, the Session Technology Foundation laid off its entire paid team and warned it would shut down within 90 days without $1 million in funding. The community pulled together just enough to keep it running, but the team behind it is now down to two or three developers. Scytale exists because that network exists — if you want to support it, <a href="https://getsession.org/donate" target="_blank" rel="noopener">donate directly to Session</a>. That's where it actually keeps the lights on.</p>
+    <p>Scytale itself doesn't accept donations: it's a small, independent client with no infrastructure of its own to fund. The Session Network underneath it is a different story. In April 2026, the Session Technology Foundation laid off its entire paid team and warned it would shut down within 90 days without $1 million in funding. The community pulled together just enough to keep it running, but the team behind it is now down to two or three developers. Scytale exists because that network exists: if you want to support it, <a href="https://getsession.org/donate" target="_blank" rel="noopener">donate directly to Session</a>. That's where it actually keeps the lights on.</p>
 
     <div class="subsection" id="donate-app">
       <h3>Supporting this app specifically</h3>
