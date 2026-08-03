@@ -483,16 +483,17 @@
 
   <section id="terms">
     <h2>Terms of Service</h2>
-    <p><em>Last updated: 2026.</em> This is a preliminary terms of service pending full legal review ahead of public release.</p>
+    <p><em>Last updated: August 2026.</em></p>
     <p>Scytale is provided "as is," without warranty of any kind, express or implied. By using Scytale you acknowledge that:</p>
     <ul>
       <li>Scytale is an independent, community-maintained fork of the open-source Session iOS client, licensed under GPLv3.</li>
       <li>Scytale is not affiliated with, endorsed by, or supported by the Session Foundation.</li>
       <li>Message delivery, storage, and routing occur on the decentralized Session Network, which Scytale's developer does not operate or control.</li>
+      <li>Scytale's developer separately operates a push notification relay and a TURN server for calls, described in the Privacy Policy below. These can be discontinued or changed at any time; the app keeps working over Session's own infrastructure either way.</li>
       <li>You are responsible for complying with the laws of your jurisdiction when using Scytale.</li>
       <li>Certain experimental features may be present only in development builds and are not available in the public release.</li>
     </ul>
-    <p>The full, complete source code and license (GPLv3) are available on request. Continued use of the app constitutes acceptance of these terms.</p>
+    <p>The full, complete source code and license (GPLv3) are available on request. Continued use of the app constitutes acceptance of these terms. These terms are governed by the laws of Greece, without regard to conflict-of-law rules.</p>
 
     <div class="subsection" id="pro-terms">
       <span class="badge">Pro</span>
@@ -503,23 +504,38 @@
 
   <section id="privacy">
     <h2>Privacy Policy</h2>
-    <p><em>Last updated: 2026.</em> This is a preliminary privacy policy pending full legal review ahead of public release.</p>
+    <p><em>Last updated: August 2026.</em></p>
+    <p>This policy is provided by Fotios Pongas, the independent developer of Scytale, reachable at <a href="mailto:hello@fotiospongas.dev">hello@fotiospongas.dev</a> for any privacy question or request below.</p>
 
     <h3>What we don't collect</h3>
     <ul>
       <li>No phone number, email, or government ID is required to create an account.</li>
       <li>Message content is end-to-end encrypted; the app developer has no ability to read message content.</li>
-      <li>No message content is stored on servers operated by the app developer: messages route through the decentralized Session Network.</li>
+      <li>No message content is stored on servers operated by the app developer: messages route through the decentralized Session Network, operated by independent, third-party node operators.</li>
     </ul>
 
-    <h3>What is collected</h3>
+    <h3>What is collected, and by whom</h3>
     <ul>
+      <li><strong>Push notifications:</strong> Scytale uses a self-hosted push relay (not Session's own) to trigger the notification banner on your phone. It sees your device's push token and a minimal signal that a message is waiting, so it knows which device to notify. It never sees message content, sender, or recipient, and plays no part in delivering the message itself, which still travels entirely over the Session Network.</li>
+      <li><strong>Calls:</strong> Scytale uses a self-hosted TURN server as a fallback when a direct connection between two devices can't be established. When it's used, it can see both parties' IP addresses and relay the call's encrypted audio/video traffic; it cannot decrypt what's said. Most calls connect directly and never touch this server.</li>
       <li>Standard, anonymous crash/diagnostic data may be collected by Apple if you opt in via iOS system settings; this is Apple's platform mechanism, not something Scytale operates.</li>
-      <li>If you contact support directly (e.g. by email), we retain that correspondence to respond to you.</li>
+      <li>If you contact support directly (e.g. by email), we retain that correspondence to respond to you, and delete it once it's no longer needed to resolve your request.</li>
     </ul>
 
     <h3>Third-party infrastructure</h3>
-    <p>Scytale routes messages through the Session Network's decentralized service nodes, which are operated by independent, third-party node operators, not by Scytale's developer. See the <a href="https://docs.getsession.org" target="_blank" rel="noopener">Session Network documentation</a> for details on how the underlying protocol works.</p>
+    <p>Scytale routes messages through the Session Network's decentralized service nodes, which are operated by independent, third-party node operators, not by Scytale's developer. See the <a href="https://docs.getsession.org" target="_blank" rel="noopener">Session Network documentation</a> for details on how the underlying protocol works. The push relay and TURN server described above are operated by Scytale's developer, hosted in the EU.</p>
+
+    <h3>Data retention</h3>
+    <p>Push tokens and call-routing data are held only as long as needed to provide the notification or call, and are removed when you disable notifications, delete your account, or uninstall the app. Support correspondence is kept only as long as needed to resolve your request.</p>
+
+    <h3>Your rights</h3>
+    <p>You can ask to see, correct, or delete any personal data we hold about you (in practice, limited to support correspondence and the push/call metadata described above) by emailing <a href="mailto:hello@fotiospongas.dev">hello@fotiospongas.dev</a>. We do not sell personal data to anyone, for any purpose. If you're in the EU, you can also lodge a complaint with your local data protection authority.</p>
+
+    <h3>Children's privacy</h3>
+    <p>Scytale is not directed at children, and knowingly does not collect data from anyone under the age of 16.</p>
+
+    <h3>Changes to this policy</h3>
+    <p>If this policy changes, the "Last updated" date above will change and, for material changes, we'll flag it in the app's release notes.</p>
 
     <div class="subsection" id="pro-privacy">
       <span class="badge">Pro</span>
