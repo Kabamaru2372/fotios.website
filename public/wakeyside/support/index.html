@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wakeyside: Support</title>
+<style>
+  :root { --bg: #ffffff; --text: #1c1c1e; --muted: #6b6b70; --line: #e3e3e6; --accent: #c2600a; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #000000; --text: #f2f2f7; --muted: #a0a0a8; --line: #2c2c2e; --accent: #ff9f0a; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text);
+         font: 17px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+  main { max-width: 720px; margin: 0 auto; padding: 32px 20px 64px; }
+  nav { display: flex; gap: 16px; margin-bottom: 8px; font-size: 15px; }
+  a { color: var(--accent); }
+  h1 { font-size: 30px; line-height: 1.2; margin: 24px 0 4px; }
+  h2 { font-size: 19px; margin: 28px 0 6px; }
+  p, ul { margin: 8px 0; }
+  li { margin: 6px 0; }
+  .date { color: var(--muted); font-size: 15px; margin: 0 0 16px; }
+  .short { border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; margin: 16px 0; }
+  details { border-top: 1px solid var(--line); padding: 12px 0; }
+  details:last-of-type { border-bottom: 1px solid var(--line); }
+  summary { cursor: pointer; font-weight: 600; }
+  details p { margin: 8px 0 0; }
+  section + section { margin-top: 56px; padding-top: 32px; border-top: 1px solid var(--line); }
+</style>
+</head>
+<body>
+<main>
+
+<nav aria-label="Language"><a href="#en">English</a> <a href="#el">Ελληνικά</a> <a href="#de">Deutsch</a></nav>
+
+<section id="en" lang="en">
+<h1>Wakeyside: Support</h1>
+<p class="date">Answers to common questions. If you cannot find what you need, email <a href="mailto:hello@fotiospongas.dev">hello@fotiospongas.dev</a> and you will get a reply from the developer.</p>
+<details><summary>My alarm did not ring</summary><p>Check that the Alarm switch is on, that at least one day is picked (an alarm with no days does not ring) and that alarms are allowed for Wakeyside in the iOS Settings app. A silent alarm lights the screen and flashes the camera light only while Wakeyside is open, for example on the nightstand while charging; if the app is closed it only lights the screen, which may not wake you. Try your alarm a few minutes ahead before you rely on it.</p></details>
+<details><summary>Can I rely on the silent alarm?</summary><p>It is a gentle, visual way to wake, made first for people who are deaf or hard of hearing. It does not replace a bed shaker or a smoke alarm. Nothing flashes more than three times a second, and the iOS setting Reduce Motion keeps the light steady.</p></details>
+<details><summary>The screen shows Apple's clock instead of Wakeyside</summary><p>When a locked iPhone charges on its side, iOS shows its own StandBy clock. Wakeyside stays in front for as long as it is open. In Settings, under Charging, there is a ready-made Shortcuts automation that opens Wakeyside when the charger is connected; iOS runs it only when the phone is unlocked.</p></details>
+<details><summary>The weather does not show</summary><p>Allow Location for Wakeyside, then in Settings, under Location, tap Use my current location. The phone needs an internet connection to get the forecast.</p></details>
+<details><summary>What is the extra early alarm?</summary><p>When rain or snow is forecast for the morning, an extra alarm can ring earlier, and an early first event of the day can do the same. It never rings later than your regular alarm. You turn the weather one off with Ring earlier for rain or snow, and the calendar one under Your day.</p></details>
+<details><summary>Reminders and Calendar do not show</summary><p>In Settings, under Your day, turn on Show my Reminders or Show my first event and allow access. If you said no before, allow it again in the iOS Settings app, under Wakeyside.</p></details>
+<details><summary>The weekly sleep report</summary><p>It appears on the last morning of the week, once at least three nights have been measured. Keep Wakeyside open on the nightstand while you sleep, because it notes your touches to estimate the time in bed. If you allow it, sleep from Apple Health (an Apple Watch or a sleep app) is used for the nights it has. It is an estimate, not a medical measurement. You can turn it off or delete the history in Settings, under Sleep.</p></details>
+<details><summary>The screen goes dark</summary><p>To spare an OLED screen the clock wanders around, and after the time you choose under Burn-in protection every pixel switches off. Knock on the nightstand or change the room light to wake it.</p></details>
+<details><summary>Language</summary><p>Wakeyside speaks English, Greek and German. Change it in Settings, under Language.</p></details>
+<details><summary>My data</summary><p>Everything stays on your iPhone. Read the <a href="/wakeyside/privacy/#en">privacy policy</a>.</p></details>
+</section>
+<section id="el" lang="el">
+<h1>Wakeyside: Υποστήριξη</h1>
+<p class="date">Απαντήσεις σε συχνές ερωτήσεις. Αν δεν βρίσκεις αυτό που χρειάζεσαι, γράψε στο <a href="mailto:hello@fotiospongas.dev">hello@fotiospongas.dev</a> και θα λάβεις απάντηση από τον προγραμματιστή.</p>
+<details><summary>Το ξυπνητήρι δεν χτύπησε</summary><p>Έλεγξε ότι ο διακόπτης Ξυπνητήρι είναι ανοιχτός, ότι έχεις επιλέξει τουλάχιστον μία μέρα (ξυπνητήρι χωρίς μέρες δεν χτυπά) και ότι τα ξυπνητήρια επιτρέπονται για το Wakeyside στην εφαρμογή Ρυθμίσεις του iOS. Το σιωπηλό ξυπνητήρι ανάβει την οθόνη και αναβοσβήνει το φως της κάμερας μόνο όσο το Wakeyside είναι ανοιχτό, για παράδειγμα στο κομοδίνο σε φόρτιση· αν η εφαρμογή είναι κλειστή, ανάβει μόνο την οθόνη, κάτι που μπορεί να μη σε ξυπνήσει. Δοκίμασε το ξυπνητήρι σου λίγα λεπτά νωρίτερα πριν βασιστείς σε αυτό.</p></details>
+<details><summary>Μπορώ να βασιστώ στο σιωπηλό ξυπνητήρι;</summary><p>Είναι ένας ήπιος, οπτικός τρόπος να ξυπνάς, φτιαγμένος πρώτα για ανθρώπους που είναι κωφοί ή βαρήκοοι. Δεν αντικαθιστά δονητή κρεβατιού ούτε ανιχνευτή καπνού. Τίποτα δεν αναβοσβήνει πάνω από τρεις φορές το δευτερόλεπτο και η ρύθμιση του iOS Μείωση κίνησης κρατά το φως σταθερό.</p></details>
+<details><summary>Η οθόνη δείχνει το ρολόι της Apple αντί για το Wakeyside</summary><p>Όταν ένα κλειδωμένο iPhone φορτίζει στο πλάι, το iOS δείχνει το δικό του ρολόι StandBy. Το Wakeyside μένει μπροστά όσο είναι ανοιχτό. Στις Ρυθμίσεις, στο τμήμα Φόρτιση, υπάρχει έτοιμος αυτοματισμός Συντομεύσεων που ανοίγει το Wakeyside όταν συνδέεται ο φορτιστής· το iOS τον τρέχει μόνο όταν το κινητό είναι ξεκλείδωτο.</p></details>
+<details><summary>Ο καιρός δεν εμφανίζεται</summary><p>Επίτρεψε την Τοποθεσία για το Wakeyside και μετά, στις Ρυθμίσεις, στο τμήμα Τοποθεσία, πάτησε Χρήση της τρέχουσας τοποθεσίας μου. Το κινητό χρειάζεται σύνδεση στο διαδίκτυο για να πάρει την πρόγνωση.</p></details>
+<details><summary>Τι είναι το επιπλέον ξυπνητήρι νωρίτερα;</summary><p>Όταν προβλέπεται βροχή ή χιόνι το πρωί, ένα επιπλέον ξυπνητήρι μπορεί να χτυπήσει νωρίτερα, και το ίδιο μπορεί να κάνει ένα πρώτο γεγονός της ημέρας που ξεκινά νωρίς. Δεν χτυπά ποτέ αργότερα από το κανονικό σου ξυπνητήρι. Αυτό του καιρού το κλείνεις με τον διακόπτη Νωρίτερο ξυπνητήρι για βροχή ή χιόνι και αυτό του ημερολογίου από το τμήμα Η ημέρα σου.</p></details>
+<details><summary>Οι Υπενθυμίσεις και το Ημερολόγιο δεν εμφανίζονται</summary><p>Στις Ρυθμίσεις, στο τμήμα Η ημέρα σου, άνοιξε την Εμφάνιση των Υπενθυμίσεών μου ή την Εμφάνιση του πρώτου μου γεγονότος και επίτρεψε την πρόσβαση. Αν είχες πει όχι, επίτρεψέ την ξανά στην εφαρμογή Ρυθμίσεις του iOS, κάτω από το Wakeyside.</p></details>
+<details><summary>Η εβδομαδιαία αναφορά ύπνου</summary><p>Εμφανίζεται το τελευταίο πρωί της εβδομάδας, όταν έχουν μετρηθεί τουλάχιστον τρεις νύχτες. Άφησε το Wakeyside ανοιχτό στο κομοδίνο όσο κοιμάσαι, γιατί σημειώνει τα αγγίγματά σου για να εκτιμήσει τον χρόνο στο κρεβάτι. Αν το επιτρέψεις, ο ύπνος από την Υγεία της Apple (Apple Watch ή εφαρμογή ύπνου) χρησιμοποιείται για τις νύχτες που έχει. Είναι εκτίμηση, όχι ιατρική μέτρηση. Μπορείς να την απενεργοποιήσεις ή να διαγράψεις το ιστορικό στις Ρυθμίσεις, στο τμήμα Ύπνος.</p></details>
+<details><summary>Η οθόνη σκουραίνει</summary><p>Για να προστατευτεί μια οθόνη OLED, το ρολόι περιπλανιέται και, μετά τον χρόνο που επιλέγεις στο τμήμα Προστασία από burn-in, σβήνουν όλα τα pixel. Χτύπησε το κομοδίνο ή άλλαξε το φως του δωματίου για να την ξυπνήσεις.</p></details>
+<details><summary>Γλώσσα</summary><p>Το Wakeyside μιλά αγγλικά, ελληνικά και γερμανικά. Άλλαξέ το στις Ρυθμίσεις, στο τμήμα Γλώσσα.</p></details>
+<details><summary>Τα δεδομένα μου</summary><p>Όλα μένουν στο iPhone σου. Διάβασε την <a href="/wakeyside/privacy/#el">πολιτική απορρήτου</a>.</p></details>
+</section>
+<section id="de" lang="de">
+<h1>Wakeyside: Support</h1>
+<p class="date">Antworten auf häufige Fragen. Wenn du nicht findest, was du brauchst, schreib an <a href="mailto:hello@fotiospongas.dev">hello@fotiospongas.dev</a> und du bekommst eine Antwort vom Entwickler.</p>
+<details><summary>Mein Wecker hat nicht geklingelt</summary><p>Prüfe, ob der Schalter Wecker eingeschaltet ist, ob mindestens ein Tag gewählt ist (ein Wecker ohne Tage klingelt nicht) und ob Wecker für Wakeyside in der Einstellungen-App von iOS erlaubt sind. Ein lautloser Wecker schaltet den Bildschirm ein und lässt das Kameralicht blinken, solange Wakeyside geöffnet ist, zum Beispiel auf dem Nachttisch beim Laden; ist die App geschlossen, schaltet er nur den Bildschirm ein, was dich möglicherweise nicht weckt. Probiere deinen Wecker einige Minuten im Voraus aus, bevor du dich darauf verlässt.</p></details>
+<details><summary>Kann ich mich auf den lautlosen Wecker verlassen?</summary><p>Er ist eine sanfte, visuelle Art aufzuwachen, zuerst für gehörlose und schwerhörige Menschen gemacht. Er ersetzt weder einen Bettrüttler noch einen Rauchmelder. Nichts blinkt öfter als dreimal pro Sekunde, und die iOS-Einstellung Bewegung reduzieren hält das Licht ruhig.</p></details>
+<details><summary>Der Bildschirm zeigt die Uhr von Apple statt Wakeyside</summary><p>Wenn ein gesperrtes iPhone auf der Seite lädt, zeigt iOS seine eigene StandBy-Uhr. Wakeyside bleibt im Vordergrund, solange es geöffnet ist. In den Einstellungen gibt es unter Laden eine fertige Kurzbefehle-Automation, die Wakeyside öffnet, sobald das Ladegerät angeschlossen wird; iOS führt sie nur aus, wenn das iPhone entsperrt ist.</p></details>
+<details><summary>Das Wetter wird nicht angezeigt</summary><p>Erlaube Wakeyside den Standort und tippe dann in den Einstellungen unter Standort auf Meinen aktuellen Standort verwenden. Für die Vorhersage braucht das iPhone eine Internetverbindung.</p></details>
+<details><summary>Was ist der zusätzliche frühe Wecker?</summary><p>Ist für den Morgen Regen oder Schnee angesagt, kann ein zusätzlicher Wecker früher klingeln, und ein früher erster Termin des Tages kann dasselbe tun. Er klingelt nie später als dein normaler Wecker. Den Wetter-Wecker schaltest du mit Früher wecken bei Regen oder Schnee aus, den Kalender-Wecker unter Dein Tag.</p></details>
+<details><summary>Erinnerungen und Kalender werden nicht angezeigt</summary><p>Schalte in den Einstellungen unter Dein Tag Meine Erinnerungen anzeigen oder Meinen ersten Termin anzeigen ein und erlaube den Zugriff. Hast du vorher Nein gesagt, erlaube ihn in der Einstellungen-App von iOS unter Wakeyside.</p></details>
+<details><summary>Der wöchentliche Schlafbericht</summary><p>Er erscheint am letzten Morgen der Woche, wenn mindestens drei Nächte gemessen wurden. Lass Wakeyside beim Schlafen geöffnet auf dem Nachttisch, denn es merkt sich deine Berührungen, um die Zeit im Bett zu schätzen. Wenn du es erlaubst, wird Schlaf aus Apple Health (Apple Watch oder Schlaf-App) für die Nächte verwendet, die es hat. Es ist eine Schätzung, keine medizinische Messung. In den Einstellungen unter Schlaf kannst du ihn ausschalten oder den Verlauf löschen.</p></details>
+<details><summary>Der Bildschirm wird dunkel</summary><p>Um einen OLED-Bildschirm zu schonen, wandert die Uhr umher, und nach der Zeit, die du unter Einbrennschutz wählst, gehen alle Pixel aus. Klopfe auf den Nachttisch oder ändere das Raumlicht, um sie zu wecken.</p></details>
+<details><summary>Sprache</summary><p>Wakeyside spricht Englisch, Griechisch und Deutsch. Ändere es in den Einstellungen unter Sprache.</p></details>
+<details><summary>Meine Daten</summary><p>Alles bleibt auf deinem iPhone. Lies die <a href="/wakeyside/privacy/#de">Datenschutzerklärung</a>.</p></details>
+</section>
+</main>
+</body>
+</html>
