@@ -105,6 +105,13 @@ export const translations = {
         link: "Learn more",
         linkUrl: "/scytale/",
       },
+      wakeyside: {
+        title: "Wakeyside",
+        desc: "A calm nightstand clock for iPhone with a silent alarm that wakes you with light, the real sky behind the clock, an earlier alarm when rain or snow is forecast, and a weekly sleep summary. Made first for people who are deaf or hard of hearing. Coming soon to the App Store.",
+        tags: "Swift, SwiftUI, AlarmKit, WeatherKit, HealthKit, EventKit",
+        link: "Learn more",
+        linkUrl: "/wakeyside/",
+      },
     },
     papers: {
       label: "The papers",
@@ -266,6 +273,13 @@ export const translations = {
         tags: "Swift, WebRTC, CallKit, Xcode Cloud",
         link: "Mehr erfahren",
         linkUrl: "/scytale/",
+      },
+      wakeyside: {
+        title: "Wakeyside",
+        desc: "Eine ruhige Nachttischuhr für das iPhone mit einem lautlosen Wecker, der mit Licht weckt, dem echten Himmel hinter der Uhr, einem früheren Wecker bei Regen oder Schnee und einer wöchentlichen Schlafzusammenfassung. Zuerst für gehörlose und schwerhörige Menschen gemacht. Bald im App Store.",
+        tags: "Swift, SwiftUI, AlarmKit, WeatherKit, HealthKit, EventKit",
+        link: "Mehr erfahren",
+        linkUrl: "/wakeyside/",
       },
     },
     papers: {

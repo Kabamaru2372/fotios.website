@@ -456,7 +456,7 @@ export default function Portfolio() {
             </div>
           </Reveal>
 
-          <Reveal as="div" delay={80} className="app-card" style={{ borderBottom: "none" }}>
+          <Reveal as="div" delay={80} className="app-card">
             <div className="app-shots">
               <img src="/scytale-icon.png" alt="Scytale app icon" loading="lazy" />
             </div>
@@ -466,6 +466,21 @@ export default function Portfolio() {
               <span className="tags">{t.apps.scytale.tags}</span>
               <div className="app-links">
                 <a href={t.apps.scytale.linkUrl}>{t.apps.scytale.link}</a>
+              </div>
+            </div>
+          </Reveal>
+
+          <Reveal as="div" delay={160} className="app-card" style={{ borderBottom: "none" }}>
+            <div className="app-shots">
+              <img src="/wakeyside/img/predawn-snow.jpg" alt="Wakeyside before dawn: the alarm is set 30 minutes early because snow is forecast" loading="lazy" />
+              <img src="/wakeyside/img/sunrise.jpg" alt="Wakeyside at sunrise, with the clock, the weather and the day's reminders over the morning sky" loading="lazy" />
+            </div>
+            <div>
+              <h3>{t.apps.wakeyside.title}</h3>
+              <p>{t.apps.wakeyside.desc}</p>
+              <span className="tags">{t.apps.wakeyside.tags}</span>
+              <div className="app-links">
+                <a href={t.apps.wakeyside.linkUrl}>{t.apps.wakeyside.link}</a>
               </div>
             </div>
           </Reveal>

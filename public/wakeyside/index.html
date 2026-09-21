@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wakeyside: wake by light, not by sound</title>
+<meta name="description" content="A calm nightstand clock for iPhone with a silent alarm that wakes you with light, the real sky behind the clock, an earlier alarm when rain or snow is forecast, and a weekly sleep summary.">
+<meta name="theme-color" content="#0d0f14">
+<link rel="icon" href="/wakeyside/img/icon-96.png">
+<link rel="apple-touch-icon" href="/wakeyside/img/icon.png">
+<link href="/fonts/fonts.css" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0d0f14; --ink-2: #141821; --line: rgba(236, 231, 220, 0.11);
+    --paper: #ece7dc; --soft: #cfc9bb; --muted: #a09b8d;
+    --amber: #e0a458; --dusk: #8fa0bd;
+    --serif: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { color-scheme: dark; scroll-behavior: smooth; }
+  body { margin: 0; background: var(--ink); color: var(--paper); font: 17px/1.6 var(--sans); -webkit-font-smoothing: antialiased; }
+  a { color: var(--amber); text-underline-offset: 3px; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; border-radius: 4px; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+  /* Top bar */
+  .top { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 22px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
+  .brand { color: var(--paper); text-decoration: none; font-family: var(--serif); font-size: 18px; }
+  .top nav { display: flex; align-items: center; gap: 22px; }
+  .top nav a { color: var(--muted); text-decoration: none; }
+  .top nav a:hover { color: var(--paper); }
+  .lang { display: flex; gap: 2px; }
+  .lang button { background: none; border: 1px solid transparent; color: var(--muted); font: 600 12px/1 var(--sans); letter-spacing: 0.08em; padding: 7px 9px; border-radius: 6px; cursor: pointer; }
+  .lang button:hover { color: var(--paper); }
+  .lang button[aria-pressed="true"] { color: var(--paper); border-color: var(--line); }
+
+  /* Hero */
+  .hero { padding: 76px 0 84px; }
+  .hero-text { max-width: 760px; }
+  .hero-fig { margin: 64px 0 0; }
+  .hero-fig img { border-radius: 24px; }
+  .kicker { font: 600 12px/1.4 var(--sans); letter-spacing: 0.16em; text-transform: uppercase; color: var(--dusk); margin: 0 0 22px; }
+  h1 { font-family: var(--serif); font-weight: 600; font-size: clamp(38px, 6.2vw, 66px); line-height: 1.05; letter-spacing: -0.015em; margin: 0 0 24px; }
+  .lead { font-size: 19px; line-height: 1.6; color: var(--soft); max-width: 33em; margin: 0 0 32px; }
+  .appid { display: flex; align-items: center; gap: 14px; margin: 0 0 26px; }
+  .appid img { width: 56px; height: 56px; border-radius: 13px; display: block; }
+  .appid span { font-family: var(--serif); font-size: 22px; }
+  .cta { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 24px; }
+  .soon { border: 1px solid var(--line); border-radius: 999px; padding: 11px 20px; font: 600 14px/1 var(--sans); }
+  .cta a { font-size: 15px; }
+  .phone { display: block; width: 100%; height: auto; border-radius: 26px; border: 1px solid var(--line); background: #000; box-shadow: 0 34px 60px -34px rgba(0, 0, 0, 0.8); }
+
+  /* Features */
+  .feature { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; padding: 80px 0; border-top: 1px solid var(--line); }
+  .feature .fig { margin: 0; justify-self: center; width: min(100%, 290px); }
+  .feature.flip .fig { order: 2; }
+  .label { font: 600 12px/1.4 var(--sans); letter-spacing: 0.16em; text-transform: uppercase; color: var(--amber); margin: 0 0 14px; }
+  h2 { font-family: var(--serif); font-weight: 600; font-size: clamp(28px, 4.2vw, 40px); line-height: 1.15; letter-spacing: -0.01em; margin: 0 0 20px; }
+  .feature p { color: var(--soft); margin: 0 0 16px; max-width: 31em; }
+  .feature p.note { color: var(--muted); font-size: 15px; }
+
+  /* Private and facts */
+  .private { padding: 84px 0; border-top: 1px solid var(--line); text-align: center; }
+  .private h2 { margin-left: auto; margin-right: auto; max-width: 20em; }
+  .private p { color: var(--soft); max-width: 36em; margin: 0 auto 16px; }
+  .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 0; margin: 0; padding: 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .facts div { padding: 22px 20px; border-right: 1px solid var(--line); }
+  .facts div:last-child { border-right: none; }
+  .facts dt { font: 600 11px/1.4 var(--sans); letter-spacing: 0.14em; text-transform: uppercase; color: var(--dusk); margin: 0 0 8px; }
+  .facts dd { margin: 0; color: var(--paper); font-size: 16px; }
+
+  footer { padding: 40px 0 56px; color: var(--muted); font-size: 14px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 14px 28px; }
+  footer nav { display: flex; flex-wrap: wrap; gap: 8px 24px; }
+  footer a { color: var(--muted); }
+  footer a:hover { color: var(--paper); }
+
+  @media (max-width: 860px) {
+    .hero { padding: 52px 0 64px; }
+    .hero-fig { margin-top: 44px; }
+    .hero-fig img { border-radius: 18px; }
+    .feature { grid-template-columns: 1fr; gap: 36px; padding: 60px 0; }
+    .feature.flip .fig { order: 0; }
+    .facts div { border-right: none; border-bottom: 1px solid var(--line); }
+    .facts div:last-child { border-bottom: none; }
+    .top nav .hide-small { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <a class="brand" href="/">Fotios Pongas</a>
+    <nav>
+      <a class="hide-small" href="/wakeyside/privacy/" data-t="nav.privacy">Privacy</a>
+      <a class="hide-small" href="/wakeyside/support/" data-t="nav.support">Support</a>
+      <div class="lang" role="group" aria-label="Language">
+        <button type="button" data-lang="en" aria-pressed="true">EN</button>
+        <button type="button" data-lang="el" aria-pressed="false">EL</button>
+        <button type="button" data-lang="de" aria-pressed="false">DE</button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-text">
+        <p class="kicker" data-t="hero.kicker">iPhone and iPad · Nightstand clock and alarm</p>
+        <div class="appid"><img src="/wakeyside/img/icon.png" alt="" width="56" height="56"><span>Wakeyside</span></div>
+        <h1 data-t="hero.title">Wake by light, not by sound.</h1>
+        <p class="lead" data-t="hero.lead">Wakeyside is a calm nightstand clock with an alarm that fills the room with light instead of noise. It was made first for people who are deaf or hard of hearing, and for anyone who would rather wake gently.</p>
+        <div class="cta">
+          <!-- When the app is live, replace this label with a link to the App Store page. -->
+          <span class="soon" data-t="hero.soon">Coming soon to the App Store</span>
+          <a href="/wakeyside/support/" data-t="hero.support">Support</a>
+        </div>
+      </div>
+      <figure class="hero-fig">
+        <img class="phone" src="/wakeyside/img/landscape-dusk.jpg" width="1800" height="828" alt="Wakeyside on its side on a nightstand at dusk: the next alarm rings 15 minutes early because rain is forecast, with the clock, the weather, the first event and two reminders over a sunset sky with the moon." data-t-alt="alt.landscape">
+      </figure>
+    </section>
+
+    <section class="feature">
+      <figure class="fig"><img class="phone" src="/wakeyside/img/wake-light.jpg" width="720" height="1565" loading="lazy" alt="The wake light: the whole screen glows amber with the time and two buttons, Stop and Snooze." data-t-alt="alt.wake"></figure>
+      <div>
+        <p class="label" data-t="s1.label">Silent alarm</p>
+        <h2 data-t="s1.title">An alarm you can see</h2>
+        <p data-t="s1.p1">At the time you set, the screen slowly fills with light in a colour you choose, with five effects from a slow breath to a storm. The camera light can flash in step with it. Nothing flashes more than three times a second, and Reduce Motion keeps the light steady.</p>
+        <p class="note" data-t="s1.p2">It works while Wakeyside is open on your nightstand, charging. It does not replace a bed shaker or a smoke alarm.</p>
+      </div>
+    </section>
+
+    <section class="feature flip">
+      <figure class="fig"><img class="phone" src="/wakeyside/img/predawn-snow.jpg" width="720" height="1565" loading="lazy" alt="The alarm line reads 6:00, Snow from 7:00, 30 min early, over the dark sky before dawn." data-t-alt="alt.weather"></figure>
+      <div>
+        <p class="label" data-t="s2.label">Weather</p>
+        <h2 data-t="s2.title">The weather wakes you earlier</h2>
+        <p data-t="s2.p1">When rain or snow is forecast for the morning, an extra alarm rings earlier, so the weather never catches you out. An early first event of the day can do the same. It never rings later than your regular alarm, and you can switch the weather alarm off.</p>
+        <p class="note" data-t="s2.p2">Your reminders and the first event of the day show on the display, if you allow it, and a reminder is ticked off with a tap. Forecasts come from Apple Weather.</p>
+      </div>
+    </section>
+
+    <section class="feature">
+      <figure class="fig"><img class="phone" src="/wakeyside/img/sunrise.jpg" width="720" height="1565" loading="lazy" alt="A sky at sunrise behind the clock, with hills along the bottom." data-t-alt="alt.sky"></figure>
+      <div>
+        <p class="label" data-t="s3.label">Sky</p>
+        <h2 data-t="s3.title">The real sky behind the clock</h2>
+        <p data-t="s3.p1">The sun and the moon stand where they really are over you, with the moon's true phase, the stars and the clouds of the forecast. It is calculated on your iPhone from the date and your place, and shows for a few minutes after a touch.</p>
+      </div>
+    </section>
+
+    <section class="feature flip">
+      <figure class="fig"><img class="phone" src="/wakeyside/img/night-red.jpg" width="720" height="1565" loading="lazy" alt="The night display: a dim red clock on black." data-t-alt="alt.night"></figure>
+      <div>
+        <p class="label" data-t="s4.label">Night</p>
+        <h2 data-t="s4.title">Made for the night</h2>
+        <p data-t="s4.p1">As the night comes on, the display dims by itself and turns red, like StandBy, which is easier on your eyes and on your sleep.</p>
+        <p data-t="s4.p2">To spare an OLED screen, the clock drifts around, and after the time you choose every pixel switches off. Knock on the nightstand, or change the room light, to wake it.</p>
+      </div>
+    </section>
+
+    <section class="feature">
+      <figure class="fig"><img class="phone" src="/wakeyside/img/sleep-report.jpg" width="720" height="1428" loading="lazy" alt="The weekly sleep report: average time in bed, nights measured, how the week compares with the recommended hours, and the recent nights." data-t-alt="alt.sleep"></figure>
+      <div>
+        <p class="label" data-t="s5.label">Sleep</p>
+        <h2 data-t="s5.title">A week of sleep at a glance</h2>
+        <p data-t="s5.p1">On the last morning of the week: about how long you were in bed, how often you touched the phone in the night, and how that compares with the hours recommended for your age. If you allow it, sleep from Apple Health is used for the nights it has.</p>
+        <p class="note" data-t="s5.p2">It is an estimate for your information, not a medical measurement.</p>
+      </div>
+    </section>
+
+    <section class="private">
+      <p class="label" data-t="p.label">Private</p>
+      <h2 data-t="p.title">No account. No ads. No tracking.</h2>
+      <p data-t="p.p1">What the app knows stays on your iPhone. The only thing that leaves it is the place you set as home, which goes to Apple's weather service to get the forecast. Read the <a href="/wakeyside/privacy/">privacy policy</a>.</p>
+    </section>
+
+    <dl class="facts">
+      <div><dt data-t="f.req">Requires</dt><dd data-t="f.reqv">iOS 26.1 or later</dd></div>
+      <div><dt data-t="f.dev">Devices</dt><dd data-t="f.devv">iPhone and iPad</dd></div>
+      <div><dt data-t="f.lang">Languages</dt><dd data-t="f.langv">English, Greek, German</dd></div>
+      <div><dt data-t="f.weather">Weather</dt><dd>Apple Weather</dd></div>
+      <div><dt data-t="f.by">Developer</dt><dd>Fotios Pongas</dd></div>
+    </dl>
+  </main>
+
+  <footer>
+    <span>© 2026 Fotios Pongas</span>
+    <nav>
+      <a href="/wakeyside/privacy/" data-t="foot.privacy">Privacy policy</a>
+      <a href="/wakeyside/support/" data-t="foot.support">Support</a>
+      <a href="mailto:hello@fotiospongas.dev">hello@fotiospongas.dev</a>
+      <a href="/" data-t="foot.home">All apps</a>
+    </nav>
+  </footer>
+
+</div>
+
+<script>
+(function () {
+  var dict = {
+    el: {
+      "meta.title": `Wakeyside: ξύπνα με φως, όχι με ήχο`,
+      "nav.privacy": `Απόρρητο`, "nav.support": `Υποστήριξη`,
+      "hero.kicker": `iPhone και iPad · Ρολόι κομοδίνου και ξυπνητήρι`,
+      "hero.title": `Ξύπνα με φως, όχι με ήχο.`,
+      "hero.lead": `Το Wakeyside είναι ένα ήρεμο ρολόι κομοδίνου με ξυπνητήρι που γεμίζει το δωμάτιο με φως αντί για θόρυβο. Φτιάχτηκε πρώτα για ανθρώπους που είναι κωφοί ή βαρήκοοι, και για όποιον προτιμά να ξυπνά απαλά.`,
+      "hero.soon": `Σύντομα στο App Store`, "hero.support": `Υποστήριξη`,
+      "alt.landscape": `Το Wakeyside στο πλάι σε ένα κομοδίνο το σούρουπο: το επόμενο ξυπνητήρι χτυπά 15 λεπτά νωρίτερα επειδή προβλέπεται βροχή, με το ρολόι, τον καιρό, το πρώτο γεγονός και δύο υπενθυμίσεις πάνω από έναν ουρανό ηλιοβασιλέματος με το φεγγάρι.`,
+      "alt.wake": `Το φως αφύπνισης: όλη η οθόνη λάμπει σε κεχριμπαρί με την ώρα και δύο κουμπιά, Stop και Snooze.`,
+      "alt.weather": `Η γραμμή του ξυπνητηριού γράφει 6:00, Χιόνι από τις 7:00, 30 λεπτά νωρίτερα, πάνω από τον σκοτεινό ουρανό πριν την αυγή.`,
+      "alt.sky": `Ουρανός την ανατολή πίσω από το ρολόι, με λόφους στο κάτω μέρος.`,
+      "alt.night": `Η νυχτερινή οθόνη: ένα αχνό κόκκινο ρολόι σε μαύρο φόντο.`,
+      "alt.sleep": `Η εβδομαδιαία αναφορά ύπνου: μέσος χρόνος στο κρεβάτι, νύχτες που μετρήθηκαν, σύγκριση με τις προτεινόμενες ώρες και πρόσφατες νύχτες.`,
+      "s1.label": `Σιωπηλό ξυπνητήρι`, "s1.title": `Ένα ξυπνητήρι που το βλέπεις`,
+      "s1.p1": `Την ώρα που ορίζεις, η οθόνη γεμίζει σιγά σιγά με φως στο χρώμα που διαλέγεις, με πέντε εφέ, από μια αργή ανάσα ως μια καταιγίδα. Το φως της κάμερας μπορεί να αναβοσβήνει στον ίδιο ρυθμό. Τίποτα δεν αναβοσβήνει πάνω από τρεις φορές το δευτερόλεπτο, και η Μείωση κίνησης κρατά το φως σταθερό.`,
+      "s1.p2": `Λειτουργεί όσο το Wakeyside είναι ανοιχτό στο κομοδίνο σου, σε φόρτιση. Δεν αντικαθιστά δονητή κρεβατιού ούτε ανιχνευτή καπνού.`,
+      "s2.label": `Καιρός`, "s2.title": `Ο καιρός σε ξυπνά νωρίτερα`,
+      "s2.p1": `Όταν προβλέπεται βροχή ή χιόνι το πρωί, ένα επιπλέον ξυπνητήρι χτυπά νωρίτερα, ώστε ο καιρός να μη σε αιφνιδιάζει. Το ίδιο μπορεί να κάνει ένα πρώτο γεγονός της ημέρας που ξεκινά νωρίς. Δεν χτυπά ποτέ αργότερα από το κανονικό σου ξυπνητήρι, και το ξυπνητήρι του καιρού μπορείς να το κλείσεις.`,
+      "s2.p2": `Οι υπενθυμίσεις σου και το πρώτο γεγονός της ημέρας εμφανίζονται στην οθόνη, αν το επιτρέψεις, και μια υπενθύμιση τσεκάρεται με ένα άγγιγμα. Οι προγνώσεις προέρχονται από το Apple Weather.`,
+      "s3.label": `Ουρανός`, "s3.title": `Ο πραγματικός ουρανός πίσω από το ρολόι`,
+      "s3.p1": `Ο ήλιος και το φεγγάρι βρίσκονται ακριβώς εκεί που είναι πάνω από εσένα, με την πραγματική φάση του φεγγαριού, τα αστέρια και τα σύννεφα της πρόγνωσης. Υπολογίζεται στο iPhone σου από την ημερομηνία και το μέρος σου, και εμφανίζεται για λίγα λεπτά μετά από ένα άγγιγμα.`,
+      "s4.label": `Νύχτα`, "s4.title": `Φτιαγμένο για τη νύχτα`,
+      "s4.p1": `Καθώς πέφτει η νύχτα, η οθόνη χαμηλώνει μόνη της και γίνεται κόκκινη, όπως το StandBy, πιο ήπια για τα μάτια και τον ύπνο.`,
+      "s4.p2": `Για να προστατευτεί η οθόνη OLED, το ρολόι περιπλανιέται και, μετά τον χρόνο που επιλέγεις, σβήνουν όλα τα pixel. Χτύπησε το κομοδίνο ή άλλαξε το φως του δωματίου για να την ξυπνήσεις.`,
+      "s5.label": `Ύπνος`, "s5.title": `Μια εβδομάδα ύπνου με μια ματιά`,
+      "s5.p1": `Το τελευταίο πρωί της εβδομάδας: πόση ώρα περίπου ήσουν στο κρεβάτι, πόσες φορές άγγιξες το κινητό τη νύχτα και πώς συγκρίνεται αυτό με τις ώρες που προτείνονται για την ηλικία σου. Αν το επιτρέψεις, ο ύπνος από την Υγεία της Apple χρησιμοποιείται για τις νύχτες που έχει.`,
+      "s5.p2": `Είναι εκτίμηση για ενημέρωσή σου, όχι ιατρική μέτρηση.`,
+      "p.label": `Ιδιωτικό`, "p.title": `Χωρίς λογαριασμό. Χωρίς διαφημίσεις. Χωρίς παρακολούθηση.`,
+      "p.p1": `Ό,τι ξέρει η εφαρμογή μένει στο iPhone σου. Το μόνο που φεύγει από αυτό είναι το μέρος που ορίζεις ως σπίτι, που πηγαίνει στην υπηρεσία καιρού της Apple για την πρόγνωση. Διάβασε την <a href="/wakeyside/privacy/#el">πολιτική απορρήτου</a>.`,
+      "f.req": `Απαιτεί`, "f.reqv": `iOS 26.1 ή νεότερο`, "f.dev": `Συσκευές`, "f.devv": `iPhone και iPad`,
+      "f.lang": `Γλώσσες`, "f.langv": `Αγγλικά, Ελληνικά, Γερμανικά`, "f.weather": `Καιρός`, "f.by": `Δημιουργός`,
+      "foot.privacy": `Πολιτική απορρήτου`, "foot.support": `Υποστήριξη`, "foot.home": `Όλες οι εφαρμογές`
+    },
+    de: {
+      "meta.title": `Wakeyside: Aufwachen mit Licht statt Ton`,
+      "nav.privacy": `Datenschutz`, "nav.support": `Support`,
+      "hero.kicker": `iPhone und iPad · Nachttischuhr und Wecker`,
+      "hero.title": `Aufwachen mit Licht statt Ton.`,
+      "hero.lead": `Wakeyside ist eine ruhige Nachttischuhr mit einem Wecker, der den Raum mit Licht statt Lärm füllt. Sie wurde zuerst für gehörlose und schwerhörige Menschen gemacht, und für alle, die lieber sanft aufwachen.`,
+      "hero.soon": `Bald im App Store`, "hero.support": `Support`,
+      "alt.landscape": `Wakeyside auf der Seite liegend auf einem Nachttisch in der Dämmerung: Der nächste Wecker klingelt 15 Minuten früher, weil Regen angesagt ist, mit Uhr, Wetter, erstem Termin und zwei Erinnerungen vor einem Abendhimmel mit dem Mond.`,
+      "alt.wake": `Das Weckerlicht: Der ganze Bildschirm leuchtet bernsteinfarben mit der Uhrzeit und zwei Schaltflächen, Stop und Snooze.`,
+      "alt.weather": `Die Weckerzeile lautet 6:00, Schnee ab 7:00, 30 Min. früher, vor dem dunklen Himmel vor der Dämmerung.`,
+      "alt.sky": `Ein Himmel bei Sonnenaufgang hinter der Uhr, mit Hügeln am unteren Rand.`,
+      "alt.night": `Die Nachtanzeige: eine gedimmte rote Uhr auf Schwarz.`,
+      "alt.sleep": `Der wöchentliche Schlafbericht: durchschnittliche Zeit im Bett, gemessene Nächte, Vergleich mit den empfohlenen Stunden und die letzten Nächte.`,
+      "s1.label": `Lautloser Wecker`, "s1.title": `Ein Wecker, den du siehst`,
+      "s1.p1": `Zur eingestellten Zeit füllt sich der Bildschirm langsam mit Licht in einer Farbe deiner Wahl, mit fünf Effekten, von einem langsamen Atmen bis zum Sturm. Das Kameralicht kann im Takt mitblinken. Nichts blinkt öfter als dreimal pro Sekunde, und Bewegung reduzieren hält das Licht ruhig.`,
+      "s1.p2": `Es funktioniert, solange Wakeyside auf deinem Nachttisch geöffnet ist und lädt. Es ersetzt weder einen Bettrüttler noch einen Rauchmelder.`,
+      "s2.label": `Wetter`, "s2.title": `Das Wetter weckt dich früher`,
+      "s2.p1": `Ist für den Morgen Regen oder Schnee angesagt, klingelt ein zusätzlicher Wecker früher, damit dich das Wetter nie überrascht. Ein früher erster Termin des Tages kann dasselbe tun. Er klingelt nie später als dein normaler Wecker, und den Wetter-Wecker kannst du ausschalten.`,
+      "s2.p2": `Deine Erinnerungen und der erste Termin des Tages erscheinen auf dem Display, wenn du es erlaubst, und eine Erinnerung hakst du mit einem Tippen ab. Die Vorhersagen kommen von Apple Weather.`,
+      "s3.label": `Himmel`, "s3.title": `Der echte Himmel hinter der Uhr`,
+      "s3.p1": `Sonne und Mond stehen genau dort, wo sie jetzt über dir sind, mit der echten Mondphase, den Sternen und den Wolken der Vorhersage. Berechnet wird das auf deinem iPhone aus Datum und Ort, und es erscheint für einige Minuten nach einer Berührung.`,
+      "s4.label": `Nacht`, "s4.title": `Gemacht für die Nacht`,
+      "s4.p1": `Wenn die Nacht kommt, dimmt die Anzeige von selbst und wird rot, wie StandBy, schonender für die Augen und den Schlaf.`,
+      "s4.p2": `Um den OLED-Bildschirm zu schonen, wandert die Uhr umher, und nach der Zeit, die du wählst, gehen alle Pixel aus. Klopfe auf den Nachttisch oder ändere das Raumlicht, um sie zu wecken.`,
+      "s5.label": `Schlaf`, "s5.title": `Eine Schlafwoche auf einen Blick`,
+      "s5.p1": `Am letzten Morgen der Woche: etwa wie lange du im Bett warst, wie oft du nachts zum Handy gegriffen hast und wie das zu den für dein Alter empfohlenen Stunden passt. Wenn du es erlaubst, wird Schlaf aus Apple Health für die Nächte verwendet, die es hat.`,
+      "s5.p2": `Es ist eine Schätzung zu deiner Information, keine medizinische Messung.`,
+      "p.label": `Privat`, "p.title": `Kein Konto. Keine Werbung. Kein Tracking.`,
+      "p.p1": `Was die App weiß, bleibt auf deinem iPhone. Das Einzige, was es verlässt, ist der Ort, den du als Zuhause festlegst; er geht an den Wetterdienst von Apple für die Vorhersage. Lies die <a href="/wakeyside/privacy/#de">Datenschutzerklärung</a>.`,
+      "f.req": `Voraussetzung`, "f.reqv": `iOS 26.1 oder neuer`, "f.dev": `Geräte`, "f.devv": `iPhone und iPad`,
+      "f.lang": `Sprachen`, "f.langv": `Englisch, Griechisch, Deutsch`, "f.weather": `Wetter`, "f.by": `Entwickler`,
+      "foot.privacy": `Datenschutzerklärung`, "foot.support": `Support`, "foot.home": `Alle Apps`
+    }
+  };
+
+  var titles = { en: document.title };
+  var nodes = document.querySelectorAll('[data-t]');
+  var alts = document.querySelectorAll('[data-t-alt]');
+  nodes.forEach(function (n) { n.setAttribute('data-en', n.innerHTML); });
+  alts.forEach(function (n) { n.setAttribute('data-en-alt', n.getAttribute('alt')); });
+
+  function apply(lang) {
+    var d = dict[lang] || null;
+    document.documentElement.lang = lang;
+    nodes.forEach(function (n) {
+      var k = n.getAttribute('data-t');
+      n.innerHTML = d && d[k] ? d[k] : n.getAttribute('data-en');
+    });
+    alts.forEach(function (n) {
+      var k = n.getAttribute('data-t-alt');
+      n.setAttribute('alt', d && d[k] ? d[k] : n.getAttribute('data-en-alt'));
+    });
+    document.title = d && d['meta.title'] ? d['meta.title'] : titles.en;
+    document.querySelectorAll('.lang button').forEach(function (b) {
+      b.setAttribute('aria-pressed', b.getAttribute('data-lang') === lang ? 'true' : 'false');
+    });
+  }
+
+  function initial() {
+    var fromUrl = (location.hash || '').replace('#', '');
+    if (dict[fromUrl] || fromUrl === 'en') return fromUrl;
+    try { var saved = localStorage.getItem('wakeyside-lang'); if (saved) return saved; } catch (e) {}
+    var nav = (navigator.language || 'en').slice(0, 2);
+    return dict[nav] ? nav : 'en';
+  }
+
+  document.querySelectorAll('.lang button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var lang = b.getAttribute('data-lang');
+      try { localStorage.setItem('wakeyside-lang', lang); } catch (e) {}
+      apply(lang);
+    });
+  });
+
+  var start = initial();
+  if (start !== 'en') apply(start);
+})();
+</script>
+</body>
+</html>
