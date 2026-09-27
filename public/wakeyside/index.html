@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Wakeyside: wake by light, or by sound</title>
-<meta name="description" content="A calm nightstand clock for iPhone with a silent alarm that wakes you with light, the real sky behind the clock, an earlier alarm when rain or snow is forecast, and a weekly sleep summary.">
+<meta name="description" content="A calm nightstand clock for iPhone with a silent alarm that wakes you with light, the real sky behind the clock, an earlier alarm when rain, snow or traffic asks for it, and a weekly sleep summary.">
 <meta name="theme-color" content="#0d0f14">
 <link rel="icon" href="/wakeyside/img/icon-96.png">
 <link rel="apple-touch-icon" href="/wakeyside/img/icon.png">
@@ -109,7 +109,7 @@
         <p class="kicker" data-t="hero.kicker">iPhone and iPad · Nightstand clock and alarm</p>
         <div class="appid"><img src="/wakeyside/img/icon.png" alt="" width="56" height="56"><span>Wakeyside</span></div>
         <h1 data-t="hero.title">Wake by light, or by sound.</h1>
-        <p class="lead" data-t="hero.lead">Wakeyside is a calm nightstand clock with an alarm that wakes you with light or with sound, as you choose. It was made first for people who are deaf or hard of hearing, and for anyone who would rather wake gently.</p>
+        <p class="lead" data-t="hero.lead">Wakeyside is a calm nightstand clock with an alarm that wakes you with light or with sound, as you choose, and earlier when the weather or the traffic on your way to work asks for it. It was made first for people who are deaf or hard of hearing, and for anyone who would rather wake gently.</p>
         <div class="cta">
           <a class="store" href="https://apps.apple.com/app/wakeyside/id6814492158" data-t="hero.store">Download on the App Store</a>
           <a href="/wakeyside/support/" data-t="hero.support">Support</a>
@@ -141,6 +141,16 @@
     </section>
 
     <section class="feature">
+      <figure class="fig"><img class="phone" src="/wakeyside/img/trip-leave.jpg" width="720" height="1565" loading="lazy" alt="The alarm line reads 06:20 and, under it, Leave by 07:05, 25 min early, over the night sky, with the weather forecast below." data-t-alt="alt.trip"></figure>
+      <div>
+        <p class="label" data-t="t.label">Trip to work</p>
+        <h2 data-t="t.title">Never late for work again</h2>
+        <p data-t="t.p1">Tell Wakeyside where you start, where you work and when you must be there. It asks Apple Maps how long the trip takes with the traffic expected when you would leave, and if there is a delay it wakes you earlier. The alarm moves in steps of five minutes and the display tells you when to leave.</p>
+        <p class="note" data-t="t.p2">It never rings later than your regular alarm. The two places go to Apple Maps and nowhere else.</p>
+      </div>
+    </section>
+
+    <section class="feature flip">
       <figure class="fig"><img class="phone" src="/wakeyside/img/sunrise.jpg" width="720" height="1565" loading="lazy" alt="A sky at sunrise behind the clock, with hills along the bottom." data-t-alt="alt.sky"></figure>
       <div>
         <p class="label" data-t="s3.label">Sky</p>
@@ -149,7 +159,7 @@
       </div>
     </section>
 
-    <section class="feature flip">
+    <section class="feature">
       <figure class="fig"><img class="phone" src="/wakeyside/img/night-red.jpg" width="720" height="1565" loading="lazy" alt="The night display: a dim red clock on black." data-t-alt="alt.night"></figure>
       <div>
         <p class="label" data-t="s4.label">Night</p>
@@ -159,7 +169,7 @@
       </div>
     </section>
 
-    <section class="feature">
+    <section class="feature flip">
       <figure class="fig"><img class="phone" src="/wakeyside/img/sleep-report.jpg" width="720" height="1428" loading="lazy" alt="The weekly sleep report: average time in bed, nights measured, how the week compares with the recommended hours, and the recent nights." data-t-alt="alt.sleep"></figure>
       <div>
         <p class="label" data-t="s5.label">Sleep</p>
@@ -172,7 +182,7 @@
     <section class="private">
       <p class="label" data-t="p.label">Private</p>
       <h2 data-t="p.title">No account. No ads. No tracking.</h2>
-      <p data-t="p.p1">What the app knows stays on your iPhone. The only thing that leaves it is the place you set as home, which goes to Apple's weather service to get the forecast. Read the <a href="/wakeyside/privacy/">privacy policy</a>.</p>
+      <p data-t="p.p1">What the app knows stays on your iPhone. The only things that leave it go to Apple's own services: the place you set as home, for the forecast, and, if you use the trip to work, the start and the destination, for the travel time. Read the <a href="/wakeyside/privacy/">privacy policy</a>.</p>
     </section>
 
     <dl class="facts">
@@ -180,6 +190,7 @@
       <div><dt data-t="f.dev">Devices</dt><dd data-t="f.devv">iPhone and iPad</dd></div>
       <div><dt data-t="f.lang">Languages</dt><dd data-t="f.langv">English, Greek, German</dd></div>
       <div><dt data-t="f.weather">Weather</dt><dd>Apple Weather</dd></div>
+      <div><dt data-t="f.maps">Traffic</dt><dd>Apple Maps</dd></div>
       <div><dt data-t="f.by">Developer</dt><dd>Fotios Pongas</dd></div>
     </dl>
   </main>
@@ -204,7 +215,7 @@
       "nav.privacy": `Απόρρητο`, "nav.support": `Υποστήριξη`,
       "hero.kicker": `iPhone και iPad · Ρολόι κομοδίνου και ξυπνητήρι`,
       "hero.title": `Ξύπνα με φως ή με ήχο.`,
-      "hero.lead": `Το Wakeyside είναι ένα ήρεμο ρολόι κομοδίνου με ξυπνητήρι που σε ξυπνά με φως ή με ήχο, όπως διαλέγεις. Φτιάχτηκε πρώτα για ανθρώπους που είναι κωφοί ή βαρήκοοι, και για όποιον προτιμά να ξυπνά απαλά.`,
+      "hero.lead": `Το Wakeyside είναι ένα ήρεμο ρολόι κομοδίνου με ξυπνητήρι που σε ξυπνά με φως ή με ήχο, όπως διαλέγεις, και νωρίτερα όταν το ζητά ο καιρός ή η κίνηση στη διαδρομή σου προς τη δουλειά. Φτιάχτηκε πρώτα για ανθρώπους που είναι κωφοί ή βαρήκοοι, και για όποιον προτιμά να ξυπνά απαλά.`,
       "hero.store": `Λήψη από το App Store`, "hero.support": `Υποστήριξη`,
       "alt.landscape": `Το Wakeyside στο πλάι σε ένα κομοδίνο το σούρουπο: το επόμενο ξυπνητήρι χτυπά 15 λεπτά νωρίτερα επειδή προβλέπεται βροχή, με το ρολόι, τον καιρό, το πρώτο γεγονός και δύο υπενθυμίσεις πάνω από έναν ουρανό ηλιοβασιλέματος με το φεγγάρι.`,
       "alt.wake": `Το φως αφύπνισης: όλη η οθόνη λάμπει σε κεχριμπαρί με την ώρα και δύο κουμπιά, Stop και Snooze.`,
@@ -218,6 +229,10 @@
       "s2.label": `Καιρός`, "s2.title": `Ο καιρός σε ξυπνά νωρίτερα`,
       "s2.p1": `Όταν προβλέπεται βροχή ή χιόνι το πρωί, ένα επιπλέον ξυπνητήρι χτυπά νωρίτερα, ώστε ο καιρός να μη σε αιφνιδιάζει. Το ίδιο μπορεί να κάνει ένα πρώτο γεγονός της ημέρας που ξεκινά νωρίς. Δεν χτυπά ποτέ αργότερα από το κανονικό σου ξυπνητήρι, και το ξυπνητήρι του καιρού μπορείς να το κλείσεις.`,
       "s2.p2": `Οι υπενθυμίσεις σου και το πρώτο γεγονός της ημέρας εμφανίζονται στην οθόνη, αν το επιτρέψεις, και μια υπενθύμιση τσεκάρεται με ένα άγγιγμα. Οι προγνώσεις προέρχονται από το Apple Weather.`,
+      "t.label": `Διαδρομή προς τη δουλειά`, "t.title": `Δεν θα αργήσεις ξανά στη δουλειά`,
+      "t.p1": `Πες στο Wakeyside από πού ξεκινάς, πού δουλεύεις και πότε πρέπει να είσαι εκεί. Ρωτά τους Χάρτες της Apple πόσο διαρκεί η διαδρομή, με την κίνηση που αναμένεται την ώρα που θα φύγεις, και αν υπάρχει καθυστέρηση σε ξυπνά νωρίτερα. Το ξυπνητήρι μετακινείται ανά πέντε λεπτά και η οθόνη σου δείχνει πότε να φύγεις.`,
+      "t.p2": `Δεν χτυπά ποτέ αργότερα από το κανονικό ξυπνητήρι. Οι δύο τόποι πηγαίνουν μόνο στους Χάρτες της Apple.`,
+      "alt.trip": `Η γραμμή του ξυπνητηριού γράφει 06:20 και από κάτω, Φύγε μέχρι τις 07:05, 25 λεπτά νωρίτερα, πάνω από τον νυχτερινό ουρανό, με την πρόγνωση καιρού από κάτω.`,
       "s3.label": `Ουρανός`, "s3.title": `Ο πραγματικός ουρανός πίσω από το ρολόι`,
       "s3.p1": `Ο ήλιος και το φεγγάρι βρίσκονται ακριβώς εκεί που είναι πάνω από εσένα, με την πραγματική φάση του φεγγαριού, τα αστέρια και τα σύννεφα της πρόγνωσης. Υπολογίζεται στο iPhone σου από την ημερομηνία και το μέρος σου, και εμφανίζεται για λίγα λεπτά μετά από ένα άγγιγμα.`,
       "s4.label": `Νύχτα`, "s4.title": `Φτιαγμένο για τη νύχτα`,
@@ -227,9 +242,9 @@
       "s5.p1": `Το τελευταίο πρωί της εβδομάδας: πόση ώρα περίπου ήσουν στο κρεβάτι, πόσες φορές άγγιξες το κινητό τη νύχτα και πώς συγκρίνεται αυτό με τις ώρες που προτείνονται για την ηλικία σου. Αν το επιτρέψεις, ο ύπνος από την Υγεία της Apple χρησιμοποιείται για τις νύχτες που έχει.`,
       "s5.p2": `Είναι εκτίμηση για ενημέρωσή σου, όχι ιατρική μέτρηση.`,
       "p.label": `Ιδιωτικό`, "p.title": `Χωρίς λογαριασμό. Χωρίς διαφημίσεις. Χωρίς παρακολούθηση.`,
-      "p.p1": `Ό,τι ξέρει η εφαρμογή μένει στο iPhone σου. Το μόνο που φεύγει από αυτό είναι το μέρος που ορίζεις ως σπίτι, που πηγαίνει στην υπηρεσία καιρού της Apple για την πρόγνωση. Διάβασε την <a href="/wakeyside/privacy/#el">πολιτική απορρήτου</a>.`,
+      "p.p1": `Ό,τι ξέρει η εφαρμογή μένει στο iPhone σου. Τα μόνα που φεύγουν από αυτό πηγαίνουν σε υπηρεσίες της ίδιας της Apple: το μέρος που ορίζεις ως σπίτι, για την πρόγνωση, και, αν χρησιμοποιείς τη διαδρομή προς τη δουλειά, η αφετηρία και ο προορισμός, για τον χρόνο διαδρομής. Διάβασε την <a href="/wakeyside/privacy/#el">πολιτική απορρήτου</a>.`,
       "f.req": `Απαιτεί`, "f.reqv": `iOS 26.1 ή νεότερο`, "f.dev": `Συσκευές`, "f.devv": `iPhone και iPad`,
-      "f.lang": `Γλώσσες`, "f.langv": `Αγγλικά, Ελληνικά, Γερμανικά`, "f.weather": `Καιρός`, "f.by": `Δημιουργός`,
+      "f.lang": `Γλώσσες`, "f.langv": `Αγγλικά, Ελληνικά, Γερμανικά`, "f.weather": `Καιρός`, "f.maps": `Κίνηση`, "f.by": `Δημιουργός`,
       "foot.privacy": `Πολιτική απορρήτου`, "foot.support": `Υποστήριξη`, "foot.home": `Όλες οι εφαρμογές`
     },
     de: {
@@ -237,7 +252,7 @@
       "nav.privacy": `Datenschutz`, "nav.support": `Support`,
       "hero.kicker": `iPhone und iPad · Nachttischuhr und Wecker`,
       "hero.title": `Aufwachen mit Licht oder Ton.`,
-      "hero.lead": `Wakeyside ist eine ruhige Nachttischuhr mit einem Wecker, der dich mit Licht oder mit Ton weckt, ganz wie du willst. Sie wurde zuerst für gehörlose und schwerhörige Menschen gemacht, und für alle, die lieber sanft aufwachen.`,
+      "hero.lead": `Wakeyside ist eine ruhige Nachttischuhr mit einem Wecker, der dich mit Licht oder mit Ton weckt, ganz wie du willst, und früher, wenn das Wetter oder der Verkehr auf deinem Weg zur Arbeit es verlangt. Sie wurde zuerst für gehörlose und schwerhörige Menschen gemacht, und für alle, die lieber sanft aufwachen.`,
       "hero.store": `Laden im App Store`, "hero.support": `Support`,
       "alt.landscape": `Wakeyside auf der Seite liegend auf einem Nachttisch in der Dämmerung: Der nächste Wecker klingelt 15 Minuten früher, weil Regen angesagt ist, mit Uhr, Wetter, erstem Termin und zwei Erinnerungen vor einem Abendhimmel mit dem Mond.`,
       "alt.wake": `Das Weckerlicht: Der ganze Bildschirm leuchtet bernsteinfarben mit der Uhrzeit und zwei Schaltflächen, Stop und Snooze.`,
@@ -251,6 +266,10 @@
       "s2.label": `Wetter`, "s2.title": `Das Wetter weckt dich früher`,
       "s2.p1": `Ist für den Morgen Regen oder Schnee angesagt, klingelt ein zusätzlicher Wecker früher, damit dich das Wetter nie überrascht. Ein früher erster Termin des Tages kann dasselbe tun. Er klingelt nie später als dein normaler Wecker, und den Wetter-Wecker kannst du ausschalten.`,
       "s2.p2": `Deine Erinnerungen und der erste Termin des Tages erscheinen auf dem Display, wenn du es erlaubst, und eine Erinnerung hakst du mit einem Tippen ab. Die Vorhersagen kommen von Apple Weather.`,
+      "t.label": `Fahrt zur Arbeit`, "t.title": `Nie wieder zu spät zur Arbeit`,
+      "t.p1": `Sag Wakeyside, wo du startest, wo du arbeitest und wann du da sein musst. Es fragt Apple Karten, wie lange die Fahrt dauert, mit dem Verkehr, der zur Abfahrtszeit erwartet wird, und weckt dich früher, wenn es eine Verzögerung gibt. Der Wecker verschiebt sich in Fünf-Minuten-Schritten und das Display sagt dir, wann du losmusst.`,
+      "t.p2": `Er klingelt nie später als dein normaler Wecker. Die beiden Orte gehen nur an Apple Karten.`,
+      "alt.trip": `Die Weckerzeile lautet 06:20 und darunter Aufbruch bis 07:05, 25 Min. früher, vor dem Nachthimmel, darunter die Wettervorhersage.`,
       "s3.label": `Himmel`, "s3.title": `Der echte Himmel hinter der Uhr`,
       "s3.p1": `Sonne und Mond stehen genau dort, wo sie jetzt über dir sind, mit der echten Mondphase, den Sternen und den Wolken der Vorhersage. Berechnet wird das auf deinem iPhone aus Datum und Ort, und es erscheint für einige Minuten nach einer Berührung.`,
       "s4.label": `Nacht`, "s4.title": `Gemacht für die Nacht`,
@@ -260,9 +279,9 @@
       "s5.p1": `Am letzten Morgen der Woche: etwa wie lange du im Bett warst, wie oft du nachts zum Handy gegriffen hast und wie das zu den für dein Alter empfohlenen Stunden passt. Wenn du es erlaubst, wird Schlaf aus Apple Health für die Nächte verwendet, die es hat.`,
       "s5.p2": `Es ist eine Schätzung zu deiner Information, keine medizinische Messung.`,
       "p.label": `Privat`, "p.title": `Kein Konto. Keine Werbung. Kein Tracking.`,
-      "p.p1": `Was die App weiß, bleibt auf deinem iPhone. Das Einzige, was es verlässt, ist der Ort, den du als Zuhause festlegst; er geht an den Wetterdienst von Apple für die Vorhersage. Lies die <a href="/wakeyside/privacy/#de">Datenschutzerklärung</a>.`,
+      "p.p1": `Was die App weiß, bleibt auf deinem iPhone. Das Einzige, was es verlässt, geht an eigene Dienste von Apple: der Ort, den du als Zuhause festlegst, für die Vorhersage, und, wenn du die Fahrt zur Arbeit nutzt, Start und Ziel, für die Fahrzeit. Lies die <a href="/wakeyside/privacy/#de">Datenschutzerklärung</a>.`,
       "f.req": `Voraussetzung`, "f.reqv": `iOS 26.1 oder neuer`, "f.dev": `Geräte`, "f.devv": `iPhone und iPad`,
-      "f.lang": `Sprachen`, "f.langv": `Englisch, Griechisch, Deutsch`, "f.weather": `Wetter`, "f.by": `Entwickler`,
+      "f.lang": `Sprachen`, "f.langv": `Englisch, Griechisch, Deutsch`, "f.weather": `Wetter`, "f.maps": `Verkehr`, "f.by": `Entwickler`,
       "foot.privacy": `Datenschutzerklärung`, "foot.support": `Support`, "foot.home": `Alle Apps`
     }
   };
